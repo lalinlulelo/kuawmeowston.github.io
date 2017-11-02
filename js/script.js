@@ -34,11 +34,13 @@ var game = (function () {
   var player_1_shoot;
   var player_1_next_shoot;
   var player_1_now = 0;
-  player_1_shoot_delay = 250;
+  var player_1_shoot_delay = 250;
   var player_1_carril = {
     x: 1200,
     y: 600
   }
+  var player_1_bullet_x;
+  var player_1_bullet_y;
   // variables del jugador 2
   var player_2;  
   var player_2_life = 3;
@@ -46,6 +48,14 @@ var game = (function () {
   var player_2_bullets = [];
   var player_2_killed;
   var player_2_speed = 5;
+  var player_2_shoot;
+  var player_2_next_shoot;
+  var player_2_now = 0;
+  var player_2_shoot_delay = 250;
+  var player_2_carril = {
+    x: 1200,
+    y: 600
+  }
   // variables del enemigo 1
   var enemy_1;
   var enemy_1_life = 10;
@@ -200,12 +210,16 @@ var game = (function () {
     // disparo
     var shoot = function () {
       if(player_1_next_shoot < player_1_now || player_1_now == 0){
-        player_1_shoot = new Player_1_Shoot(player_1.posX + (player_1.width / 2) - 5, player_1.posY);
+        p1_bullet_x = player_1_carril.x;
+        p1_bullet_y = player_1_carril.y;
+        player_1_shoot = new Player_1_Shoot(player_1.posX + 30, player_1.posY);
+        player_1_shoot.x = player_1_carril.x;
+        player_1_shoot.y = player_1_carril.y;
         player_1_shoot.add ();
         player_1_now += player_1_shoot_delay;
         player_1_next_shoot = player_1_now + player_1_shoot_delay;
       }else{
-        now = new Date().getTime();
+        player_1_now = new Date().getTime();
       }
     };
     // acciones del jugador
@@ -228,15 +242,18 @@ var game = (function () {
         player_1_carril.x += 10;
         player_1_carril.y += 5;
       }
-      if (keyPressed.p1_fire_1)
+      if (keyPressed.p1_fire_1){
+          player_1_bullet_x = player_1_carril.x - 50;
+          player_1_bullet_y = player_1_carril.y - 10;
           shoot();
+      }
     };
 
     player_1.killPlayer = function() {
       if (this.life > 0) {
           this.dead = true;
           //evilShotsBuffer.splice(0, evilShotsBuffer.length);
-          //player_1_ShotsBuffer.splice(0, playerShotsBuffer.length);
+          player_1_bullets.splice(0, player_1_bullets.length);
           this.src = player_1_killed.src;
           //createNewEvil();
           setTimeout(function () {
@@ -269,8 +286,9 @@ var game = (function () {
     };
   }
 
-  function Player_1_Shoot (x, y) {
+  function Player_1_Shoot (x, y, bullet_x, bullet_y) {
     Object.getPrototypeOf(Player_1_Shoot.prototype).constructor.call(this, x, y, player_1_bullets, player_1_bullet);
+    console.log(player_1_bullets.length);
     /*
     this.isHittingEvil = function() {
         return (!evil.dead && this.posX >= evil.posX && this.posX <= (evil.posX + evil.image.width) &&
@@ -344,7 +362,8 @@ var game = (function () {
     */
     for (var j = 0; j < player_1_bullets.length; j++) {
       var disparoBueno = player_1_bullets[j];
-      updatePlayerShot(disparoBueno, j);
+      console.log(player_1_bullets[j].x, player_1_bullets[j].y);
+      updatePlayer_1_Shoot(disparoBueno, j);
     }
     /*
     if (isEvilHittingPlayer()) {
@@ -376,14 +395,14 @@ var game = (function () {
     return true;
   }
 
-  function updatePlayerShot(playerShot, id) {
+  function updatePlayer_1_Shoot(player_1_shoot, id) {
     if (player_1_shoot) {
       console.log("updating");
         player_1_shoot.identifier = id;
         if (checkCollisions(player_1_shoot)) {
-            if (player_1_shoot.posX > 0) {
+            if (player_1_shoot.posX < 1200) {
                 player_1_shoot.posX += 5;
-                bufferctx.drawImage(player_1_shoot.image, player_1_shoot.posX, player_1_shoot.posY);
+                bufferctx.drawImage(player_1_shoot.image, player_1_shoot.posX, player_1_shoot.posY, player_1_shoot.x, player_1_shoot.y);            
             } else {
                 player_1_shoot.deleteShot(parseInt(player_1_shoot.identifier));
             }
