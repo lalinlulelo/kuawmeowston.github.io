@@ -56,6 +56,8 @@ var game = (function () {
     x: 1200,
     y: 600
   }
+  var player_2_bullet_x;
+  var player_2_bullet_y;
   // variables del enemigo 1
   var enemy_1;
   var enemy_1_life = 10;
@@ -97,7 +99,9 @@ var game = (function () {
     p2_left: 100,   // 4
     p2_right: 102,  // 6
     p2_fire_1: 103, // 7
-    p2_fire_2: 105  // 9
+    p2_fire_2: 105, // 9
+    // activar jugador 2
+    p2_enable: 
   }
   // gameloop
   function loop () {
@@ -156,6 +160,7 @@ var game = (function () {
 
     console.log("creando al jugador 1 ... :");
     player_1 = new Player_1 (player_1_life, 0);
+    player_2 = new Player_2 (player_2_life, 0);
     console.log("con exito");
 
     console.log("cargando interfaz gráfica ... :");
@@ -243,7 +248,7 @@ var game = (function () {
         player_1_carril.y += 5;
       }
       if (keyPressed.p1_fire_1){
-          player_1_bullet_x = player_1_carril.x - 50;
+          player_1_bullet_x = player_1_carril.x - 10;
           player_1_bullet_y = player_1_carril.y - 10;
           shoot();
       }
@@ -257,7 +262,7 @@ var game = (function () {
           this.src = player_1_killed.src;
           //createNewEvil();
           setTimeout(function () {
-              player_1 = new Player(player_1.life - 1, player_1.score);
+              player_1 = new Player_1(player_1.life - 1, player_1.score);
           }, 500);
 
       } else {
@@ -268,8 +273,87 @@ var game = (function () {
     return player_1;
   }
 
+  // jugador 1
+  function Player_2(life, score) {
+    var settings = {
+        marginBottom : 60,
+        defaultHeight : 66
+    };
+    // carga sprite
+    player_2 = new Image();
+    player_2.src = 'images/player_2.png';
+    player_2.posX = -40;
+    player_2.posY = canvas.height - (player_2.height == 0 ? settings.defaultHeight : player_2.height) - settings.marginBottom;
+    player_2.life = life;
+    player_2.score = score;
+    player_2.dead = false;
+    player_2.speed = player_2_speed;
+    player_2_carril.x = player_2_carril.x/4;
+    player_2_carril.y = player_2_carril.y/4;
+    // disparo
+    var shoot = function () {
+      if(player_2_next_shoot < player_2_now || player_2_now == 0){
+        p2_bullet_x = player_2_carril.x;
+        p2_bullet_y = player_2_carril.y;
+        player_2_shoot = new Player_2_Shoot(player_2.posX + 30, player_2.posY);
+        player_2_shoot.x = player_2_carril.x;
+        player_2_shoot.y = player_2_carril.y;
+        player_2_shoot.add ();
+        player_2_now += player_2_shoot_delay;
+        player_2_next_shoot = player_2_now + player_2_shoot_delay;
+      }else{
+        player_2_now = new Date().getTime();
+      }
+    };
+    // acciones del jugador
+    player_2.doAnything = function() {
+      if (player_2.dead)
+          return;
+      if (keyPressed.p2_left && (player_2.posX > (-120*player_2.posY + 56850)))
+          player_2.posX -= player_2.speed;
+      if (keyPressed.p2_right && (player_2.posX < (-120*player_2.posY + 57215)))
+          player_2.posX += player_2.speed;
+      if(keyPressed.p2_up && (player_2.posY > 473)){
+          player_2.posY -= 0.05;
+          player_2.posX += 6;
+          player_2_carril.x -= 10;
+          player_2_carril.y -= 5;
+      }
+      if(keyPressed.p2_down  && (player_2.posY < 474)){
+        player_2.posY += 0.05;
+        player_2.posX -= 6;
+        player_2_carril.x += 10;
+        player_2_carril.y += 5;
+      }
+      if (keyPressed.p2_fire_1){
+          player_2_bullet_x = player_2_carril.x - 10;
+          player_2_bullet_y = player_2_carril.y - 10;
+          shoot();
+      }
+    };
+
+    player_2.killPlayer = function() {
+      if (this.life > 0) {
+          this.dead = true;
+          //evilShotsBuffer.splice(0, evilShotsBuffer.length);
+          player_2_bullets.splice(0, player_2_bullets.length);
+          this.src = player_2_killed.src;
+          //createNewEvil();
+          setTimeout(function () {
+              player_2 = new Player_2(player_2.life - 1, player_2.score);
+          }, 500);
+
+      } else {
+          //saveFinalScore();
+          youLoose = true;
+      }
+    };
+    return player_2;
+  }
+
   function playerAction() {
     player_1.doAnything();
+    player_2.doAnything();
   }
 
   function Shoot( x, y, array, img) {
@@ -297,6 +381,18 @@ var game = (function () {
   }
   Player_1_Shoot.prototype = Object.create(Shoot.prototype);
   Player_1_Shoot.prototype.constructor = Player_1_Shoot;
+
+  function Player_2_Shoot (x, y, bullet_x, bullet_y) {
+    Object.getPrototypeOf(Player_2_Shoot.prototype).constructor.call(this, x, y, player_2_bullets, player_2_bullet);
+    console.log(player_2_bullets.length);
+    /*
+    this.isHittingEvil = function() {
+        return (!evil.dead && this.posX >= evil.posX && this.posX <= (evil.posX + evil.image.width) &&
+            this.posY >= evil.posY && this.posY <= (evil.posY + evil.image.height));
+    };*/
+  }
+  Player_2_Shoot.prototype = Object.create(Shoot.prototype);
+  Player_2_Shoot.prototype.constructor = Player_2_Shoot;
 
   // teclado
   function addListener(element, type, expression, bubbling) {
@@ -355,6 +451,7 @@ var game = (function () {
     }
     
     bufferctx.drawImage(player_1, player_1.posX, player_1.posY, player_1_carril.x, player_1_carril.y);
+    bufferctx.drawImage(player_2, player_2.posX, player_2.posY, player_2_carril.x, player_2_carril.y);
     /*
     bufferctx.drawImage(evil.image, evil.posX, evil.posY);
 
@@ -364,6 +461,11 @@ var game = (function () {
       var disparoBueno = player_1_bullets[j];
       console.log(player_1_bullets[j].x, player_1_bullets[j].y);
       updatePlayer_1_Shoot(disparoBueno, j);
+    }
+    for (var j = 0; j < player_2_bullets.length; j++) {
+      var disparoBueno = player_2_bullets[j];
+      console.log(player_2_bullets[j].x, player_2_bullets[j].y);
+      updatePlayer_2_Shoot(disparoBueno, j);
     }
     /*
     if (isEvilHittingPlayer()) {
@@ -405,6 +507,21 @@ var game = (function () {
                 bufferctx.drawImage(player_1_shoot.image, player_1_shoot.posX, player_1_shoot.posY, player_1_shoot.x, player_1_shoot.y);            
             } else {
                 player_1_shoot.deleteShot(parseInt(player_1_shoot.identifier));
+            }
+        }
+    }
+  }
+
+  function updatePlayer_2_Shoot(player_2_shoot, id) {
+    if (player_2_shoot) {
+      console.log("updating");
+        player_2_shoot.identifier = id;
+        if (checkCollisions(player_2_shoot)) {
+            if (player_2_shoot.posX < 1200) {
+                player_2_shoot.posX += 5;
+                bufferctx.drawImage(player_2_shoot.image, player_2_shoot.posX, player_2_shoot.posY, player_2_shoot.x, player_2_shoot.y);            
+            } else {
+                player_2_shoot.deleteShot(parseInt(player_2_shoot.identifier));
             }
         }
     }
