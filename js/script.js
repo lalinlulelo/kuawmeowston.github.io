@@ -39,8 +39,6 @@ var game = (function () {
     x: 1200,
     y: 600
   }
-  var player_1_bullet_x;
-  var player_1_bullet_y;
   // variables del jugador 2
   var player_2;  
   var player_2_life = 3;
@@ -56,8 +54,6 @@ var game = (function () {
     x: 1200,
     y: 600
   }
-  var player_2_bullet_x;
-  var player_2_bullet_y;
   // variables del enemigo 1
   var enemy_1;
   var enemy_1_life = 10;
@@ -101,8 +97,11 @@ var game = (function () {
     p2_fire_1: 103, // 7
     p2_fire_2: 105, // 9
     // activar jugador 2
-    p2_enable: 
+    p2_enable: 30
   }
+  var Jugadores = localStorage.getItem("jugadores");
+  console.log("Numero de jugadores " + Jugadores);
+  console.log("esto es: " + (Jugadores == 2));
   // gameloop
   function loop () {
     update ();
@@ -160,7 +159,9 @@ var game = (function () {
 
     console.log("creando al jugador 1 ... :");
     player_1 = new Player_1 (player_1_life, 0);
-    player_2 = new Player_2 (player_2_life, 0);
+    if(Jugadores == 2){
+      player_2 = new Player_2 (player_2_life, 0);
+    }
     console.log("con exito");
 
     console.log("cargando interfaz gráfica ... :");
@@ -353,7 +354,9 @@ var game = (function () {
 
   function playerAction() {
     player_1.doAnything();
-    player_2.doAnything();
+    if(Jugadores == 2){
+      player_2.doAnything();
+    }
   }
 
   function Shoot( x, y, array, img) {
@@ -451,7 +454,9 @@ var game = (function () {
     }
     
     bufferctx.drawImage(player_1, player_1.posX, player_1.posY, player_1_carril.x, player_1_carril.y);
-    bufferctx.drawImage(player_2, player_2.posX, player_2.posY, player_2_carril.x, player_2_carril.y);
+    if(Jugadores == 2){
+      bufferctx.drawImage(player_2, player_2.posX, player_2.posY, player_2_carril.x, player_2_carril.y);
+    }
     /*
     bufferctx.drawImage(evil.image, evil.posX, evil.posY);
 
