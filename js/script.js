@@ -186,9 +186,14 @@ var game = (function () {
   function showLifeAndScore () {
     bufferctx.fillStyle="rgb(59,59,59)";
     bufferctx.font="bold 16px Arial";
-    //bufferctx.fillText("Puntos: " + (player_1.score + player_2.score), canvas.width - 100, 20);
-    bufferctx.fillText("Vidas jugador 1: " + player_1.life, canvas.width - 180,40);
-    //bufferctx.fillText("Vidas jugador 2: " + player_2.life, canvas.width - 100,60);
+    if(Jugadores == 2){
+      bufferctx.fillText("Puntos: " + (player_1.score + player_2.score), canvas.width - 180, 20);
+      bufferctx.fillText("Vidas jugador 1: " + player_1.life, canvas.width - 180,40);
+      bufferctx.fillText("Vidas jugador 2: " + player_2.life, canvas.width - 180,60);
+    }else{
+      bufferctx.fillText("Puntos: " + (player_1.score), canvas.width - 180, 20);
+      bufferctx.fillText("Vidas jugador 1: " + player_1.life, canvas.width - 180,40);
+    }   
   }
 
   // devuelve un numero aleatorio
