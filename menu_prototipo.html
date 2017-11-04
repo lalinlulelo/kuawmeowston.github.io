@@ -6,7 +6,7 @@
 
 	<body>
 		<!--Canvas para el menu-->
-		<canvas id="myCanvas" width="480" height="320"><p>Your browser does not support HTML5!</p></canvas> 
+		<canvas id="myCanvas" width="1200" height="600"><p>Your browser does not support HTML5!</p></canvas> 
 		<script type="text/javascript">
 			//Declarar el canvas, con sus variables
 			//var canvas = document.getElementById("myCanvas");
@@ -24,8 +24,8 @@
 			
 			var context = lienzo.getContext("2d");
 
-			var width = canvas.getAttribute('width');
-			var height = canvas.getAttribute('height');
+			var width = lienzo.getAttribute('width');
+			var height = lienzo.getAttribute('height');
 			//Variables para las coordenadas del raton
 			var mouseX;
 			var mouseY;
@@ -44,7 +44,7 @@
 			var speed = 1;
 
 			//Posición de los botones del menu
-			var buttonX = [192,110,149,160];
+			var buttonX =[192,110,149,160];
 			var buttonY = [100,140,180,220];
 			var buttonWidth = [96,260,182,160];
 			var buttonHeight = [40,40,40,40];
@@ -60,7 +60,7 @@
 
 			//variables para definir el funcionamiento de las animaciones del canvas
 			var frames = 30;
-		    	var timerId = 0;
+			var timerId = 0;
 			var fadeId = 0;
 			var time = 0.0;
 
@@ -96,8 +96,8 @@
 			timerId = setInterval("update()", 1000/frames);
 
 			//metodos para controlar el raton
-			canvas.addEventListener("mousemove", checkPos);
-			canvas.addEventListener("mouseup", checkClick);
+			lienzo.addEventListener("mousemove", checkPos);
+			lienzo.addEventListener("mouseup", checkClick);
 
 			//Actualiza los frames
 			function update() {
@@ -161,22 +161,23 @@
 			}
 			//Comprueba los click del raton
 			function checkClick(mouseEvent){
+				console.log("X raton: "+mouseX+" Y raton: "+mouseY);
 				for(i = 0; i < buttonX.length; i++){
-					/*
+					
 					if(mouseX > buttonX[i] && mouseX < buttonX[i] + buttonWidth[i]){
 						if(mouseY > buttonY[i] && mouseY < buttonY[i] + buttonHeight[i]){
 							fadeId = setInterval("fadeOut()", 1000/frames);
 							clearInterval(timerId);
-							canvas.removeEventListener("mousemove", checkPos);
-							canvas.removeEventListener("mouseup", checkClick);
+							lienzo.removeEventListener("mousemove", checkPos);
+							lienzo.removeEventListener("mouseup", checkClick);
 						}
-					}*/
+					}
 					if(mouseX > buttonX[0] && mouseX < buttonX[0] + buttonWidth[0]){
 						if(mouseY > buttonY[0] && mouseY < buttonY[0] + buttonHeight[0]){
 							fadeId = setInterval("fadeOut()", 1000/frames);
 							clearInterval(timerId);
-							canvas.removeEventListener("mousemove", checkPos);
-							canvas.removeEventListener("mouseup", checkClick);
+							lienzo.removeEventListener("mousemove", checkPos);
+							lienzo.removeEventListener("mouseup", checkClick);
 							var Jugadores = 1;
 							localStorage.setItem("jugadores", Jugadores);
 							window.location.href = "juego.html";
@@ -186,8 +187,8 @@
 						if(mouseY > buttonY[1] && mouseY < buttonY[1] + buttonHeight[1]){
 							fadeId = setInterval("fadeOut()", 1000/frames);
 							clearInterval(timerId);
-							canvas.removeEventListener("mousemove", checkPos);
-							canvas.removeEventListener("mouseup", checkClick);
+							lienzo.removeEventListener("mousemove", checkPos);
+							lienzo.removeEventListener("mouseup", checkClick);
 							var Jugadores = 2;
 							localStorage.setItem("jugadores", Jugadores);
 							window.location.href = "juego.html";
@@ -205,8 +206,8 @@
 					clearInterval(fadeId);
 					time = 0;
 					timerId = setInterval("update()", 1000/frames);
-					canvas.addEventListener("mousemove", checkPos);
-					canvas.addEventListener("mouseup", checkClick);
+					lienzo.addEventListener("mousemove", checkPos);
+					lienzo.addEventListener("mouseup", checkClick);
 				}
 			}
 		</script> 
