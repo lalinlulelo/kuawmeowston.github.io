@@ -44,10 +44,10 @@
 			var speed = 1;
 
 			//Posición de los botones del menu
-			var buttonX =[192,110,149,160];
-			var buttonY = [100,140,180,220];
+			var buttonX =[444,384,414,414];
+			var buttonY = [300,340,380,420];
 			var buttonWidth = [96,260,182,160];
-			var buttonHeight = [40,40,40,40];
+			var buttonHeight = [80,80,80,80];
 
 			//variables para modificar la posición y rotación de la nave (en nuestro caso un gato i guess)
 			var shipX = [0,0];
@@ -78,7 +78,7 @@
 			context.drawImage(bgImage, 0, 0);
 			};
 			logoImage.onload = function(){
-			context.drawImage(logoImage, 50, -10);
+			context.drawImage(logoImage, 1000, -80);
 			}
 			playImage.onload = function(){
 			context.drawImage(playImage, buttonX[0], buttonY[0]);
@@ -111,10 +111,11 @@
 			}
 			//Se usa para cambiar los valores de las variables de imagenes
 			function move(){
+				/*
 				backgroundY -= speed;
 				if(backgroundY == -1 * height){
 					backgroundY = 0;
-				}
+				}*/
 				if(shipSize == shipWidth){
 					shipRotate = -1;
 				}
@@ -125,8 +126,8 @@
 			}
 			//Coloca las imagenes en el canvas
 			function draw(){
-				context.drawImage(bgImage, 0, backgroundY);
-				context.drawImage(logoImage, 50,-10);
+				context.drawImage(bgImage, 280, backgroundY);
+				context.drawImage(logoImage, 320,150);
 				context.drawImage(playImage, buttonX[0], buttonY[0]);
 				context.drawImage(instructImage, buttonX[1], buttonY[1]);
 				context.drawImage(settingsImage, buttonX[2], buttonY[2]);
