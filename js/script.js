@@ -10,14 +10,8 @@ window.requestAnimFrame = (function () {
       };
 })();
 
-arrayRemove = function (array, from) {
-  var rest = array.slice((from) + 1 || array.length);
-  array.length = from < 0 ? array.length + from : from;
-  return array.push.apply(array, rest);
-};
-
-// juego
 var game = (function () {
+// ------------------------------------------------------ Inicializacion de las variables ------------------------------------------------------
   // variables globales de la aplicacion
   var canvas;
   var ctx;
@@ -74,6 +68,8 @@ var game = (function () {
     damaged: new Image (),
     killed: new Image ()
   }
+  // indice de enemigo
+  var enemy_id = 0;
   // variable de fin de juego malo
   var game_over = false;
   // variable de fin de juego bueno
@@ -99,13 +95,15 @@ var game = (function () {
     // activar jugador 2
     p2_enable: 30
   }
+  // variable que determina el numero de jugadores a jugar
   var Jugadores = localStorage.getItem("jugadores");
   console.log("Numero de jugadores " + Jugadores);
-  console.log("esto es: " + (Jugadores == 2));
   // gameloop
   function loop () {
     update ();
-    draw ();
+    //draw ();
+    // resize de la pantalla
+    resizeCanvas();
   }
   // funcion que carga las imagenes
   function preloadImages (){
@@ -121,93 +119,106 @@ var game = (function () {
       enemy_2_sprite.animation [i-1] = enemy_2_frame;
     }
     */
+    // sprites del primer enemigo
     enemy_1_bullet = new Image ();
     enemy_1_bullet.src = 'images/pepino_bullet.png';
     enemy_1_sprite.damaged.src = 'images/pepino_damaged.png'
     enemy_1_sprite.killed.src = 'images/pepino_killed.png'; 
 
+    // sprites del segundo enemigo
     enemy_2_bullet = new Image ();
     enemy_2_bullet = "";
     enemy_2_sprite.damaged.src = "";
     enemy_2_sprite.killed.src = "";
 
+    // sprites del jugador 1
     player_1_bullet = new Image ();
     player_1_bullet.src = 'images/player_1_bullet.png'
 
+    // sprties del jugador 2
     player_2_bullet = new Image ();
     player_2_bullet.src = 'images/player_2_bullet.png'
 
+    // sprites del escenario
     fondo_principal = new Image();
     fondo_principal.src = 'images/fondo_2.png';
     console.log("con exito");
   }
 
-  // inicializacion
+  // funcion de inicializacion
   function init (){
-    console.log("cargando imagenes ... :")
+    
+    // se cargan los sprites
+    console.log("cargando imagenes ... :");
     preloadImages ();
-
     console.log("creando pantalla ... :");
+    // se inicializa el canvas
     canvas = document.getElementById('canvas');
-    ctx = canvas.getContext('2d');
 
+    // resize de la pantalla
+    window.addEventListener('resize', resizeCanvas, false);
+   
+    ctx = canvas.getContext('2d');
     buffer = document.createElement('canvas');
     buffer.width = canvas.width;
     buffer.height = canvas.height;
     bufferctx = buffer.getContext('2d');
     console.log("con exito");
-
+    // se inicializan los jugadores
     console.log("creando al jugador 1 ... :");
     player_1 = new Player_1 (player_1_life, 0);
-    if(Jugadores == 2){
-      player_2 = new Player_2 (player_2_life, 0);
-    }
     console.log("con exito");
-
+    if(Jugadores == 2){
+      console.log("creando al jugador 1 ... :");
+      player_2 = new Player_2 (player_2_life, 0);
+      console.log("con exito");
+    }
+    // se inicializa la interfaz
     console.log("cargando interfaz gráfica ... :");
     showLifeAndScore ();
-
+    // se inicializa el teclado
     console.log("cargando inputs del teclado ... :")
     addListener(document, 'keydown', keyDown);
     addListener(document, 'keyup', keyUp);
-
+    // se inicializa el bucle
     function anim (){
       loop ();
       requestAnimFrame(anim);
     }
     anim ();
+  }  
+// ---------------------------------------------------- Fin inicializacion de las variables ----------------------------------------------------
+
+// ------------------------------------------------------------ Funciones auxiliares -----------------------------------------------------------
+  // resize de la pantalla
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    draw();
   }
 
-  function draw() {
-    ctx.drawImage(buffer, 0, 0);
+// devuelve un numero aleatorio
+  function getRandomNumber(min_range, max_range) {
+    return Math.floor(Math.random() * range_max + range_min);
   }
 
-  // interfaz del juego
-  function showLifeAndScore () {
-    bufferctx.fillStyle="rgb(59,59,59)";
-    bufferctx.font="bold 16px Arial";
-    if(Jugadores == 2){
-      bufferctx.fillText("Puntos: " + (player_1.score + player_2.score), canvas.width - 180, 20);
-      bufferctx.fillText("Vidas jugador 1: " + player_1.life, canvas.width - 180,40);
-      bufferctx.fillText("Vidas jugador 2: " + player_2.life, canvas.width - 180,60);
-    }else{
-      bufferctx.fillText("Puntos: " + (player_1.score), canvas.width - 180, 20);
-      bufferctx.fillText("Vidas jugador 1: " + player_1.life, canvas.width - 180,40);
-    }   
-  }
+  // elimina un elemento de un array
+  arrayRemove = function (array, from) {
+    var rest = array.slice((from) + 1 || array.length);
+    array.length = from < 0 ? array.length + from : from;
+    return array.push.apply(array, rest);
+  };
+// ---------------------------------------------------------- Fin funciones auxiliares ---------------------------------------------------------
 
-  // devuelve un numero aleatorio
-  function getRandomNumber(range) {
-    return Math.floor(Math.random() * range);
-  }
-
+// ----------------------------------------------------------------- Jugadores -----------------------------------------------------------------
   // jugador 1
   function Player_1(life, score) {
+    // ubicacion del jugador 1
     var settings = {
         marginBottom : 60,
         defaultHeight : 66
     };
-    // carga sprite
+    // carga sprite y sus atributos
     player_1 = new Image();
     player_1.src = 'images/player_1.png';
     player_1.posX = -40;
@@ -221,8 +232,6 @@ var game = (function () {
     // disparo
     var shoot = function () {
       if(player_1_next_shoot < player_1_now || player_1_now == 0){
-        p1_bullet_x = player_1_carril.x;
-        p1_bullet_y = player_1_carril.y;
         player_1_shoot = new Player_1_Shoot(player_1.posX + 30, player_1.posY);
         player_1_shoot.x = player_1_carril.x;
         player_1_shoot.y = player_1_carril.y;
@@ -279,7 +288,7 @@ var game = (function () {
     return player_1;
   }
 
-  // jugador 1
+  // jugador 2
   function Player_2(life, score) {
     var settings = {
         marginBottom : 60,
@@ -299,8 +308,6 @@ var game = (function () {
     // disparo
     var shoot = function () {
       if(player_2_next_shoot < player_2_now || player_2_now == 0){
-        p2_bullet_x = player_2_carril.x;
-        p2_bullet_y = player_2_carril.y;
         player_2_shoot = new Player_2_Shoot(player_2.posX + 30, player_2.posY);
         player_2_shoot.x = player_2_carril.x;
         player_2_shoot.y = player_2_carril.y;
@@ -363,7 +370,94 @@ var game = (function () {
       player_2.doAnything();
     }
   }
+// --------------------------------------------------------------- Fin jugadores ---------------------------------------------------------------
 
+// ------------------------------------------------------------------ Enemigos -----------------------------------------------------------------
+function Enemy(life, speed, shoots, enemyImages) {
+  var settings = {
+    marginBottom : 60,
+    defaultHeight : 66
+  }
+  this.image = enemyImages.animation[0];
+  this.imageNumber = 1;
+  this.animation = 0;
+  this.posX = 160;
+  this.posY = canvas.height - (this.height == 0 ? settings.defaultHeight : this.height) - settings.marginBottom;
+  this.life = life;
+  this.speed = speed;
+  this.shots = shoots;
+  this.dead = false;
+  /*
+  var desplazamientoHorizontal = minHorizontalOffset +
+      getRandomNumber(maxHorizontalOffset - minHorizontalOffset);
+  this.minX = getRandomNumber(canvas.width - desplazamientoHorizontal);
+  this.maxX = this.minX + desplazamientoHorizontal - 40;
+  this.direction = 'D';
+  */
+
+  this.kill = function() {
+      this.dead = true;
+      // se cambia al siguiente enemigo
+      enemy_id += 1;
+      this.image = enemyImages.killed;
+      verifyToCreateNewEvil();
+  };
+  /*
+  this.update = function () {
+      this.posY += this.goDownSpeed;
+      if (this.direction === 'D') {
+          if (this.posX <= this.maxX) {
+              this.posX += this.speed;
+          } else {
+              this.direction = 'I';
+              this.posX -= this.speed;
+          }
+      } else {
+          if (this.posX >= this.minX) {
+              this.posX -= this.speed;
+          } else {
+              this.direction = 'D';
+              this.posX += this.speed;
+          }
+      }
+      this.animation++;
+      if (this.animation > 5) {
+          this.animation = 0;
+          this.imageNumber ++;
+          if (this.imageNumber > 8) {
+              this.imageNumber = 1;
+          }
+          this.image = enemyImages.animation[this.imageNumber - 1];
+      }
+  };
+  
+  this.isOutOfScreen = function() {
+      return this.posY > (canvas.height + 15);
+  };
+  */
+  function shoot() {
+      if (evil.shots > 0 && !evil.dead) {
+          var disparo = new enemy_shoot(evil.posX + (evil.image.width / 2) - 5 , evil.posY + evil.image.height);
+          disparo.add();
+          evil.shots --;
+          setTimeout(function() {
+              shoot();
+          }, getRandomNumber(3000));
+      }
+  }
+  setTimeout(function() {
+      shoot();
+  }, 1000 + getRandomNumber(2500));
+
+  this.toString = function () {
+      return 'Enemigo con vidas:' + this.life + 'shoots: ' + this.shoxots + ' puntos por matar: ' + this.pointsToKill;
+  }
+
+}
+// ---------------------------------------------------------------- Fin enemigos ---------------------------------------------------------------
+
+
+// ------------------------------------------------------------------ Disparos -----------------------------------------------------------------
   function Shoot( x, y, array, img) {
     this.posX = x;
     this.posY = y;
@@ -380,7 +474,6 @@ var game = (function () {
 
   function Player_1_Shoot (x, y, bullet_x, bullet_y) {
     Object.getPrototypeOf(Player_1_Shoot.prototype).constructor.call(this, x, y, player_1_bullets, player_1_bullet);
-    console.log(player_1_bullets.length);
     /*
     this.isHittingEvil = function() {
         return (!evil.dead && this.posX >= evil.posX && this.posX <= (evil.posX + evil.image.width) &&
@@ -392,7 +485,6 @@ var game = (function () {
 
   function Player_2_Shoot (x, y, bullet_x, bullet_y) {
     Object.getPrototypeOf(Player_2_Shoot.prototype).constructor.call(this, x, y, player_2_bullets, player_2_bullet);
-    console.log(player_2_bullets.length);
     /*
     this.isHittingEvil = function() {
         return (!evil.dead && this.posX >= evil.posX && this.posX <= (evil.posX + evil.image.width) &&
@@ -401,96 +493,6 @@ var game = (function () {
   }
   Player_2_Shoot.prototype = Object.create(Shoot.prototype);
   Player_2_Shoot.prototype.constructor = Player_2_Shoot;
-
-  // teclado
-  function addListener(element, type, expression, bubbling) {
-    bubbling = bubbling || false;
-    if (window.addEventListener) { // Standard
-        element.addEventListener(type, expression, bubbling);
-    } else if (window.attachEvent) { // IE
-        element.attachEvent('on' + type, expression);
-    }
-    console.log("input con exito");
-  }
-
-  function keyDown(e) {
-    var key = (window.event ? e.keyCode : e.which);
-    for (var inkey in keyMap) {
-        if (key === keyMap[inkey]) {
-          console.log("dentro");
-            e.preventDefault();
-            keyPressed[inkey] = true;
-        }
-    }
-    console.log("keydown con exito");
-  }
-
-  function keyUp(e) {
-    var key = (window.event ? e.keyCode : e.which);
-    for (var inkey in keyMap) {
-        if (key === keyMap[inkey]) {
-            e.preventDefault();
-            keyPressed[inkey] = false;
-        }
-    }
-    console.log("keyup con exito");
-  }
-
-  // fin de partida
-  function showGameOver() {
-    bufferctx.fillStyle="rgb(255,0,0)";
-    bufferctx.font="bold 35px Arial";
-    bufferctx.fillText("GAME OVER", canvas.width / 2 - 100, canvas.height / 2);
-  }
-  
-  // funcion update
-  function update() {
-    
-    drawBackground();
-    
-    if (the_end) {
-      //showCongratulations();
-      return;
-    }
-
-    if (game_over) {
-      showGameOver();
-      return;
-    }
-    
-    bufferctx.drawImage(player_1, player_1.posX, player_1.posY, player_1_carril.x, player_1_carril.y);
-    if(Jugadores == 2){
-      bufferctx.drawImage(player_2, player_2.posX, player_2.posY, player_2_carril.x, player_2_carril.y);
-    }
-    /*
-    bufferctx.drawImage(evil.image, evil.posX, evil.posY);
-
-    updateEvil();
-    */
-    for (var j = 0; j < player_1_bullets.length; j++) {
-      var disparoBueno = player_1_bullets[j];
-      console.log(player_1_bullets[j].x, player_1_bullets[j].y);
-      updatePlayer_1_Shoot(disparoBueno, j);
-    }
-    for (var j = 0; j < player_2_bullets.length; j++) {
-      var disparoBueno = player_2_bullets[j];
-      console.log(player_2_bullets[j].x, player_2_bullets[j].y);
-      updatePlayer_2_Shoot(disparoBueno, j);
-    }
-    /*
-    if (isEvilHittingPlayer()) {
-      player.killPlayer();
-    } else {
-      for (var i = 0; i < evilShotsBuffer.length; i++) {
-        var evilShot = evilShotsBuffer[i];
-        updateEvilShot(evilShot, i);
-      }
-    }
-    */
-    showLifeAndScore();
-
-    playerAction();
-  }
 
   function checkCollisions(shot) {
     /*
@@ -509,7 +511,6 @@ var game = (function () {
 
   function updatePlayer_1_Shoot(player_1_shoot, id) {
     if (player_1_shoot) {
-      console.log("updating");
         player_1_shoot.identifier = id;
         if (checkCollisions(player_1_shoot)) {
             if (player_1_shoot.posX < 1200) {
@@ -524,7 +525,6 @@ var game = (function () {
 
   function updatePlayer_2_Shoot(player_2_shoot, id) {
     if (player_2_shoot) {
-      console.log("updating");
         player_2_shoot.identifier = id;
         if (checkCollisions(player_2_shoot)) {
             if (player_2_shoot.posX < 1200) {
@@ -536,7 +536,85 @@ var game = (function () {
         }
     }
   }
+// ---------------------------------------------------------------- Fin disparos ---------------------------------------------------------------
 
+// ------------------------------------------------------------------ Teclado ------------------------------------------------------------------
+  // funcion del input
+  function addListener(element, type, expression, bubbling) {
+    bubbling = bubbling || false;
+    if (window.addEventListener) { // Standard
+        element.addEventListener(type, expression, bubbling);
+    } else if (window.attachEvent) { // IE
+        element.attachEvent('on' + type, expression);
+    }
+    console.log("input con exito");
+  }
+  // tecla pulsada
+  function keyDown(e) {
+    var key = (window.event ? e.keyCode : e.which);
+    for (var inkey in keyMap) {
+        if (key === keyMap[inkey]) {
+            e.preventDefault();
+            keyPressed[inkey] = true;
+        }
+    }
+    console.log("keydown con exito");
+  }
+  // tecla soltada
+  function keyUp(e) {
+    var key = (window.event ? e.keyCode : e.which);
+    for (var inkey in keyMap) {
+        if (key === keyMap[inkey]) {
+            e.preventDefault();
+            keyPressed[inkey] = false;
+        }
+    }
+    console.log("keyup con exito");
+  }
+  
+// ---------------------------------------------------------------- Fin teclado ----------------------------------------------------------------
+  
+// ------------------------------------------------------------------ Gameloop -----------------------------------------------------------------
+  // funcion update
+  function update() {    
+    drawBackground();
+    
+    if (the_end) {
+      //showCongratulations();
+      return;
+    }
+
+    if (game_over) {
+      showGameOver();
+      return;
+    }
+    
+    drawPlayers ();
+    /*
+    bufferctx.drawImage(evil.image, evil.posX, evil.posY);
+
+    updateEvil();
+    */    
+    drawShoots ();
+    /*
+    if (isEvilHittingPlayer()) {
+      player.killPlayer();
+    } else {
+      for (var i = 0; i < evilShotsBuffer.length; i++) {
+        var evilShot = evilShotsBuffer[i];
+        updateEvilShot(evilShot, i);
+      }
+    }
+    */
+    showLifeAndScore();
+    playerAction();
+  }
+
+  
+// ---------------------------------------------------------------- Fin gameloop ---------------------------------------------------------------
+
+// ------------------------------------------------------------ Funciones de pintado -----------------------------------------------------------
+  // pintado del fondo de pantalla
   function drawBackground() {
     var background;/*
     if (evil instanceof FinalBoss) {
@@ -547,8 +625,57 @@ var game = (function () {
     bufferctx.drawImage(background, 0, 0);
   }
 
+  // pintado de todo aquello presente en la pantalla
+  function draw() {
+    // coge tambien el tamaño de la ventana del navegador
+    ctx.drawImage(buffer, 0, 0, window.innerWidth, window.innerHeight);
+  }
+
+  // pinta los jugadores
+  function drawPlayers (){
+    bufferctx.drawImage(player_1, player_1.posX, player_1.posY, player_1_carril.x, player_1_carril.y);
+    if(Jugadores == 2){
+      bufferctx.drawImage(player_2, player_2.posX, player_2.posY, player_2_carril.x, player_2_carril.y);
+    }
+  }
+
+  // pinta las balas de los personajes
+  function drawShoots (){
+    for (var j = 0; j < player_1_bullets.length; j++) {
+      var disparoBueno = player_1_bullets[j];
+      updatePlayer_1_Shoot(disparoBueno, j);
+    }
+    for (var j = 0; j < player_2_bullets.length; j++) {
+      var disparoBueno = player_2_bullets[j];
+      updatePlayer_2_Shoot(disparoBueno, j);
+    }
+  }
+
+  // interfaz del juego
+  function showLifeAndScore () {
+    bufferctx.fillStyle="rgb(256,256,256)";
+    bufferctx.font="bold 16px Arial";
+    if(Jugadores == 2){
+      bufferctx.fillText("Puntos: " + (player_1.score + player_2.score), canvas.width - 180, 20);
+      bufferctx.fillText("Vidas jugador 1: " + player_1.life, canvas.width - 180,40);
+      bufferctx.fillText("Vidas jugador 2: " + player_2.life, canvas.width - 180,60);
+    }else{
+      bufferctx.fillText("Puntos: " + (player_1.score), canvas.width - 180, 20);
+      bufferctx.fillText("Vidas jugador 1: " + player_1.life, canvas.width - 180,40);
+    }   
+  }
+
+  // fin de partida: pinta el game over
+  function showGameOver() {
+    bufferctx.fillStyle="rgb(255,0,0)";
+    bufferctx.font="bold 35px Arial";
+    bufferctx.fillText("GAME OVER", canvas.width / 2 - 100, canvas.height / 2);
+  }
+// ---------------------------------------------------------- FIn funciones de pintado ---------------------------------------------------------
 
   return {
     init: init
   }
 })();
+
+
