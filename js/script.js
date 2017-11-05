@@ -20,6 +20,7 @@ var game = (function () {
   var fondo_principal;
   // variables del jugador 1
   var player_1;
+  var player_1_life_sprite;
   var player_1_life = 3;
   var player_1_bullet;
   var player_1_bullets = [];
@@ -36,6 +37,7 @@ var game = (function () {
   // variables del jugador 2
   var player_2;  
   var player_2_life = 3;
+  var player_2_life_sprite;
   var player_2_bullet;
   var player_2_bullets = [];
   var player_2_killed;
@@ -57,6 +59,10 @@ var game = (function () {
     //animation = [],
     damaged: new Image (),
     killed: new Image ()
+  }
+  var enemy_1_carril = {
+    x: 1200,
+    y: 600
   }
   // variables del enemigo 2
   var enemy_2;
@@ -124,7 +130,7 @@ var game = (function () {
     // sprites del primer enemigo
     enemy_1_bullet = new Image ();
     enemy_1_bullet.src = 'images/pepino_bullet.png';
-    enemy_1_sprite.damaged.src = 'images/pepino_damaged.png'
+    enemy_1_sprite.damaged.src = 'images/pepino_damaged.png';
     enemy_1_sprite.killed.src = 'images/pepino_killed.png'; 
 
     // sprites del segundo enemigo
@@ -135,11 +141,15 @@ var game = (function () {
 
     // sprites del jugador 1
     player_1_bullet = new Image ();
-    player_1_bullet.src = 'images/player_1_bullet.png'
+    player_1_bullet.src = 'images/player_1_bullet.png';
+    player_1_life_sprite = new Image ();
+    player_1_life_sprite.src = 'images/player_1_3_lifes.png';
 
     // sprties del jugador 2
     player_2_bullet = new Image ();
-    player_2_bullet.src = 'images/player_2_bullet.png'
+    player_2_bullet.src = 'images/player_2_bullet.png';
+    player_2_life_sprite = new Image ();
+    player_2_life_sprite.src = 'images/player_2_3_lifes.png';
 
     // sprites del escenario
     fondo_principal = new Image();
@@ -177,6 +187,8 @@ var game = (function () {
       player_2 = new Player_2 (player_2_life, 0);
       console.log("con exito");
     }
+    enemy_1 = new Enemy_1();
+   // createNewEvil();
     // se inicializa la interfaz
     console.log("cargando interfaz gráfica ... :");
     showLifeAndScore ();
@@ -294,7 +306,7 @@ var game = (function () {
   }
 
   // jugador 2
-  function Player_2(life, score) {
+  function Player_2 (life, score) {
     var settings = {
         marginBottom : 60,
         defaultHeight : 66
@@ -378,20 +390,26 @@ var game = (function () {
 // --------------------------------------------------------------- Fin jugadores ---------------------------------------------------------------
 
 // ------------------------------------------------------------------ Enemigos -----------------------------------------------------------------
-function Enemy(life, speed, shoots, enemyImages) {
+function Enemy_1 () {
   var settings = {
     marginBottom : 60,
     defaultHeight : 66
   }
-  this.image = enemyImages.animation[0];
-  this.imageNumber = 1;
-  this.animation = 0;
-  this.posX = 160;
-  this.posY = canvas.height - (this.height == 0 ? settings.defaultHeight : this.height) - settings.marginBottom;
-  this.life = life;
-  this.speed = speed;
-  this.shots = shoots;
-  this.dead = false;
+  //this.image = enemyImages.animation[0];
+  enemy_1 = new Image ();
+  enemy_1.src = "images/pepino.png";
+  //enemy_1.imageNumber = 1;
+  //enemy_1.animation = 0;
+  //enemy_1.posX = 160;
+  //enemy_1.posY = canvas.height - (this.height == 0 ? settings.defaultHeight : this.height) - settings.marginBottom;
+  enemy_1.posX = 860;
+  enemy_1.posY = canvas.height - (enemy_1.height == 0 ? settings.defaultHeight : enemy_1.height) - settings.marginBottom;
+  enemy_1_carril.x = enemy_1_carril.x/7;
+  enemy_1_carril.y = enemy_1_carril.y/5;
+  enemy_1.life = enemy_1_life;
+  enemy_1.speed = 5;
+  enemy_1.shots = 100;
+  enemy_1.dead = false;
   /*
   var desplazamientoHorizontal = minHorizontalOffset +
       getRandomNumber(maxHorizontalOffset - minHorizontalOffset);
@@ -400,12 +418,12 @@ function Enemy(life, speed, shoots, enemyImages) {
   this.direction = 'D';
   */
 
-  this.kill = function() {
-      this.dead = true;
+  kill = function() {
+      enemy_1.dead = true;
       // se cambia al siguiente enemigo
       enemy_id += 1;
-      this.image = enemyImages.killed;
-      verifyToCreateNewEvil();
+      enemy_1.src = enemy_1_sprite.killed;
+      //verifyToCreateNewEvil();
   };
   /*
   this.update = function () {
@@ -441,24 +459,33 @@ function Enemy(life, speed, shoots, enemyImages) {
   };
   */
   function shoot() {
-      if (evil.shots > 0 && !evil.dead) {
+      /*if (evil.shots > 0 && !evil.dead) {
           var disparo = new enemy_shoot(evil.posX + (evil.image.width / 2) - 5 , evil.posY + evil.image.height);
           disparo.add();
           evil.shots --;
           setTimeout(function() {
               shoot();
           }, getRandomNumber(3000));
-      }
-  }
+      }*/
+  }/*
   setTimeout(function() {
       shoot();
-  }, 1000 + getRandomNumber(2500));
-
-  this.toString = function () {
-      return 'Enemigo con vidas:' + this.life + 'shoots: ' + this.shoxots + ' puntos por matar: ' + this.pointsToKill;
-  }
-
+  }, 1000 + getRandomNumber(2500));*/
+  
+  //this.toString = function () {
+  //    return 'Enemigo con vidas:' + this.life + 'shoots: ' + this.shoots + ' puntos por matar: ' /*+ this.pointsToKill*/;
+  //}
+  return enemy_1;
 }
+
+function Enemigo_1 () {
+  Object.getPrototypeOf(Enemigo_1.prototype).constructor.call(this, enemy_1_life, enemy_1_bullet, "images/pepino.png");
+  //this.goDownSpeed = evilSpeed/2;
+  //this.pointsToKill = 20;
+}
+
+Enemigo_1.prototype = Object.create(Enemy_1.prototype);
+Enemigo_1.prototype.constructor = Enemigo_1;
 // ---------------------------------------------------------------- Fin enemigos ---------------------------------------------------------------
 
 
@@ -642,6 +669,7 @@ function Enemy(life, speed, shoots, enemyImages) {
     if(Jugadores == 2){
       bufferctx.drawImage(player_2, player_2.posX, player_2.posY, player_2_carril.x, player_2_carril.y);
     }
+    bufferctx.drawImage(enemy_1, enemy_1.posX, enemy_1.posY, enemy_1_carril.x, enemy_1_carril.y);
   }
 
   // pinta las balas de los personajes
@@ -661,12 +689,10 @@ function Enemy(life, speed, shoots, enemyImages) {
     bufferctx.fillStyle="rgb(256,256,256)";
     bufferctx.font="bold 16px Arial";
     if(Jugadores == 2){
-      bufferctx.fillText("Puntos: " + (player_1.score + player_2.score), canvas.width - 1350, 20);
-      bufferctx.fillText("Vidas jugador 1: " + player_1.life, canvas.width - 1350,40);
-      bufferctx.fillText("Vidas jugador 2: " + player_2.life, canvas.width - 1350,60);
+      bufferctx.drawImage(player_1_life_sprite, 0, 10, 75, 25 );
+      bufferctx.drawImage(player_2_life_sprite, 0, 40, 75, 25 );
     }else{
-      bufferctx.fillText("Puntos: " + (player_1.score), canvas.width - 1350, 20);
-      bufferctx.fillText("Vidas jugador 1: " + player_1.life, canvas.width - 1350,40);
+      bufferctx.drawImage(player_1_life_sprite, 0, 10, 75, 25 );
     }   
   }
 
