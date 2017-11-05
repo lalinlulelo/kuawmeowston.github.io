@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Créditos</title>
+        <meta charset="UTF-8">       
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <!-- Bootstrap -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <link type="text/css" rel="stylesheet" href="css/style_creditos.css"/>
+    </head>
+    <body>              
+       
+        <div id="todo">
+            <h1 id="header_creditos">Créditos</h1> <br />
+            <p id="devby">Juego desarrollado por: </p>
+            <p>Guillermo Meléndez Morales</p>
+            <p>Adrián David Morillas Marco</p>
+            <p>Zhong Hao Lin Chen</p>
+            <p>Salvador Nieto Garrido</p>
+            <p>Marta Fernández de la Mela Salcedo</p> <br />
+
+            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+            <a href="mailto:kuawmeowston@gmail.com">kuawmeowston@gmail.com</a> <br />
+
+            <span class="glyphicon glyphicon-globe"aria-hidden="true"></span>
+            <a href="https://kuawmeowston.github.io/">kuawmeowston.github.io</a> <br />
+
+            <span id="btnAtras" class="glyphicon glyphicon-arrow-left"aria-hidden="true" style="position: absolute; top: 3; left: 0;" onclick="retroceder()"></span>
+        </div>
+        
+
+        <script type="text/javascript">            
+            //Funcion para volver al menu ppal
+            function retroceder() {
+                window.location.href = "menu_prototipo.html";
+            };
+
+            
+            window.onload = function () {
+                window.addEventListener("keydown", manejaTeclado, false);
+            };
+
+            //Retroceder tambien con la tecla delete/return
+            function manejaTeclado(e) {
+                if (e.keyCode === 8) {
+                    retroceder();
+                }
+            };
+        </script>
+        
+    </body>
+</html>
