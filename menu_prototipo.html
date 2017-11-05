@@ -183,6 +183,44 @@
 				}
 			}
 			
+			//Comprueba los click del raton
+			function checkClick(mouseEvent){
+				for(i = 0; i < buttonX.length; i++){
+					/*
+					if(mouseX > buttonX[i] && mouseX < buttonX[i] + buttonWidth[i]){
+						if(mouseY > buttonY[i] && mouseY < buttonY[i] + buttonHeight[i]){
+							fadeId = setInterval("fadeOut()", 1000/frames);
+							clearInterval(timerId);
+							canvas.removeEventListener("mousemove", checkPos);
+							canvas.removeEventListener("mouseup", checkClick);
+						}
+					}*/
+					if(mouseX > buttonX[0] && mouseX < buttonX[0] + buttonWidth[0]){
+						if(mouseY > buttonY[0] && mouseY < buttonY[0] + buttonHeight[0]){
+							fadeId = setInterval("fadeOut()", 1000/frames);
+							clearInterval(timerId);
+							canvas.removeEventListener("mousemove", checkPos);
+							canvas.removeEventListener("mouseup", checkClick);
+							var Jugadores = 1;
+							localStorage.setItem("jugadores", Jugadores);
+							window.location.href = "juego.html";
+						}
+					}
+					if(mouseX > buttonX[1] && mouseX < buttonX[1] + buttonWidth[1]){
+						if(mouseY > buttonY[1] && mouseY < buttonY[1] + buttonHeight[1]){
+							fadeId = setInterval("fadeOut()", 1000/frames);
+							clearInterval(timerId);
+							canvas.removeEventListener("mousemove", checkPos);
+							canvas.removeEventListener("mouseup", checkClick);
+							var Jugadores = 2;
+							localStorage.setItem("jugadores", Jugadores);
+							window.location.href = "juego.html";
+						}
+					}
+				}
+
+			}
+			
 			function draw_ship (){
 				context.drawImage(shipImage, shipX[0] - (shipSize/2), shipY[0], shipSize, shipHeight);
 				context.drawImage(shipImage, shipX[1] - (shipSize/2), shipY[1], shipSize, shipHeight);
