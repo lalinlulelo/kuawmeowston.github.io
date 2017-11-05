@@ -98,6 +98,8 @@ var game = (function () {
   // variable que determina el numero de jugadores a jugar
   var Jugadores = localStorage.getItem("jugadores");
   console.log("Numero de jugadores " + Jugadores);
+
+ 
   // gameloop
   function loop () {
     update ();
@@ -154,7 +156,9 @@ var game = (function () {
     console.log("creando pantalla ... :");
     // se inicializa el canvas
     canvas = document.getElementById('canvas');
-
+    var full_screen = localStorage.getItem("full_screen");
+    console.log("pantalla completa: " + full_screen);
+    
     // resize de la pantalla
     window.addEventListener('resize', resizeCanvas, false);
    
@@ -190,6 +194,7 @@ var game = (function () {
 // ---------------------------------------------------- Fin inicializacion de las variables ----------------------------------------------------
 
 // ------------------------------------------------------------ Funciones auxiliares -----------------------------------------------------------
+
   // resize de la pantalla
   function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -656,12 +661,12 @@ function Enemy(life, speed, shoots, enemyImages) {
     bufferctx.fillStyle="rgb(256,256,256)";
     bufferctx.font="bold 16px Arial";
     if(Jugadores == 2){
-      bufferctx.fillText("Puntos: " + (player_1.score + player_2.score), canvas.width - 180, 20);
-      bufferctx.fillText("Vidas jugador 1: " + player_1.life, canvas.width - 180,40);
-      bufferctx.fillText("Vidas jugador 2: " + player_2.life, canvas.width - 180,60);
+      bufferctx.fillText("Puntos: " + (player_1.score + player_2.score), canvas.width - 1350, 20);
+      bufferctx.fillText("Vidas jugador 1: " + player_1.life, canvas.width - 1350,40);
+      bufferctx.fillText("Vidas jugador 2: " + player_2.life, canvas.width - 1350,60);
     }else{
-      bufferctx.fillText("Puntos: " + (player_1.score), canvas.width - 180, 20);
-      bufferctx.fillText("Vidas jugador 1: " + player_1.life, canvas.width - 180,40);
+      bufferctx.fillText("Puntos: " + (player_1.score), canvas.width - 1350, 20);
+      bufferctx.fillText("Vidas jugador 1: " + player_1.life, canvas.width - 1350,40);
     }   
   }
 

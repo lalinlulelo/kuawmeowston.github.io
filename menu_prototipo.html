@@ -3,6 +3,7 @@
 	<head>
 		<title>Katwaii</title>
 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
 	</head>
 
 	<body>
@@ -12,19 +13,22 @@
 			//Declarar el canvas, con sus variables
 			var canvas = document.getElementById("myCanvas");
 			var context = canvas.getContext("2d");
-
 			var width = canvas.getAttribute('width');
 			var height = canvas.getAttribute('height');
-			
+			// funciones de resize
+			$(function(){
+    			resizeCanvas();
+			});
+			$(window).on('resize', function(){
+    			resizeCanvas();
+			});
 			fullscreen = function(e){
 				  if (e.webkitRequestFullScreen) {
 					e.webkitRequestFullScreen();
-
 				  } else if(e.mozRequestFullScreen) {
 					e.mozRequestFullScreen();
 				  }
 			  }
-
 			document.getElementById('myCanvas').onclick = function(){
 				fullscreen(document.getElementById('myCanvas'));
 			}
@@ -32,7 +36,6 @@
 			//Variables para las coordenadas del raton
 			var mouseX;
 			var mouseY;
-
 			//Variables para las imagenes
 			var bgImage = new Image();
 			var logoImage = new Image();
@@ -44,13 +47,11 @@
 			//Posiblemete borrable: Es para que el fondo se mueva hacia arriba 
 			var backgroundY = 0;
 			var speed = 1;
-
 			//Posición de los botones del menu
 			var buttonX = [550,460,500,510];
 			var buttonY = [200,240,280,320];
 			var buttonWidth = [96,260,182,160];
 			var buttonHeight = [40,40,40,40];
-
 			//variables para modificar la posición y rotación de la nave (en nuestro caso un gato i guess)
 			var shipX = [0,0];
 			var shipY = [0,0];
@@ -59,7 +60,6 @@
 			var shipVisible = false;
 			var shipSize = shipWidth;
 			var shipRotate = 0;
-
 			//variables para definir el funcionamiento de las animaciones del canvas
 			var frames = 30;
 		   	 var timerId = 0;
@@ -74,7 +74,6 @@
 			instructImage.src = "images/instructions.png";
 			settingsImage.src = "images/settings.png";
 			creditsImage.src = "images/credits.png"
-
 			bgImage.onload = function(){
 			context.drawImage(bgImage, 0, 0);
 			};
@@ -98,7 +97,6 @@
 			//metodos para controlar el raton
 			canvas.addEventListener("mousemove", checkPos);
 			canvas.addEventListener("mouseup", checkClick);
-
 			//Actualiza los frames
 			function update() {
 				clear();
@@ -194,7 +192,6 @@
 						}
 					}
 				}
-
 			}
 			//Pone la pantalla a negro cuando se clica en uno de los botones
 			function fadeOut(){
@@ -208,6 +205,11 @@
 					canvas.addEventListener("mousemove", checkPos);
 					canvas.addEventListener("mouseup", checkClick);
 				}
+			}
+			function resizeCanvas() {
+    			var canvas = $('#myCanvas');
+    			canvas.css("width", $(window).width());
+    			canvas.css("height", $(window).height());
 			}
 		</script> 
 	</body>
