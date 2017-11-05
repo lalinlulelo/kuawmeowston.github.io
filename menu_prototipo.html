@@ -10,6 +10,7 @@
 		<!--Canvas para el menu-->
 		<canvas id="myCanvas" width="1200" height="600"><p>Your browser does not support HTML5!</p></canvas> 
 		<script type="text/javascript">
+			var control = {up: 38, enter: 13, down:40};
 			//Declarar el canvas, con sus variables
 			var canvas = document.getElementById("myCanvas");
 			var context = canvas.getContext("2d");
@@ -33,9 +34,6 @@
 				fullscreen(document.getElementById('myCanvas'));
 			}
 		
-			//Variables para las coordenadas del raton
-			var mouseX;
-			var mouseY;
 			//Variables para las imagenes
 			var bgImage = new Image();
 			var logoImage = new Image();
@@ -48,10 +46,13 @@
 			var backgroundY = 0;
 			var speed = 1;
 			//Posición de los botones del menu
-			var buttonX = [550,460,500,510];
+			var buttonX = [540,460,500,510];
 			var buttonY = [200,240,280,320];
 			var buttonWidth = [96,260,182,160];
 			var buttonHeight = [40,40,40,40];
+			var mouseX = [541, 461, 507, 511];
+			var mouseY = [201, 241, 281, 321];
+			var mouse_index = 0;
 			//variables para modificar la posición y rotación de la nave (en nuestro caso un gato i guess)
 			var shipX = [0,0];
 			var shipY = [0,0];
@@ -95,13 +96,16 @@
 			//intervalo de refresco del canvas
 			timerId = setInterval("update()", 1000/frames);
 			//metodos para controlar el raton
+			/*
 			canvas.addEventListener("mousemove", checkPos);
 			canvas.addEventListener("mouseup", checkClick);
+			*/
 			//Actualiza los frames
 			function update() {
 				clear();
 				move();
 				draw();
+				checkPos();
 			}
 			//Se usa para eliminar las imagenes si es necesario
 			function clear() {
@@ -130,27 +134,36 @@
 				context.drawImage(settingsImage, buttonX[2], buttonY[2]);
 				context.drawImage(creditsImage, buttonX[3], buttonY[3]);
 				if(shipVisible == true){
-					context.drawImage(shipImage, shipX[0] - (shipSize/2), shipY[0], shipSize, shipHeight);
-					context.drawImage(shipImage, shipX[1] - (shipSize/2), shipY[1], shipSize, shipHeight);
+					draw_ship();
 				}
 			}
+			function draw_ship (){
+				context.drawImage(shipImage, shipX[0] - (shipSize/2), shipY[0], shipSize, shipHeight);
+				context.drawImage(shipImage, shipX[1] - (shipSize/2), shipY[1], shipSize, shipHeight);
+			}
 			//Comprueba la posicion del raton para saber como interactuar con el
-			function checkPos(mouseEvent){
+			function checkPos(){
+				/*
 				if(mouseEvent.pageX || mouseEvent.pageY == 0){
 					mouseX = mouseEvent.pageX - this.offsetLeft;
 					mouseY = mouseEvent.pageY - this.offsetTop;
 				}else if(mouseEvent.offsetX || mouseEvent.offsetY == 0){
 					mouseX = mouseEvent.offsetX;
 					mouseY = mouseEvent.offsetY;
-				}
+				}*/
 				for(i = 0; i < buttonX.length; i++){
-					if(mouseX > buttonX[i] && mouseX < buttonX[i] + buttonWidth[i]){
-						if(mouseY > buttonY[i] && mouseY < buttonY[i] + buttonHeight[i]){
+					if(mouseX[mouse_index] > buttonX[i] && mouseX[mouse_index] < buttonX[i] + buttonWidth[i]){
+						if(mouseY[mouse_index] > buttonY[i] && mouseY[mouse_index] < buttonY[i] + buttonHeight[i]){
+							//console.log(mouseX[mouse_index] + " " + buttonX[i] + " " + mouseY[mouse_index] + " " + buttonY[i]);
+							//console.log(mouseX[mouse_index] + " " + (buttonX[i] + buttonWidth[i]) + " " + mouseY[mouse_index] + " " + (buttonY[i] + buttonHeight[i]));
 							shipVisible = true;
+							console.log(mouse_index + " " + shipVisible);
 							shipX[0] = buttonX[i] - (shipWidth/2) - 2;
 							shipY[0] = buttonY[i] + 2;
 							shipX[1] = buttonX[i] + buttonWidth[i] + (shipWidth/2); 
 							shipY[1] = buttonY[i] + 2;
+							//console.log(shipX[0] + " " + shipY[0] + " " + shipX[1] + " " + shipY[0]);
+							draw_ship ();
 						}
 					}else{
 						shipVisible = false;
@@ -158,7 +171,7 @@
 				}
 			}
 			//Comprueba los click del raton
-			function checkClick(mouseEvent){
+			function checkClick(){
 				for(i = 0; i < buttonX.length; i++){
 					/*
 					if(mouseX > buttonX[i] && mouseX < buttonX[i] + buttonWidth[i]){
@@ -169,23 +182,27 @@
 							canvas.removeEventListener("mouseup", checkClick);
 						}
 					}*/
-					if(mouseX > buttonX[0] && mouseX < buttonX[0] + buttonWidth[0]){
-						if(mouseY > buttonY[0] && mouseY < buttonY[0] + buttonHeight[0]){
+					if(mouseX[mouse_index] > buttonX[0] && mouseX[mouse_index] < buttonX[0] + buttonWidth[0]){
+						if(mouseY[mouseX] > buttonY[0] && mouseY[mouse_index] < buttonY[0] + buttonHeight[0]){
 							fadeId = setInterval("fadeOut()", 1000/frames);
 							clearInterval(timerId);
+							/*
 							canvas.removeEventListener("mousemove", checkPos);
 							canvas.removeEventListener("mouseup", checkClick);
+							*/
 							var Jugadores = 1;
 							localStorage.setItem("jugadores", Jugadores);
 							window.location.href = "juego.html";
 						}
 					}
-					if(mouseX > buttonX[1] && mouseX < buttonX[1] + buttonWidth[1]){
-						if(mouseY > buttonY[1] && mouseY < buttonY[1] + buttonHeight[1]){
+					if(mouseX[mouse_index] > buttonX[1] && mouseX[mouse_index] < buttonX[1] + buttonWidth[1]){
+						if(mouseY[mouse_index] > buttonY[1] && mouseY[mouse_index] < buttonY[1] + buttonHeight[1]){
 							fadeId = setInterval("fadeOut()", 1000/frames);
 							clearInterval(timerId);
+							/*
 							canvas.removeEventListener("mousemove", checkPos);
 							canvas.removeEventListener("mouseup", checkClick);
+							*/
 							var Jugadores = 2;
 							localStorage.setItem("jugadores", Jugadores);
 							window.location.href = "juego.html";
@@ -202,14 +219,57 @@
 					clearInterval(fadeId);
 					time = 0;
 					timerId = setInterval("update()", 1000/frames);
+					/*
 					canvas.addEventListener("mousemove", checkPos);
 					canvas.addEventListener("mouseup", checkClick);
+					*/
 				}
 			}
 			function resizeCanvas() {
     			var canvas = $('#myCanvas');
     			canvas.css("width", $(window).width());
     			canvas.css("height", $(window).height());
+			}
+			function sleep(ms) {
+  				return new Promise(resolve => setTimeout(resolve, ms));
+			}
+
+			document.onkeydown = async function(e) {
+				   e = e || window.event; 
+				   if(e.keyCode == control.up){
+					   if(mouse_index > 0){
+						   mouse_index -= 1;
+					   }
+				   }
+				   if(e.keyCode == control.down){
+						if(mouse_index < 4){
+							mouse_index += 1;
+						}
+				   }
+				   if(e.keyCode == control.enter){
+						switch(mouse_index){
+							case 0:
+								fadeOut();
+								await sleep(500);
+								var Jugadores = 1;
+								localStorage.setItem("jugadores", Jugadores);
+								window.location.href = "juego.html";
+								break;
+							case 1:
+								fadeOut();
+								await sleep(500);
+								var Jugadores = 2;
+								localStorage.setItem("jugadores", Jugadores);
+								window.location.href = "juego.html";
+								break;
+							case 2:
+								fadeOut();
+								break;
+							case 3:
+								fadeOut();
+								break;
+						}
+				   }
 			}
 		</script> 
 	</body>
