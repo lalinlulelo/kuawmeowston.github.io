@@ -161,6 +161,7 @@
 			
 			//Comprueba la posicion del raton para saber como interactuar con el
 			function checkPos(mouseEvent){
+				/*
 				if(mouseEvent.pageX || mouseEvent.pageY == 0){
 					mouseX = mouseEvent.pageX - this.offsetLeft;
 					mouseY = mouseEvent.pageY - this.offsetTop;
@@ -168,6 +169,7 @@
 					mouseX = mouseEvent.offsetX;
 					mouseY = mouseEvent.offsetY;
 				}
+				*/
 				for(i = 0; i < buttonX.length; i++){
 					if(mouseX > buttonX[i] && mouseX < buttonX[i] + buttonWidth[i]){
 						if(mouseY > buttonY[i] && mouseY < buttonY[i] + buttonHeight[i]){
@@ -218,7 +220,6 @@
 						}
 					}
 				}
-
 			}
 			
 			function draw_ship (){
@@ -241,9 +242,9 @@
 				}
 			}
 			function resizeCanvas() {
-    			var canvas = $('#myCanvas');
-    			canvas.css("width", $(window).width());
-    			canvas.css("height", $(window).height());
+				var canvas = $('#myCanvas');
+				canvas.css("width", $(window).width());
+				canvas.css("height", $(window).height());
 			}
 			function sleep(ms) {
   				return new Promise(resolve => setTimeout(resolve, ms));
