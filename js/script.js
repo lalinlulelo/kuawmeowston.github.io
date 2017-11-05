@@ -18,6 +18,10 @@ var game = (function () {
   var buffer;
   var bufferctx;
   var fondo_principal;
+  var carril_0 = 474;     // limite cercano a la pantalla
+  var carril_1 = 473.63;  // limite entre carril 0 y carril 1
+  var carril_2 = 473.2;   // limite entre carril 1 y carril 2
+  var carril_3 = 472.98;  // limite cercano al fondo
   // variables del jugador 1
   var player_1;
   var player_1_life_sprite;
@@ -53,6 +57,7 @@ var game = (function () {
   // variables del enemigo 1
   var enemy_1;
   var enemy_1_life = 10;
+  var enemy_1_shoot;
   var enemy_1_bullet;
   var enemy_1_bullets = [];
   var enemy_1_sprite = {
@@ -66,7 +71,7 @@ var game = (function () {
   }
   // variables del enemigo 2
   var enemy_2;
-  var enemy_2_life = 20;
+  var enemy_2_life = 10;
   var enemy_2_bullet;
   var enemy_2_bullets = [];
   var enemy_2_sprite = {
@@ -91,25 +96,25 @@ var game = (function () {
     p1_right: 68,   // d
     p1_fire_1: 81,  // q
     p1_fire_2: 69,  // e
+    // borrar una vez hecho el apaño
+    p1_dead_1: 88,
+    p1_dead_2: 67,
+    p1_dead_3: 86,
     // jugador 2
     p2_up: 104,     // 8
     p2_down: 101,   // 5
     p2_left: 100,   // 4
     p2_right: 102,  // 6
     p2_fire_1: 103, // 7
-    p2_fire_2: 105, // 9
-    // activar jugador 2
-    p2_enable: 30
+    p2_fire_2: 105  // 9
   }
   // variable que determina el numero de jugadores a jugar
   var Jugadores = localStorage.getItem("jugadores");
   console.log("Numero de jugadores " + Jugadores);
-
  
   // gameloop
   function loop () {
     update ();
-    //draw ();
     // resize de la pantalla
     resizeCanvas();
   }
@@ -143,13 +148,16 @@ var game = (function () {
     player_1_bullet = new Image ();
     player_1_bullet.src = 'images/player_1_bullet.png';
     player_1_life_sprite = new Image ();
-    player_1_life_sprite.src = 'images/player_1_3_lifes.png';
+    player_1_life_sprite.src = 'images/player_1_1_lifes.png';
+    player_1_killed = new Image ();
+    player_1_killed.src = 'images/player_1_killed.png';
+
 
     // sprties del jugador 2
     player_2_bullet = new Image ();
     player_2_bullet.src = 'images/player_2_bullet.png';
     player_2_life_sprite = new Image ();
-    player_2_life_sprite.src = 'images/player_2_3_lifes.png';
+    player_2_life_sprite.src = 'images/player_2_1_lifes.png';
 
     // sprites del escenario
     fondo_principal = new Image();
@@ -185,6 +193,7 @@ var game = (function () {
     if(Jugadores == 2){
       console.log("creando al jugador 1 ... :");
       player_2 = new Player_2 (player_2_life, 0);
+      enemy_1_life = enemy_1_life*2;
       console.log("con exito");
     }
     enemy_1 = new Enemy_1();
@@ -206,7 +215,18 @@ var game = (function () {
 // ---------------------------------------------------- Fin inicializacion de las variables ----------------------------------------------------
 
 // ------------------------------------------------------------ Funciones auxiliares -----------------------------------------------------------
-
+  // cita en que carril se encuentra el objeto
+  function carril_n (objeto) {
+    if((objeto.posY <= carril_0) && (objeto.posY  > carril_1)){  
+      return 0;   
+    }
+    if((objeto.posY  <= carril_1) && (objeto.posY  > carril_2)){
+      return 1;
+    }
+    if((objeto.posY  <= carril_2) && (objeto.posY  > carril_3)){
+      return 2;
+    }
+  }
   // resize de la pantalla
   function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -215,8 +235,8 @@ var game = (function () {
   }
 
 // devuelve un numero aleatorio
-  function getRandomNumber(min_range, max_range) {
-    return Math.floor(Math.random() * range_max + range_min);
+  function getRandomNumber(range_min, range_max) {
+    return Math.floor(Math.random() * (range_max - range_min + 1)) + range_min;
   }
 
   // elimina un elemento de un array
@@ -246,6 +266,7 @@ var game = (function () {
     player_1.speed = player_1_speed;
     player_1_carril.x = player_1_carril.x/4;
     player_1_carril.y = player_1_carril.y/4;
+
     // disparo
     var shoot = function () {
       if(player_1_next_shoot < player_1_now || player_1_now == 0){
@@ -284,24 +305,28 @@ var game = (function () {
           player_1_bullet_y = player_1_carril.y - 10;
           shoot();
       }
-    };
-
-    player_1.killPlayer = function() {
-      if (this.life > 0) {
-          this.dead = true;
-          //evilShotsBuffer.splice(0, evilShotsBuffer.length);
-          player_1_bullets.splice(0, player_1_bullets.length);
-          this.src = player_1_killed.src;
-          //createNewEvil();
-          setTimeout(function () {
-              player_1 = new Player_1(player_1.life - 1, player_1.score);
-          }, 500);
-
-      } else {
-          //saveFinalScore();
-          youLoose = true;
+      if(keyPressed.p1_dead_1){
+        player_1.hit(2);
+      }
+      if(keyPressed.p1_dead_2){
+        player_1.hit(1);
+      }
+      if(keyPressed.p1_dead_3){
+        player_1.hit(0);
       }
     };
+
+    player_1.hit = function (n){
+      player_1.life = n;
+      if(player_1.life == 0){
+          player_1_life_sprite.src = '';
+          player_1.src = player_1_killed.src;
+          setTimeout(function (){
+            game_over = true;
+          }, 1000);
+         
+      }
+    }
     return player_1;
   }
 
@@ -320,8 +345,8 @@ var game = (function () {
     player_2.score = score;
     player_2.dead = false;
     player_2.speed = player_2_speed;
-    player_2_carril.x = player_2_carril.x/4;
-    player_2_carril.y = player_2_carril.y/4;
+    enemy_1_carril.x = 171.43;
+    enemy_1_carril.y = 120;
     // disparo
     var shoot = function () {
       if(player_2_next_shoot < player_2_now || player_2_now == 0){
@@ -372,7 +397,6 @@ var game = (function () {
           setTimeout(function () {
               player_2 = new Player_2(player_2.life - 1, player_2.score);
           }, 500);
-
       } else {
           //saveFinalScore();
           youLoose = true;
@@ -400,8 +424,6 @@ function Enemy_1 () {
   enemy_1.src = "images/pepino.png";
   //enemy_1.imageNumber = 1;
   //enemy_1.animation = 0;
-  //enemy_1.posX = 160;
-  //enemy_1.posY = canvas.height - (this.height == 0 ? settings.defaultHeight : this.height) - settings.marginBottom;
   enemy_1.posX = 860;
   enemy_1.posY = canvas.height - (enemy_1.height == 0 ? settings.defaultHeight : enemy_1.height) - settings.marginBottom;
   enemy_1_carril.x = enemy_1_carril.x/7;
@@ -410,6 +432,7 @@ function Enemy_1 () {
   enemy_1.speed = 5;
   enemy_1.shots = 100;
   enemy_1.dead = false;
+  enemy_1.bulletY = 524;
   /*
   var desplazamientoHorizontal = minHorizontalOffset +
       getRandomNumber(maxHorizontalOffset - minHorizontalOffset);
@@ -418,13 +441,22 @@ function Enemy_1 () {
   this.direction = 'D';
   */
 
-  kill = function() {
-      enemy_1.dead = true;
-      // se cambia al siguiente enemigo
-      enemy_id += 1;
-      enemy_1.src = enemy_1_sprite.killed;
-      //verifyToCreateNewEvil();
+  enemy_1.kill = function() {
+    enemy_1.dead = true;
+    // se cambia al siguiente enemigo
+    enemy_id += 1;
+    enemy_1.src = enemy_1_sprite.killed;
+    //verifyToCreateNewEvil();
   };
+
+  enemy_1.hit = function () {
+    enemy_1.src = enemy_1_sprite.damaged.src;
+    /*setTimeout(function (){
+      enemy_1.src = "images/pepino.png";
+    }, 100);*/
+  }
+  // sprite se adapta al carril
+
   /*
   this.update = function () {
       this.posY += this.goDownSpeed;
@@ -458,16 +490,47 @@ function Enemy_1 () {
       return this.posY > (canvas.height + 15);
   };
   */
+
+  function cambio_carril (carril){
+    switch(carril){
+      case 0:
+        enemy_1.bulletY = 524;
+        enemy_1_carril.x = 171.43;
+        enemy_1_carril.y = 120;
+          break;
+      case 1:
+        enemy_1.bulletY = 504;
+        enemy_1_carril.x = 133.3;
+        enemy_1_carril.y = 85.71;
+        break;
+      case 2: 
+        enemy_1.bulletY = 494;
+        enemy_1_carril.x = 92.3;
+        enemy_1_carril.y = 54.54;
+        break;
+    }
+  }
+
   function shoot() {
-      /*if (evil.shots > 0 && !evil.dead) {
-          var disparo = new enemy_shoot(evil.posX + (evil.image.width / 2) - 5 , evil.posY + evil.image.height);
-          disparo.add();
-          evil.shots --;
-          setTimeout(function() {
-              shoot();
-          }, getRandomNumber(3000));
-      }*/
-  }/*
+    if(enemy_1_life > 0){
+      setTimeout(function (){
+        enemy_1_shoot = new Enemy_1_Shoot(enemy_1.posX , enemy_1.bulletY);
+        enemy_1_shoot.x = enemy_1_carril.x*0.8;
+        enemy_1_shoot.y = enemy_1_carril.y*0.8;
+        enemy_1_shoot.add();
+        //console.log("payum");
+        shoot();
+        var random_carril = getRandomNumber(0, 2);
+        cambio_carril(random_carril);
+        console.log(random_carril);
+      }, getRandomNumber(500, 1500));
+    }
+  }
+  setTimeout(function() {
+    shoot();
+  }, 1000 + getRandomNumber(2500));
+
+  /*
   setTimeout(function() {
       shoot();
   }, 1000 + getRandomNumber(2500));*/
@@ -483,7 +546,6 @@ function Enemigo_1 () {
   //this.goDownSpeed = evilSpeed/2;
   //this.pointsToKill = 20;
 }
-
 Enemigo_1.prototype = Object.create(Enemy_1.prototype);
 Enemigo_1.prototype.constructor = Enemigo_1;
 // ---------------------------------------------------------------- Fin enemigos ---------------------------------------------------------------
@@ -504,70 +566,105 @@ Enemigo_1.prototype.constructor = Enemigo_1;
     };
   }
 
+  // actualizacion del disparo del jugador 1
   function Player_1_Shoot (x, y, bullet_x, bullet_y) {
     Object.getPrototypeOf(Player_1_Shoot.prototype).constructor.call(this, x, y, player_1_bullets, player_1_bullet);
-    /*
-    this.isHittingEvil = function() {
-        return (!evil.dead && this.posX >= evil.posX && this.posX <= (evil.posX + evil.image.width) &&
-            this.posY >= evil.posY && this.posY <= (evil.posY + evil.image.height));
-    };*/
   }
   Player_1_Shoot.prototype = Object.create(Shoot.prototype);
   Player_1_Shoot.prototype.constructor = Player_1_Shoot;
-
+  
+  // actualizacion del disparo del jugador 2
   function Player_2_Shoot (x, y, bullet_x, bullet_y) {
     Object.getPrototypeOf(Player_2_Shoot.prototype).constructor.call(this, x, y, player_2_bullets, player_2_bullet);
-    /*
-    this.isHittingEvil = function() {
-        return (!evil.dead && this.posX >= evil.posX && this.posX <= (evil.posX + evil.image.width) &&
-            this.posY >= evil.posY && this.posY <= (evil.posY + evil.image.height));
-    };*/
   }
   Player_2_Shoot.prototype = Object.create(Shoot.prototype);
   Player_2_Shoot.prototype.constructor = Player_2_Shoot;
 
-  function checkCollisions(shot) {
-    /*
-    if (shot.isHittingEvil()) {
-        if (evil.life > 1) {
-            evil.life--;
-        } else {
-            evil.kill();
-            player.score += evil.pointsToKill;
-        }
+
+function Enemy_1_Shoot (x, y) {
+  Object.getPrototypeOf(Enemy_1_Shoot.prototype).constructor.call(this, x, y, enemy_1_bullets, enemy_1_bullet);
+  //console.log("creada la bala");
+}
+Enemy_1_Shoot.prototype = Object.create(Shoot.prototype);
+Enemy_1_Shoot.prototype.constructor = Enemy_1_Shoot;
+
+function checkCollisions(shot) {
+  if(carril_n(shot) == '0'){        
+    if(carril_n(enemy_1) == '0'){      
+    // cierto fallo cuando se sube un poco hacia el limite del carril
+    /*      
+    if(shot.posX == enemy_1.posX-140){
+      enemy_1.hit();
         shot.deleteShot(parseInt(shot.identifier));
         return false;
-    }*/
-    return true;
-  }
-
-  function updatePlayer_1_Shoot(player_1_shoot, id) {
-    if (player_1_shoot) {
-        player_1_shoot.identifier = id;
-        if (checkCollisions(player_1_shoot)) {
-            if (player_1_shoot.posX < 1200) {
-                player_1_shoot.posX += 5;
-                bufferctx.drawImage(player_1_shoot.image, player_1_shoot.posX, player_1_shoot.posY, player_1_shoot.x, player_1_shoot.y);            
-            } else {
-                player_1_shoot.deleteShot(parseInt(player_1_shoot.identifier));
-            }
-        }
+    }*/   
     }
   }
-
-  function updatePlayer_2_Shoot(player_2_shoot, id) {
-    if (player_2_shoot) {
-        player_2_shoot.identifier = id;
-        if (checkCollisions(player_2_shoot)) {
-            if (player_2_shoot.posX < 1200) {
-                player_2_shoot.posX += 5;
-                bufferctx.drawImage(player_2_shoot.image, player_2_shoot.posX, player_2_shoot.posY, player_2_shoot.x, player_2_shoot.y);            
-            } else {
-                player_2_shoot.deleteShot(parseInt(player_2_shoot.identifier));
-            }
-        }
+  if(carril_n(shot) == '1'){
+    if(carril_n(enemy_1) == '1'){/*
+      if(shot.posX == enemy_1.posX-140){
+        enemy_1.hit();
+        shot.deleteShot(parseInt(shot.identifier));
+        return false;
+      }*/
     }
   }
+  if(carril_n(shot) == '2'){
+    if(carril_n(enemy_1) == '2'){/*
+      if(shot.posX == enemy_1.posX-140){
+        enemy_1.hit();
+        shot.deleteShot(parseInt(shot.identifier));
+        return false;
+      }*/
+    }
+  }    
+  return true;
+}
+
+function updatePlayer_1_Shoot(player_1_shoot, id) {
+  if (player_1_shoot) {
+    player_1_shoot.identifier = id;
+    if (checkCollisions(player_1_shoot)) {
+      if (player_1_shoot.posX < 1200) {
+        player_1_shoot.posX += 5;
+        bufferctx.drawImage(player_1_shoot.image, player_1_shoot.posX, player_1_shoot.posY, player_1_shoot.x, player_1_shoot.y);            
+      } else {
+        player_1_shoot.deleteShot(parseInt(player_1_shoot.identifier));
+      }
+    }
+  }
+}
+
+function updatePlayer_2_Shoot(player_2_shoot, id) {
+  if (player_2_shoot) {
+    player_2_shoot.identifier = id;
+    if (checkCollisions(player_2_shoot)) {
+      if (player_2_shoot.posX < 1200) {
+        player_2_shoot.posX += 5;
+        bufferctx.drawImage(player_2_shoot.image, player_2_shoot.posX, player_2_shoot.posY, player_2_shoot.x, player_2_shoot.y);            
+      } else {
+        player_2_shoot.deleteShot(parseInt(player_2_shoot.identifier));
+      }
+    }
+  }
+}
+
+function updateEnemy_1_Shoot(enemy_1_shoot, id) {
+  if (enemy_1_shoot) {
+      enemy_1_shoot.identifier = id;
+      //if (!enemy_1_shoot.isHittingPlayer()) {
+          if (enemy_1_shoot.posX >= 0) {
+            //console.log("eaaa");
+            enemy_1_shoot.posX -= 5
+            bufferctx.drawImage(enemy_1_shoot.image, enemy_1_shoot.posX, enemy_1_shoot.posY, enemy_1_shoot.x, enemy_1_shoot.y);
+          } else {
+            enemy_1_shoot.deleteShot(parseInt(enemy_1_shoot.identifier));
+          }
+      //} else {
+      //    player.killPlayer();
+      //}
+  }
+}
 // ---------------------------------------------------------------- Fin disparos ---------------------------------------------------------------
 
 // ------------------------------------------------------------------ Teclado ------------------------------------------------------------------
@@ -590,7 +687,6 @@ Enemigo_1.prototype.constructor = Enemigo_1;
             keyPressed[inkey] = true;
         }
     }
-    console.log("keydown con exito");
   }
   // tecla soltada
   function keyUp(e) {
@@ -601,7 +697,6 @@ Enemigo_1.prototype.constructor = Enemigo_1;
             keyPressed[inkey] = false;
         }
     }
-    console.log("keyup con exito");
   }
   
 // ---------------------------------------------------------------- Fin teclado ----------------------------------------------------------------
@@ -623,8 +718,6 @@ Enemigo_1.prototype.constructor = Enemigo_1;
     
     drawPlayers ();
     /*
-    bufferctx.drawImage(evil.image, evil.posX, evil.posY);
-
     updateEvil();
     */    
     drawShoots ();
@@ -648,12 +741,8 @@ Enemigo_1.prototype.constructor = Enemigo_1;
 // ------------------------------------------------------------ Funciones de pintado -----------------------------------------------------------
   // pintado del fondo de pantalla
   function drawBackground() {
-    var background;/*
-    if (evil instanceof FinalBoss) {
-      background = bgBoss;
-    } else {*/
-      background = fondo_principal;/*
-    }*/
+    var background;
+    background = fondo_principal;
     bufferctx.drawImage(background, 0, 0);
   }
 
@@ -682,6 +771,11 @@ Enemigo_1.prototype.constructor = Enemigo_1;
       var disparoBueno = player_2_bullets[j];
       updatePlayer_2_Shoot(disparoBueno, j);
     }
+    for (var i = 0; i < enemy_1_bullets.length; i++) {
+      //console.log("actualizando");
+      var disparoMalo = enemy_1_bullets[i];
+      updateEnemy_1_Shoot(disparoMalo, i);
+    }
   }
 
   // interfaz del juego
@@ -689,10 +783,55 @@ Enemigo_1.prototype.constructor = Enemigo_1;
     bufferctx.fillStyle="rgb(256,256,256)";
     bufferctx.font="bold 16px Arial";
     if(Jugadores == 2){
-      bufferctx.drawImage(player_1_life_sprite, 0, 10, 75, 25 );
-      bufferctx.drawImage(player_2_life_sprite, 0, 40, 75, 25 );
+      switch(player_1.life){
+        case 3:
+          bufferctx.drawImage(player_1_life_sprite, 0, 10, 35, 35 );
+          bufferctx.drawImage(player_1_life_sprite, 40, 10, 35, 35 );
+          bufferctx.drawImage(player_1_life_sprite, 80, 10, 35, 35 );
+          break;
+        case 2:
+          bufferctx.drawImage(player_1_life_sprite, 0, 10, 35, 35 );
+          bufferctx.drawImage(player_1_life_sprite, 40, 10, 35, 35 );
+          break;
+        case 1:
+          bufferctx.drawImage(player_1_life_sprite, 0, 10, 35, 35 );
+          break;
+        case 0:
+          break;
+      }
+      switch(player_2.life){
+        case 3:
+          bufferctx.drawImage(player_2_life_sprite, 0, 50, 35, 35 );
+          bufferctx.drawImage(player_2_life_sprite, 40, 50, 35, 35 );
+          bufferctx.drawImage(player_2_life_sprite, 80, 50, 35, 35 );
+          break;
+        case 2:
+          bufferctx.drawImage(player_2_life_sprite, 0, 50, 35, 35 );
+          bufferctx.drawImage(player_2_life_sprite, 40, 50, 35, 35 );
+          break;
+        case 1:
+          bufferctx.drawImage(player_2_life_sprite, 0, 50, 35, 35 );
+          break;
+        case 0:
+          break;        
+      }
     }else{
-      bufferctx.drawImage(player_1_life_sprite, 0, 10, 75, 25 );
+      switch(player_1.life){
+        case 3:
+          bufferctx.drawImage(player_1_life_sprite, 0, 10, 35, 35 );
+          bufferctx.drawImage(player_1_life_sprite, 40, 10, 35, 35 );
+          bufferctx.drawImage(player_1_life_sprite, 80, 10, 35, 35 );
+          break;
+        case 2:
+          bufferctx.drawImage(player_1_life_sprite, 0, 10, 35, 35 );
+          bufferctx.drawImage(player_1_life_sprite, 40, 10, 35, 35 );
+          break;
+        case 1:
+          bufferctx.drawImage(player_1_life_sprite, 0, 10, 35, 35 );
+          break;
+        case 0:
+          break;
+      }
     }   
   }
 
@@ -710,3 +849,12 @@ Enemigo_1.prototype.constructor = Enemigo_1;
 })();
 
 
+/* ------------------------------------------------------- Notas de cara a programar -----------------------------------------------------------
+  
+  Para ordenar las imagenes en torno al eje z, añadiremos una propiedad a cada elemento a dibujar que sera 'eje z' y este cambiará
+  en función de la profundiad que haya.
+
+  Posteriormente crearemos un metodo que los ordene de mayor profundidad a menor, y acto seguido se dibujaran. Este metodo se llamara cada vez
+  que se vaya a dibujar en pantalla
+*/ 
+// ----------------------------------------------------- Fin Notas de cara a programar ---------------------------------------------------------
