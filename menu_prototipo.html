@@ -17,7 +17,6 @@
 			function PlayMusic(){
 				myMusic= new sound("sound/bg_music.mp3");
 				myMusic.play();
-
 			}
 
 			//Clase que coge sonido y crea los objetos para que se reproduzca. 
@@ -49,21 +48,11 @@
 			var height = canvas.getAttribute('height');
 			// funciones de resize
 			$(function(){
-    			resizeCanvas();
+    				resizeCanvas();
 			});
 			$(window).on('resize', function(){
-    			resizeCanvas();
+    				resizeCanvas();
 			});
-			fullscreen = function(e){
-				  if (e.webkitRequestFullScreen) {
-					e.webkitRequestFullScreen();
-				  } else if(e.mozRequestFullScreen) {
-					e.mozRequestFullScreen();
-				  }
-			  }
-			document.getElementById('myCanvas').onclick = function(){
-				fullscreen(document.getElementById('myCanvas'));
-			}
 		
 			//Variables para las imagenes
 			var bgImage = new Image();
@@ -107,19 +96,19 @@
 			settingsImage.src = "images/settings.png";
 			creditsImage.src = "images/credits.png"
 			bgImage.onload = function(){
-			context.drawImage(bgImage, 0, 0);
+				context.drawImage(bgImage, 0, 0);
 			};
 			logoImage.onload = function(){
-			context.drawImage(logoImage, 50, -10);
+				context.drawImage(logoImage, 50, -10);
 			}
 			playImage.onload = function(){
-			context.drawImage(playImage, buttonX[0], buttonY[0]);
+				context.drawImage(playImage, buttonX[0], buttonY[0]);
 			}
 			instructImage.onload = function(){
-			context.drawImage(instructImage, buttonX[1], buttonY[1]);
+				context.drawImage(instructImage, buttonX[1], buttonY[1]);
 			}
 			settingsImage.onload = function(){
-			context.drawImage(settingsImage, buttonX[2], buttonY[2]);
+				context.drawImage(settingsImage, buttonX[2], buttonY[2]);
 			}
 			creditsImage.onload = function(){
 				context.drawImage(creditsImage, buttonX[3], buttonY[3]);
@@ -173,75 +162,6 @@
 				context.drawImage(shipImage, shipX[0] - (shipSize/2), shipY[0], shipSize, shipHeight);
 				context.drawImage(shipImage, shipX[1] - (shipSize/2), shipY[1], shipSize, shipHeight);
 			}
-			//Comprueba la posicion del raton para saber como interactuar con el
-			function checkPos(){
-				/*
-				if(mouseEvent.pageX || mouseEvent.pageY == 0){
-					mouseX = mouseEvent.pageX - this.offsetLeft;
-					mouseY = mouseEvent.pageY - this.offsetTop;
-				}else if(mouseEvent.offsetX || mouseEvent.offsetY == 0){
-					mouseX = mouseEvent.offsetX;
-					mouseY = mouseEvent.offsetY;
-				}*/
-				for(i = 0; i < buttonX.length; i++){
-					if(mouseX[mouse_index] > buttonX[i] && mouseX[mouse_index] < buttonX[i] + buttonWidth[i]){
-						if(mouseY[mouse_index] > buttonY[i] && mouseY[mouse_index] < buttonY[i] + buttonHeight[i]){
-							//console.log(mouseX[mouse_index] + " " + buttonX[i] + " " + mouseY[mouse_index] + " " + buttonY[i]);
-							//console.log(mouseX[mouse_index] + " " + (buttonX[i] + buttonWidth[i]) + " " + mouseY[mouse_index] + " " + (buttonY[i] + buttonHeight[i]));
-							shipVisible = true;
-							console.log(mouse_index + " " + shipVisible);
-							shipX[0] = buttonX[i] - (shipWidth/2) - 2;
-							shipY[0] = buttonY[i] + 2;
-							shipX[1] = buttonX[i] + buttonWidth[i] + (shipWidth/2); 
-							shipY[1] = buttonY[i] + 2;
-							//console.log(shipX[0] + " " + shipY[0] + " " + shipX[1] + " " + shipY[0]);
-							draw_ship ();
-						}
-					}else{
-						shipVisible = false;
-					}
-				}
-			}
-			//Comprueba los click del raton
-			function checkClick(){
-				for(i = 0; i < buttonX.length; i++){
-					/*
-					if(mouseX > buttonX[i] && mouseX < buttonX[i] + buttonWidth[i]){
-						if(mouseY > buttonY[i] && mouseY < buttonY[i] + buttonHeight[i]){
-							fadeId = setInterval("fadeOut()", 1000/frames);
-							clearInterval(timerId);
-							canvas.removeEventListener("mousemove", checkPos);
-							canvas.removeEventListener("mouseup", checkClick);
-						}
-					}*/
-					if(mouseX[mouse_index] > buttonX[0] && mouseX[mouse_index] < buttonX[0] + buttonWidth[0]){
-						if(mouseY[mouseX] > buttonY[0] && mouseY[mouse_index] < buttonY[0] + buttonHeight[0]){
-							fadeId = setInterval("fadeOut()", 1000/frames);
-							clearInterval(timerId);
-							/*
-							canvas.removeEventListener("mousemove", checkPos);
-							canvas.removeEventListener("mouseup", checkClick);
-							*/
-							var Jugadores = 1;
-							localStorage.setItem("jugadores", Jugadores);
-							window.location.href = "juego.html";
-						}
-					}
-					if(mouseX[mouse_index] > buttonX[1] && mouseX[mouse_index] < buttonX[1] + buttonWidth[1]){
-						if(mouseY[mouse_index] > buttonY[1] && mouseY[mouse_index] < buttonY[1] + buttonHeight[1]){
-							fadeId = setInterval("fadeOut()", 1000/frames);
-							clearInterval(timerId);
-							/*
-							canvas.removeEventListener("mousemove", checkPos);
-							canvas.removeEventListener("mouseup", checkClick);
-							*/
-							var Jugadores = 2;
-							localStorage.setItem("jugadores", Jugadores);
-							window.location.href = "juego.html";
-						}
-					}
-				}
-			}
 			//Pone la pantalla a negro cuando se clica en uno de los botones
 			function fadeOut(){
 				context.fillStyle = "rgba(0,0,0, 0.2)";
@@ -269,9 +189,7 @@
 			document.onkeydown = async function(e) {
 				   e = e || window.event; 
 				   if(e.keyCode == control.up){
-
 					myMusic.changeVolume(1.0);//Test pa que veais que tira
-
 					   if(mouse_index > 0){
 						   mouse_index -= 1;
 					   }
