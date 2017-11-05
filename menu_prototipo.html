@@ -282,15 +282,19 @@
 								localStorage.setItem("jugadores", Jugadores);
 								window.location.href = "juego.html";
 								break;
-							case 2:
-								fadeOut();
+							case 2:							    
+							    fadeOut();							   
 								break;
-							case 3:
-								fadeOut();
+						    case 3:
+						        await sleep(500);
+						        fadeOut();
+						        window.location.href = "creditos.html";
 								break;
 						}
 				   }
 			}
+
+
 		</script> 
 	</body>
 </html> 
