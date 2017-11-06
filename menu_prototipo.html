@@ -4,9 +4,10 @@
 		<title>Katwaii</title>
 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+		<link rel="icon" href="images/huella_gato.png">
 	</head>
 
-	<body>
+	<body onload="PlayMusic()">
 		<!--Canvas para el menu-->
 		<canvas id="myCanvas" width="1200" height="600"><p>Your browser does not support HTML5!</p></canvas> 
 		<script type="text/javascript">
@@ -18,18 +19,47 @@
 					return navigator.userAgent.match(/BlackBerry/i);
   				},
   				iOS: function() {
-      				return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+      					return navigator.userAgent.match(/iPhone|iPad|iPod/i);
   				},
   				Opera: function() {
-      				return navigator.userAgent.match(/Opera Mini/i);
+      					return navigator.userAgent.match(/Opera Mini/i);
   				},
   				Windows: function() {
-      				return navigator.userAgent.match(/IEMobile/i);
+      					return navigator.userAgent.match(/IEMobile/i);
   				},
   				any: function() {
-      				return (SMARTPHONE.Android() || SMARTPHONE.BlackBerry() || SMARTPHONE.iOS() || SMARTPHONE.Opera() || SMARTPHONE.Windows());
+      					return (SMARTPHONE.Android() || SMARTPHONE.BlackBerry() || SMARTPHONE.iOS() || SMARTPHONE.Opera() || SMARTPHONE.Windows());
   				}
 			};
+			
+			//variable que contiene la música de fondo
+			var myMusic;
+			//Crea la música y la reproduce
+			function PlayMusic(){
+				myMusic= new sound("sound/bg_music.mp3");
+				myMusic.play();
+			}
+
+			//Clase que coge sonido y crea los objetos para que se reproduzca. 
+			function sound(src) {
+    			this.sound = document.createElement("audio");
+				this.sound.src = src;
+				this.sound.setAttribute("preload", "auto");
+				this.sound.setAttribute("controls", "volume");
+				this.sound.volume=0.1;
+				this.sound.style.display = "none";
+				document.body.appendChild(this.sound);
+				this.play = function(){
+					this.sound.play();
+				}
+				this.stop = function(){
+					this.sound.pause();
+				}  
+				//Esta funcion cambia el volumen
+				this.changeVolume= function(newVolume){
+					this.sound.volume=newVolume;
+				}  
+			}
 			
 			var control = {up: 38, enter: 13, down:40};
 			//Declarar el canvas, con sus variables
@@ -39,21 +69,12 @@
 			var height = canvas.getAttribute('height');
 			// funciones de resize
 			$(function(){
-    			resizeCanvas();
+    				resizeCanvas();
 			});
 			$(window).on('resize', function(){
-    			resizeCanvas();
+    				resizeCanvas();
 			});
-			fullscreen = function(e){
-				  if (e.webkitRequestFullScreen) {
-					e.webkitRequestFullScreen();
-				  } else if(e.mozRequestFullScreen) {
-					e.mozRequestFullScreen();
-				  }
-			  }
-			document.getElementById('myCanvas').onclick = function(){
-				fullscreen(document.getElementById('myCanvas'));
-			}
+
 		
 			//Variables para las imagenes
 			var bgImage = new Image();
@@ -97,19 +118,19 @@
 			settingsImage.src = "images/settings.png";
 			creditsImage.src = "images/credits.png"
 			bgImage.onload = function(){
-			context.drawImage(bgImage, 0, 0);
+				context.drawImage(bgImage, 0, 0);
 			};
 			logoImage.onload = function(){
-			context.drawImage(logoImage, 50, -10);
+				context.drawImage(logoImage, 50, -10);
 			}
 			playImage.onload = function(){
-			context.drawImage(playImage, buttonX[0], buttonY[0]);
+				context.drawImage(playImage, buttonX[0], buttonY[0]);
 			}
 			instructImage.onload = function(){
-			context.drawImage(instructImage, buttonX[1], buttonY[1]);
+				context.drawImage(instructImage, buttonX[1], buttonY[1]);
 			}
 			settingsImage.onload = function(){
-			context.drawImage(settingsImage, buttonX[2], buttonY[2]);
+				context.drawImage(settingsImage, buttonX[2], buttonY[2]);
 			}
 			creditsImage.onload = function(){
 				context.drawImage(creditsImage, buttonX[3], buttonY[3]);
@@ -164,14 +185,6 @@
 			}
 			//Comprueba la posicion del raton para saber como interactuar con el
 			function checkPos(){
-				/*
-				if(mouseEvent.pageX || mouseEvent.pageY == 0){
-					mouseX = mouseEvent.pageX - this.offsetLeft;
-					mouseY = mouseEvent.pageY - this.offsetTop;
-				}else if(mouseEvent.offsetX || mouseEvent.offsetY == 0){
-					mouseX = mouseEvent.offsetX;
-					mouseY = mouseEvent.offsetY;
-				}*/
 				for(i = 0; i < buttonX.length; i++){
 					if(mouseX[mouse_index] > buttonX[i] && mouseX[mouse_index] < buttonX[i] + buttonWidth[i]){
 						if(mouseY[mouse_index] > buttonY[i] && mouseY[mouse_index] < buttonY[i] + buttonHeight[i]){
@@ -247,9 +260,9 @@
 				}
 			}
 			function resizeCanvas() {
-    			var canvas = $('#myCanvas');
-    			canvas.css("width", $(window).width());
-    			canvas.css("height", $(window).height());
+				var canvas = $('#myCanvas');
+				canvas.css("width", $(window).width());
+				canvas.css("height", $(window).height());
 			}
 			function sleep(ms) {
   				return new Promise(resolve => setTimeout(resolve, ms));
@@ -290,7 +303,9 @@
 								fadeOut();
 								break;
 							case 3:
-								fadeOut();
+								await sleep(500);
+						        	fadeOut();
+						        	window.location.href = "creditos.html";
 								break;
 						}
 				   }
