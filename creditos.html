@@ -44,11 +44,30 @@
             function retroceder() {
                 window.location.href = "menu_prototipo.html";
             };
-
             
+            //Idioma
+            var eng = 0; //1 para ingles
+            var credEng = "Credits";
+            var credSpa = "Créditos";
+            var txtEng = "Game developed by:";
+            var txtSpa = "Juego desarrollado por:";
+
             window.onload = function () {
                 window.addEventListener("keydown", manejaTeclado, false);
+
+                eng = localStorage.getItem("idioma");
+                console.log("id: " + eng);
+                if (eng == 1) {
+                    console.log("ingles")
+                    document.getElementById("header_creditos").innerHTML = credEng;
+                    document.getElementById("devby").innerHTML = txtEng;
+                } else if (eng == 0) {
+                    console.log("español");
+                    document.getElementById("header_creditos").innerHTML = credSpa;
+                    document.getElementById("devby").innerHTML = txtSpa;
+                }
             };
+
 
             //Retroceder tambien con la tecla delete/return
             function manejaTeclado(e) {
@@ -56,6 +75,8 @@
                     retroceder();
                 }
             };
+
+            
         </script>
         
     </body>

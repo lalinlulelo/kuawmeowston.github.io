@@ -21,6 +21,9 @@
 				myMusic.play();
 			}
 
+		    //Variable para indicar si esta en ingles
+			var eng = 0; //por defecto sale en español
+
 			//Clase que coge sonido y crea los objetos para que se reproduzca. 
 			function sound(src) {
     			this.sound = document.createElement("audio");
@@ -64,6 +67,11 @@
 			var settingsImage = new Image();
 			var creditsImage = new Image();
 			var shipImage = new Image();
+			var spFlagImage = new Image ();
+			var ukFlagImage = new Image ();
+			var spFlagImageB = new Image (); //con borde
+			var ukFlagImageB = new Image (); //con borde
+
 			//Posiblemete borrable: Es para que el fondo se mueva hacia arriba 
 			var backgroundY = 0;
 			var speed = 1;
@@ -96,7 +104,12 @@
 			playImage.src = "images/play.png";
 			instructImage.src = "images/instructions.png";
 			settingsImage.src = "images/settings.png";
-			creditsImage.src = "images/credits.png"
+			creditsImage.src = "images/credits.png";
+			spFlagImage.src = "images/spain_flag.png";
+			ukFlagImage.src = "images/uk_flag.png";
+			spFlagImageB.src = "images/spain_flagB.png"; //con borde
+			ukFlagImageB.src = "images/uk_flagB.png"; //con borde
+
 			bgImage.onload = function(){
 				context.drawImage(bgImage, 0, 0);
 			};
@@ -115,6 +128,14 @@
 			creditsImage.onload = function(){
 				context.drawImage(creditsImage, buttonX[3], buttonY[3]);
 			}
+			spFlagImage.onload = function() {
+			    context.drawImage(spFlagImage, 0, 0, 50, 50);
+			}
+			ukFlagImage.onload = function() {
+			    context.drawImage(ukFlagImage, 55, 0, 50, 50);
+			}
+
+
 			//intervalo de refresco del canvas
 			timerId = setInterval("update()", 1000/frames);
 			//metodos para controlar el raton
@@ -156,6 +177,16 @@
 				context.drawImage(instructImage, buttonX[1], buttonY[1]);
 				context.drawImage(settingsImage, buttonX[2], buttonY[2]);
 				context.drawImage(creditsImage, buttonX[3], buttonY[3]);
+
+			    //Las banderas se dibujan segun lo que este seleccionado
+				if(eng) {
+				    context.drawImage(spFlagImage, 0, 0, 55, 55); //normal
+				    context.drawImage(ukFlagImageB, 60, 0, 55, 55); //con borde
+				} else {
+				    context.drawImage(spFlagImageB, 0, 0, 55, 55); //con borde
+				    context.drawImage(ukFlagImage, 60, 0, 55, 55); //normal
+				}
+
 				if(shipVisible == true){
 					draw_ship();
 				}
@@ -290,12 +321,22 @@
 						    case 3:
 						        await sleep(500);
 						        fadeOut();
+						        console.log("Idioma: "+eng);
+						        localStorage.setItem("idioma", eng); //guardar variable que indica el idioma
 						        window.location.href = "creditos.html";
 								break;
 						}
 				   }
+                //Selecciona idioma ingles
+				if(e.keyCode === 69) {
+				    eng = 1;
+				    console.log("English");
+				}
+				if(e.keyCode === 83) {
+				    eng = 0;
+				    console.log("Spanish");
+				}
 			}
-
 
 		</script> 
 	</body>
