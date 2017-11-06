@@ -9,10 +9,34 @@ window.requestAnimFrame = (function () {
           window.setTimeout(callback, 1000 / 60);
       };
 })();
+// si es navegador FIREFOX
 var FIREFOX = /Firefox/i.test(navigator.userAgent);
-
+// si es smartphone
+var SMARTPHONE = {
+  Android: function() {
+      return navigator.userAgent.match(/Android/i);
+  },
+  BlackBerry: function() {
+      return navigator.userAgent.match(/BlackBerry/i);
+  },
+  iOS: function() {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+  },
+  Opera: function() {
+      return navigator.userAgent.match(/Opera Mini/i);
+  },
+  Windows: function() {
+      return navigator.userAgent.match(/IEMobile/i);
+  },
+  any: function() {
+      return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+  }
+};
+// juego
 var game = (function () {
-  if(FIREFOX){
+if(SMARTPHONE.any()){
+  alert("Usas smartphone");
+} else if(FIREFOX){
     // ------------------------------------------------------ Inicializacion de las variables ------------------------------------------------------
     // variables globales de la aplicacion
     var canvas;
