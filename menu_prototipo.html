@@ -30,9 +30,7 @@
       				return (SMARTPHONE.Android() || SMARTPHONE.BlackBerry() || SMARTPHONE.iOS() || SMARTPHONE.Opera() || SMARTPHONE.Windows());
   				}
 			};
-			if(SMARTPHONE.any()){
-				  alert("Usas smartphone");
-			}
+			
 			var control = {up: 38, enter: 13, down:40};
 			//Declarar el canvas, con sus variables
 			var canvas = document.getElementById("myCanvas");
@@ -256,7 +254,9 @@
 			function sleep(ms) {
   				return new Promise(resolve => setTimeout(resolve, ms));
 			}
-
+			if(SMARTPHONE.any()){
+				bgImage.src = "http://dexpierta.com/wp-content/uploads/2014/03/18485898.jpeg";	  
+			}
 			document.onkeydown = async function(e) {
 				   e = e || window.event; 
 				   if(e.keyCode == control.up){
