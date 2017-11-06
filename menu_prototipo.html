@@ -4,47 +4,35 @@
 		<title>Katwaii</title>
 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="icon" href="images/huella_gato.png">
 	</head>
 
-	<body onload="PlayMusic()">
+	<body>
 		<!--Canvas para el menu-->
 		<canvas id="myCanvas" width="1200" height="600"><p>Your browser does not support HTML5!</p></canvas> 
-
 		<script type="text/javascript">
-			//variable que contiene la música de fondo
-			var myMusic;
-			//Crea la música y la reproduce
-			function PlayMusic(){
-				myMusic= new sound("sound/bg_music.mp3");
-				myMusic.play();
+			var SMARTPHONE = {
+  				Android: function() {
+					return navigator.userAgent.match(/Android/i);
+  				},
+  				BlackBerry: function() {
+					return navigator.userAgent.match(/BlackBerry/i);
+  				},
+  				iOS: function() {
+      				return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+  				},
+  				Opera: function() {
+      				return navigator.userAgent.match(/Opera Mini/i);
+  				},
+  				Windows: function() {
+      				return navigator.userAgent.match(/IEMobile/i);
+  				},
+  				any: function() {
+      				return (SMARTPHONE.Android() || SMARTPHONE.BlackBerry() || SMARTPHONE.iOS() || SMARTPHONE.Opera() || SMARTPHONE.Windows());
+  				}
+			};
+			if(SMARTPHONE.any()){
+				  alert("Usas smartphone");
 			}
-
-		    //Variable para indicar si esta en ingles
-			var eng = 0; //por defecto sale en español
-
-			//Clase que coge sonido y crea los objetos para que se reproduzca. 
-			function sound(src) {
-    			this.sound = document.createElement("audio");
-				this.sound.src = src;
-				this.sound.setAttribute("preload", "auto");
-				this.sound.setAttribute("controls", "volume");
-				this.sound.volume=0.1;
-				this.sound.style.display = "none";
-				document.body.appendChild(this.sound);
-				this.play = function(){
-					this.sound.play();
-				}
-				this.stop = function(){
-					this.sound.pause();
-				}  
-				//Esta funcion cambia el volumen
-				this.changeVolume= function(newVolume){
-					this.sound.volume=newVolume;
-				}  
-			}
-
 			var control = {up: 38, enter: 13, down:40};
 			//Declarar el canvas, con sus variables
 			var canvas = document.getElementById("myCanvas");
@@ -53,11 +41,21 @@
 			var height = canvas.getAttribute('height');
 			// funciones de resize
 			$(function(){
-    				resizeCanvas();
+    			resizeCanvas();
 			});
 			$(window).on('resize', function(){
-    				resizeCanvas();
+    			resizeCanvas();
 			});
+			fullscreen = function(e){
+				  if (e.webkitRequestFullScreen) {
+					e.webkitRequestFullScreen();
+				  } else if(e.mozRequestFullScreen) {
+					e.mozRequestFullScreen();
+				  }
+			  }
+			document.getElementById('myCanvas').onclick = function(){
+				fullscreen(document.getElementById('myCanvas'));
+			}
 		
 			//Variables para las imagenes
 			var bgImage = new Image();
@@ -67,11 +65,6 @@
 			var settingsImage = new Image();
 			var creditsImage = new Image();
 			var shipImage = new Image();
-			var spFlagImage = new Image ();
-			var ukFlagImage = new Image ();
-			var spFlagImageB = new Image (); //con borde
-			var ukFlagImageB = new Image (); //con borde
-
 			//Posiblemete borrable: Es para que el fondo se mueva hacia arriba 
 			var backgroundY = 0;
 			var speed = 1;
@@ -104,38 +97,25 @@
 			playImage.src = "images/play.png";
 			instructImage.src = "images/instructions.png";
 			settingsImage.src = "images/settings.png";
-			creditsImage.src = "images/credits.png";
-			spFlagImage.src = "images/spain_flag.png";
-			ukFlagImage.src = "images/uk_flag.png";
-			spFlagImageB.src = "images/spain_flagB.png"; //con borde
-			ukFlagImageB.src = "images/uk_flagB.png"; //con borde
-
+			creditsImage.src = "images/credits.png"
 			bgImage.onload = function(){
-				context.drawImage(bgImage, 0, 0);
+			context.drawImage(bgImage, 0, 0);
 			};
 			logoImage.onload = function(){
-				context.drawImage(logoImage, 50, -10);
+			context.drawImage(logoImage, 50, -10);
 			}
 			playImage.onload = function(){
-				context.drawImage(playImage, buttonX[0], buttonY[0]);
+			context.drawImage(playImage, buttonX[0], buttonY[0]);
 			}
 			instructImage.onload = function(){
-				context.drawImage(instructImage, buttonX[1], buttonY[1]);
+			context.drawImage(instructImage, buttonX[1], buttonY[1]);
 			}
 			settingsImage.onload = function(){
-				context.drawImage(settingsImage, buttonX[2], buttonY[2]);
+			context.drawImage(settingsImage, buttonX[2], buttonY[2]);
 			}
 			creditsImage.onload = function(){
 				context.drawImage(creditsImage, buttonX[3], buttonY[3]);
 			}
-			spFlagImage.onload = function() {
-			    context.drawImage(spFlagImage, 0, 0, 50, 50);
-			}
-			ukFlagImage.onload = function() {
-			    context.drawImage(ukFlagImage, 55, 0, 50, 50);
-			}
-
-
 			//intervalo de refresco del canvas
 			timerId = setInterval("update()", 1000/frames);
 			//metodos para controlar el raton
@@ -145,7 +125,6 @@
 			*/
 			//Actualiza los frames
 			function update() {
-				//PlayMusic();
 				clear();
 				move();
 				draw();
@@ -177,23 +156,24 @@
 				context.drawImage(instructImage, buttonX[1], buttonY[1]);
 				context.drawImage(settingsImage, buttonX[2], buttonY[2]);
 				context.drawImage(creditsImage, buttonX[3], buttonY[3]);
-
-			    //Las banderas se dibujan segun lo que este seleccionado
-				if(eng) {
-				    context.drawImage(spFlagImage, 0, 0, 55, 55); //normal
-				    context.drawImage(ukFlagImageB, 60, 0, 55, 55); //con borde
-				} else {
-				    context.drawImage(spFlagImageB, 0, 0, 55, 55); //con borde
-				    context.drawImage(ukFlagImage, 60, 0, 55, 55); //normal
-				}
-
 				if(shipVisible == true){
 					draw_ship();
 				}
 			}
-			
+			function draw_ship (){
+				context.drawImage(shipImage, shipX[0] - (shipSize/2), shipY[0], shipSize, shipHeight);
+				context.drawImage(shipImage, shipX[1] - (shipSize/2), shipY[1], shipSize, shipHeight);
+			}
 			//Comprueba la posicion del raton para saber como interactuar con el
-			function checkPos(mouseEvent){
+			function checkPos(){
+				/*
+				if(mouseEvent.pageX || mouseEvent.pageY == 0){
+					mouseX = mouseEvent.pageX - this.offsetLeft;
+					mouseY = mouseEvent.pageY - this.offsetTop;
+				}else if(mouseEvent.offsetX || mouseEvent.offsetY == 0){
+					mouseX = mouseEvent.offsetX;
+					mouseY = mouseEvent.offsetY;
+				}*/
 				for(i = 0; i < buttonX.length; i++){
 					if(mouseX[mouse_index] > buttonX[i] && mouseX[mouse_index] < buttonX[i] + buttonWidth[i]){
 						if(mouseY[mouse_index] > buttonY[i] && mouseY[mouse_index] < buttonY[i] + buttonHeight[i]){
@@ -213,9 +193,8 @@
 					}
 				}
 			}
-			
 			//Comprueba los click del raton
-			function checkClick(mouseEvent){
+			function checkClick(){
 				for(i = 0; i < buttonX.length; i++){
 					/*
 					if(mouseX > buttonX[i] && mouseX < buttonX[i] + buttonWidth[i]){
@@ -226,8 +205,8 @@
 							canvas.removeEventListener("mouseup", checkClick);
 						}
 					}*/
-					if(mouseX > buttonX[0] && mouseX < buttonX[0] + buttonWidth[0]){
-						if(mouseY > buttonY[0] && mouseY < buttonY[0] + buttonHeight[0]){
+					if(mouseX[mouse_index] > buttonX[0] && mouseX[mouse_index] < buttonX[0] + buttonWidth[0]){
+						if(mouseY[mouseX] > buttonY[0] && mouseY[mouse_index] < buttonY[0] + buttonHeight[0]){
 							fadeId = setInterval("fadeOut()", 1000/frames);
 							clearInterval(timerId);
 							/*
@@ -239,8 +218,8 @@
 							window.location.href = "juego.html";
 						}
 					}
-					if(mouseX > buttonX[1] && mouseX < buttonX[1] + buttonWidth[1]){
-						if(mouseY > buttonY[1] && mouseY < buttonY[1] + buttonHeight[1]){
+					if(mouseX[mouse_index] > buttonX[1] && mouseX[mouse_index] < buttonX[1] + buttonWidth[1]){
+						if(mouseY[mouse_index] > buttonY[1] && mouseY[mouse_index] < buttonY[1] + buttonHeight[1]){
 							fadeId = setInterval("fadeOut()", 1000/frames);
 							clearInterval(timerId);
 							/*
@@ -253,11 +232,6 @@
 						}
 					}
 				}
-			}
-			
-			function draw_ship (){
-				context.drawImage(shipImage, shipX[0] - (shipSize/2), shipY[0], shipSize, shipHeight);
-				context.drawImage(shipImage, shipX[1] - (shipSize/2), shipY[1], shipSize, shipHeight);
 			}
 			//Pone la pantalla a negro cuando se clica en uno de los botones
 			function fadeOut(){
@@ -275,9 +249,9 @@
 				}
 			}
 			function resizeCanvas() {
-				var canvas = $('#myCanvas');
-				canvas.css("width", $(window).width());
-				canvas.css("height", $(window).height());
+    			var canvas = $('#myCanvas');
+    			canvas.css("width", $(window).width());
+    			canvas.css("height", $(window).height());
 			}
 			function sleep(ms) {
   				return new Promise(resolve => setTimeout(resolve, ms));
@@ -286,13 +260,9 @@
 			document.onkeydown = async function(e) {
 				   e = e || window.event; 
 				   if(e.keyCode == control.up){
-					myMusic.changeVolume(1.0);//Test pa que veais que tira
 					   if(mouse_index > 0){
 						   mouse_index -= 1;
 					   }
-				   }
-				   if(e.keyCode== 119){
-
 				   }
 				   if(e.keyCode == control.down){
 						if(mouse_index < 3){
@@ -315,29 +285,15 @@
 								localStorage.setItem("jugadores", Jugadores);
 								window.location.href = "juego.html";
 								break;
-							case 2:							    
-							    fadeOut();							   
+							case 2:
+								fadeOut();
 								break;
-						    case 3:
-						        await sleep(500);
-						        fadeOut();
-						        console.log("Idioma: "+eng);
-						        localStorage.setItem("idioma", eng); //guardar variable que indica el idioma
-						        window.location.href = "creditos.html";
+							case 3:
+								fadeOut();
 								break;
 						}
 				   }
-                //Selecciona idioma ingles
-				if(e.keyCode === 69) {
-				    eng = 1;
-				    console.log("English");
-				}
-				if(e.keyCode === 83) {
-				    eng = 0;
-				    console.log("Spanish");
-				}
 			}
-
 		</script> 
 	</body>
 </html> 
