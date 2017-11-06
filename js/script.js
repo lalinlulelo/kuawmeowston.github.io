@@ -29,7 +29,7 @@ var SMARTPHONE = {
       return navigator.userAgent.match(/IEMobile/i);
   },
   any: function() {
-      return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+      return (SMARTPHONE.Android() || SMARTPHONE.BlackBerry() || SMARTPHONE.iOS() || SMARTPHONE.Opera() || SMARTPHONE.Windows());
   }
 };
 // juego
