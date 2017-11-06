@@ -762,7 +762,7 @@ var game = (function () {
       if(Jugadores == 2){
         bufferctx.drawImage(player_2, player_2.posX, player_2.posY + 270, player_2_carril.x, player_2_carril.y);
       }
-      bufferctx.drawImage(enemy_1, enemy_1.posX, enemy_1.posY + 270, enemy_1_carril.x, enemy_1_carril.y);
+      bufferctx.drawImage(enemy_1, enemy_1.posX, enemy_1.posY + 260, enemy_1_carril.x, enemy_1_carril.y);
     }
 
     // pinta las balas de los personajes
