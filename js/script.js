@@ -47,7 +47,7 @@ var game = (function () {
     var player_2_bullet;
     var player_2_bullets = [];
     var player_2_killed;
-    var player_2_speed = 5;
+    var player_2_speed = 12;
     var player_2_shoot;
     var player_2_next_shoot;
     var player_2_now = 0;
@@ -117,7 +117,7 @@ var game = (function () {
     // gameloop
     function loop () {
       update ();
-      console.log(player_1.posY);
+      console.log(player_1.posX);
       // resize de la pantalla
       resizeCanvas();
     }
@@ -287,9 +287,9 @@ var game = (function () {
       player_1.doAnything = function() {
         if (player_1.dead)
             return;
-        if (keyPressed.p1_left && (player_1.posX > (-120*player_1.posY + 56850)))
+        if (keyPressed.p1_left && (player_1.posX > ((player_1.posY - 199.67)/(-0.008333))))
             player_1.posX -= player_1.speed;
-        if (keyPressed.p1_right && (player_1.posX < (-120*player_1.posY + 57215)))
+        if (keyPressed.p1_right && (player_1.posX < ((player_1.posY - 202.867)/(-0.008333))))
             player_1.posX += player_1.speed;
         if(keyPressed.p1_up && (player_1.posY > 199.1)){
             player_1.posY -= 0.05;
@@ -368,9 +368,9 @@ var game = (function () {
       player_2.doAnything = function() {
         if (player_2.dead)
             return;
-        if (keyPressed.p2_left && (player_2.posX > (-120*player_2.posY + 56850)))
+        if (keyPressed.p2_left && (player_2.posX > ((player_2.posY - 199.67)/(-0.008333))))
             player_2.posX -= player_2.speed;
-        if (keyPressed.p2_right && (player_2.posX < (-120*player_2.posY + 57215)))
+        if (keyPressed.p2_right && (player_2.posX < ((player_2.posY - 202.867)/(-0.008333))))
            player_2.posX += player_2.speed;
         if(keyPressed.p2_up && (player_2.posY > 199.1)){
             player_2.posY -= 0.05;
@@ -882,7 +882,7 @@ var game = (function () {
     var player_2_bullet;
     var player_2_bullets = [];
     var player_2_killed;
-    var player_2_speed = 5;
+    var player_2_speed = 12;
     var player_2_shoot;
     var player_2_next_shoot;
     var player_2_now = 0;
