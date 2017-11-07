@@ -45,10 +45,17 @@ if(SMARTPHONE.any()){
     var buffer;
     var bufferctx;
     var fondo_principal;
-    var carril_0 = 474;     // limite cercano a la pantalla
-    var carril_1 = 473.63;  // limite entre carril 0 y carril 1
-    var carril_2 = 473.2;   // limite entre carril 1 y carril 2
-    var carril_3 = 472.98;  // limite cercano al fondo
+    if(FIREFOX){
+      var carril_0 = 485.1;     // limite cercano a la pantalla
+      var carril_1 = 484.7;  // limite entre carril 0 y carril 1
+      var carril_2 = 484.4;   // limite entre carril 1 y carril 2
+      var carril_3 = 484;  // limite cercano al fondo
+    }else{
+      var carril_0 = 474;     // limite cercano a la pantalla
+      var carril_1 = 473.63;  // limite entre carril 0 y carril 1
+      var carril_2 = 473.2;   // limite entre carril 1 y carril 2
+      var carril_3 = 472.98;  // limite cercano al fondo
+    }
     // variables del jugador 1
     var player_1;
     var player_1_life_sprite;
@@ -127,6 +134,7 @@ if(SMARTPHONE.any()){
       p1_dead_1: 88,
       p1_dead_2: 67,
       p1_dead_3: 86,
+      //-------------------------------
       // jugador 2
       p2_up: 104,     // 8
       p2_down: 101,   // 5
@@ -187,6 +195,8 @@ if(SMARTPHONE.any()){
       player_2_bullet.src = 'images/player_2_bullet.png';
       player_2_life_sprite = new Image ();
       player_2_life_sprite.src = 'images/player_2_1_lifes.png';
+      player_2_killed = new Image ();
+      player_2_killed.src = 'images/player_2_killed.png';
 
       // sprites del escenario
       fondo_principal = new Image();
@@ -245,22 +255,64 @@ if(SMARTPHONE.any()){
 
     // ------------------------------------------------------------ Funciones auxiliares -----------------------------------------------------------
     // cita en que carril se encuentra el objeto
-    function carril_n (objeto) {
-      if((objeto.posY <= carril_0) && (objeto.posY  > carril_1)){  
+    function player_carril_n (objeto) {
+      if((objeto.posY <= carril_0) && (objeto.posY > carril_1)){ 
         return 0;   
       }
-      if((objeto.posY  <= carril_1) && (objeto.posY  > carril_2)){
+      if((objeto.posY <= carril_1) && (objeto.posY > carril_2)){
         return 1;
       }
-      if((objeto.posY  <= carril_2) && (objeto.posY  > carril_3)){
+      if((objeto.posY <= carril_2) && (objeto.posY > carril_3)){
         return 2;
       }
     }
+
+    if(FIREFOX){
+      function player_carril_n_2 (objeto) {   
+        if((objeto.posY <= carril_0-285) && (objeto.posY  > carril_1-285)){ 
+          return 0;   
+        }
+        if((objeto.posY  <= carril_1-285) && (objeto.posY  > carril_2-285)){
+          return 1;
+        }
+        if((objeto.posY  <= carril_2-285) && (objeto.posY  > carril_3-285)){
+          return 2;
+        }
+      }
+    }    
+
+    function enemy_1_carril_n (objeto){    
+      if((objeto.x == 171.43) && (objeto.y == 120)){
+        //console.log("enemigo en carril 0")
+        return 0;
+      }
+      if((objeto.x == 171.43*0.8) && (objeto.y == 120*0.8)){
+        //console.log("enemigo en carril 0")
+        return 0;
+      }
+      if((objeto.x == 133.3) && (objeto.y == 85.71)){
+        //console.log("enemigo en carril 1")
+        return 1;
+      }
+      if((objeto.x == 133.3*0.8) && (objeto.y == 85.71*0.8)){
+        //console.log("enemigo en carril 1")
+        return 1;
+      }
+      if((objeto.x == 92.3) && (objeto.y == 54.54)){
+        //console.log("enemigo en carril 2")
+        return 2;
+      }
+      if((objeto.x == 92.3*0.8) && (objeto.y == 54.54*0.8)){
+        //console.log("enemigo en carril 2")
+        return 2;
+      }
+    }
+
     // resize de la pantalla
     function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-     draw();
+      draw();
     }
 
     // devuelve un numero aleatorio
@@ -298,116 +350,112 @@ if(SMARTPHONE.any()){
 
       // disparo
       var shoot = function () {
-          if (FIREFOX) {
-              if (player_1_next_shoot < player_1_now || player_1_now == 0) {
-                  player_1_shoot = new Player_1_Shoot(player_1.posX + 30, player_1.posY + 285);
-                  player_1_shoot.x = player_1_carril.x;
-                  player_1_shoot.y = player_1_carril.y;
-                  player_1_shoot.add();
-                  player_1_now += player_1_shoot_delay;
-                  player_1_next_shoot = player_1_now + player_1_shoot_delay;
-              } else {
-                  player_1_now = new Date().getTime();
-              }
+        if (FIREFOX) {
+          if (player_1_next_shoot < player_1_now || player_1_now == 0) {
+            player_1_shoot = new Player_1_Shoot(player_1.posX + 30, player_1.posY + 285);
+            player_1_shoot.x = player_1_carril.x;
+            player_1_shoot.y = player_1_carril.y;
+            player_1_shoot.add();
+            player_1_now += player_1_shoot_delay;
+            player_1_next_shoot = player_1_now + player_1_shoot_delay;
+          } else {
+            player_1_now = new Date().getTime();
           }
-          else {
-              if (player_1_next_shoot < player_1_now || player_1_now == 0) {
-                  player_1_shoot = new Player_1_Shoot(player_1.posX + 30, player_1.posY);
-                  player_1_shoot.x = player_1_carril.x;
-                  player_1_shoot.y = player_1_carril.y;
-                  player_1_shoot.add();
-                  player_1_now += player_1_shoot_delay;
-                  player_1_next_shoot = player_1_now + player_1_shoot_delay;
-              } else {
-                  player_1_now = new Date().getTime();
-              }
+        } else {
+          if (player_1_next_shoot < player_1_now || player_1_now == 0) {
+            player_1_shoot = new Player_1_Shoot(player_1.posX + 30, player_1.posY);
+            player_1_shoot.x = player_1_carril.x;
+            player_1_shoot.y = player_1_carril.y;
+            player_1_shoot.add();
+            player_1_now += player_1_shoot_delay;
+            player_1_next_shoot = player_1_now + player_1_shoot_delay;
+          } else {
+            player_1_now = new Date().getTime();
           }
-        
+        }        
       };
 
       // acciones del jugador
       player_1.doAnything = function() {
-          if(FIREFOX) {
-              if (player_1.dead)
-                  return;
-              if (keyPressed.p1_left && (player_1.posX > ((player_1.posY - 199.67)/(-0.008333))))
-                  player_1.posX -= player_1.speed;
-              if (keyPressed.p1_right && (player_1.posX < ((player_1.posY - 202.867)/(-0.008333))))
-                  player_1.posX += player_1.speed;
-              if(keyPressed.p1_up && (player_1.posY > 199.1)){
-                  player_1.posY -= 0.05;
-                  player_1.posX += 6;
-                  player_1_carril.x -= 10;
-                  player_1_carril.y -= 5;                  
-              }
-              if(keyPressed.p1_down  && (player_1.posY < 200)){
-                  player_1.posY += 0.05;
-                  player_1.posX -= 6;
-                  player_1_carril.x += 10;
-                  player_1_carril.y += 5;
-              }
-              if (keyPressed.p1_fire_1){
-                  player_1_bullet_x = player_1_carril.x - 10;
-                  player_1_bullet_y = player_1_carril.y - 10;
-                  shoot();
-              }
-              if(keyPressed.p1_dead_1){
-                  player_1.hit(2);
-              }
-              if(keyPressed.p1_dead_2){
-                  player_1.hit(1);
-              }
-              if(keyPressed.p1_dead_3){
-                  player_1.hit(0);
-              }
-          } else {
-              if (player_1.dead)
-                  return;
-              if (keyPressed.p1_left && (player_1.posX > (-120*player_1.posY + 56850)))
-                  player_1.posX -= player_1.speed;
-              if (keyPressed.p1_right && (player_1.posX < (-120*player_1.posY + 57215)))
-                  player_1.posX += player_1.speed;
-              if(keyPressed.p1_up && (player_1.posY > 473)){
-                  player_1.posY -= 0.05;
-                  player_1.posX += 6;
-                  player_1_carril.x -= 10;
-                  player_1_carril.y -= 5;
-                  console.log("w pulsada");
-              }
-              if(keyPressed.p1_down  && (player_1.posY < 474)){
-                  player_1.posY += 0.05;
-                  player_1.posX -= 6;
-                  player_1_carril.x += 10;
-                  player_1_carril.y += 5;
-              }
-              if (keyPressed.p1_fire_1){
-                  player_1_bullet_x = player_1_carril.x - 10;
-                  player_1_bullet_y = player_1_carril.y - 10;
-                  console.log("disparar");
-                  shoot();
-              }
-              if(keyPressed.p1_dead_1){
-                  player_1.hit(2);
-              }
-              if(keyPressed.p1_dead_2){
-                  player_1.hit(1);
-              }
-              if(keyPressed.p1_dead_3){
-                  player_1.hit(0);
-              }
+        if(FIREFOX) {
+          if (player_1.dead)
+            return;
+          if (keyPressed.p1_left && (player_1.posX > ((player_1.posY - 199.67)/(-0.008333))))
+            player_1.posX -= player_1.speed;
+          if (keyPressed.p1_right && (player_1.posX < ((player_1.posY - 202.867)/(-0.008333))))
+            player_1.posX += player_1.speed;
+          if(keyPressed.p1_up && (player_1.posY > 199.1)){
+            player_1.posY -= 0.05;
+            player_1.posX += 6;
+            player_1_carril.x -= 10;
+            player_1_carril.y -= 5;                  
           }
-
+          if(keyPressed.p1_down  && (player_1.posY < 200)){
+            player_1.posY += 0.05;
+            player_1.posX -= 6;
+            player_1_carril.x += 10;
+            player_1_carril.y += 5;
+          }
+          if (keyPressed.p1_fire_1){
+            player_1_bullet_x = player_1_carril.x - 10;
+            player_1_bullet_y = player_1_carril.y - 10;
+            shoot();
+          }
+          if(keyPressed.p1_dead_1){
+            player_1.hit(2);
+          }
+          if(keyPressed.p1_dead_2){
+            player_1.hit(1);
+          }
+          if(keyPressed.p1_dead_3){
+            player_1.hit(0);
+          }
+        } else {
+          if (player_1.dead)
+            return;
+          if (keyPressed.p1_left && (player_1.posX > (-120*player_1.posY + 56850)))
+            player_1.posX -= player_1.speed;
+          if (keyPressed.p1_right && (player_1.posX < (-120*player_1.posY + 57215)))
+            player_1.posX += player_1.speed;
+          if(keyPressed.p1_up && (player_1.posY > 473)){
+            player_1.posY -= 0.05;
+            player_1.posX += 6;
+            player_1_carril.x -= 10;
+            player_1_carril.y -= 5;
+            console.log("w pulsada");
+          }
+          if(keyPressed.p1_down  && (player_1.posY < 474)){
+            player_1.posY += 0.05;
+            player_1.posX -= 6;
+            player_1_carril.x += 10;
+            player_1_carril.y += 5;
+          }
+          if (keyPressed.p1_fire_1){
+            player_1_bullet_x = player_1_carril.x - 10;
+            player_1_bullet_y = player_1_carril.y - 10;
+            console.log("disparar");
+            shoot();
+          }
+          if(keyPressed.p1_dead_1){
+            player_1.hit(2);
+          }
+          if(keyPressed.p1_dead_2){
+            player_1.hit(1);
+          }
+          if(keyPressed.p1_dead_3){
+            player_1.hit(0);
+          }
+        }
       };
 
-      player_1.hit = function (n){
-        player_1.life = n;
+      player_1.hit = function (){
+        player_1.life -= 1;
         if(player_1.life == 0){
-            player_1_life_sprite.src = '';
-            player_1.src = player_1_killed.src;
-            setTimeout(function (){
-              game_over = true;
-            }, 1000);
-            
+          player_1_life_sprite.src = '';
+          player_1.src = player_1_killed.src;
+          setTimeout(function (){
+            game_over = true;
+          }, 1000);            
         }
       }
       return player_1;
@@ -433,95 +481,106 @@ if(SMARTPHONE.any()){
 
       // disparo
       var shoot = function () {
-          if (FIREFOX) {
-              if (player_2_next_shoot < player_2_now || player_2_now == 0) {
-                  player_2_shoot = new Player_2_Shoot(player_2.posX + 30, player_2.posY + 285);
-                  player_2_shoot.x = player_2_carril.x;
-                  player_2_shoot.y = player_2_carril.y;
-                  player_2_shoot.add();
-                  player_2_now += player_2_shoot_delay;
-                  player_2_next_shoot = player_2_now + player_2_shoot_delay;
-              } else {
-                  player_2_now = new Date().getTime();
-              }
+        if (FIREFOX) {
+          if (player_2_next_shoot < player_2_now || player_2_now == 0) {
+            player_2_shoot = new Player_2_Shoot(player_2.posX + 30, player_2.posY + 285);
+            player_2_shoot.x = player_2_carril.x;
+            player_2_shoot.y = player_2_carril.y;
+            player_2_shoot.add();
+            player_2_now += player_2_shoot_delay;
+            player_2_next_shoot = player_2_now + player_2_shoot_delay;
           } else {
-              if (player_2_next_shoot < player_2_now || player_2_now == 0) {
-                  player_2_shoot = new Player_2_Shoot(player_2.posX + 30, player_2.posY);
-                  player_2_shoot.x = player_2_carril.x;
-                  player_2_shoot.y = player_2_carril.y;
-                  player_2_shoot.add();
-                  player_2_now += player_2_shoot_delay;
-                  player_2_next_shoot = player_2_now + player_2_shoot_delay;
-              } else {
-                  player_2_now = new Date().getTime();
-              }
+            player_2_now = new Date().getTime();
           }
-       
+        } else {
+          if (player_2_next_shoot < player_2_now || player_2_now == 0) {
+            player_2_shoot = new Player_2_Shoot(player_2.posX + 30, player_2.posY);
+            player_2_shoot.x = player_2_carril.x;
+            player_2_shoot.y = player_2_carril.y;
+            player_2_shoot.add();
+            player_2_now += player_2_shoot_delay;
+            player_2_next_shoot = player_2_now + player_2_shoot_delay;
+          } else {
+            player_2_now = new Date().getTime();
+          }
+        }
       };
       // acciones del jugador
       player_2.doAnything = function() {
-          if(FIREFOX) {
-              if (player_2.dead)
-                  return;
-              if (keyPressed.p2_left && (player_2.posX > ((player_2.posY - 199.67)/(-0.008333))))
-                  player_2.posX -= player_2.speed;
-              if (keyPressed.p2_right && (player_2.posX < ((player_2.posY - 202.867)/(-0.008333))))
-                  player_2.posX += player_2.speed;
-              if(keyPressed.p2_up && (player_2.posY > 199.1)){
-                  player_2.posY -= 0.05;
-                  player_2.posX += 6;
-                  player_2_carril.x -= 10;
-                  player_2_carril.y -= 5;
-              }
-              if(keyPressed.p2_down  && (player_2.posY < 200)){
-                  player_2.posY += 0.05;
-                  player_2.posX -= 6;
-                  player_2_carril.x += 10;
-                  player_2_carril.y += 5;
-              }
-              if (keyPressed.p2_fire_1){
-                  player_2_bullet_x = player_2_carril.x - 10;
-                  player_2_bullet_y = player_2_carril.y - 10;
-                  shoot();
-              }
-          } else {
-              console.log("teclado2");
-              if (player_2.dead)
-                  return;
-              if (keyPressed.p2_left && (player_2.posX > (-120 * player_2.posY + 56850)))
-                  player_2.posX -= player_2.speed;
-              if (keyPressed.p2_right && (player_2.posX < (-120 * player_2.posY + 57215)))
-                  player_2.posX += player_2.speed;
-              if (keyPressed.p2_up && (player_2.posY > 473)) {
-                  player_2.posY -= 0.05;
-                  player_2.posX += 6;
-                  player_2_carril.x -= 10;
-                  player_2_carril.y -= 5;
-              }
-              if (keyPressed.p2_down && (player_2.posY < 474)) {
-                  player_2.posY += 0.05;
-                  player_2.posX -= 6;
-                  player_2_carril.x += 10;
-                  player_2_carril.y += 5;
-              }
-              if (keyPressed.p2_fire_1) {
-                  player_2_bullet_x = player_2_carril.x - 10;
-                  player_2_bullet_y = player_2_carril.y - 10;
-                  shoot();
-              }
+        if(FIREFOX) {
+          if (player_2.dead)
+            return;
+          if (keyPressed.p2_left && (player_2.posX > ((player_2.posY - 199.67)/(-0.008333))))
+            player_2.posX -= player_2.speed;
+          if (keyPressed.p2_right && (player_2.posX < ((player_2.posY - 202.867)/(-0.008333))))
+            player_2.posX += player_2.speed;
+          if(keyPressed.p2_up && (player_2.posY > 199.1)){
+            player_2.posY -= 0.05;
+            player_2.posX += 6;
+            player_2_carril.x -= 10;
+            player_2_carril.y -= 5;
           }
+          if(keyPressed.p2_down  && (player_2.posY < 200)){
+            player_2.posY += 0.05;
+            player_2.posX -= 6;
+            player_2_carril.x += 10;
+            player_2_carril.y += 5;
+          }
+          if (keyPressed.p2_fire_1){
+            player_2_bullet_x = player_2_carril.x - 10;
+            player_2_bullet_y = player_2_carril.y - 10;
+            shoot();
+          }
+        } else {
+          console.log("teclado2");
+          if (player_2.dead)
+            return;
+          if (keyPressed.p2_left && (player_2.posX > (-120 * player_2.posY + 56850)))
+            player_2.posX -= player_2.speed;
+          if (keyPressed.p2_right && (player_2.posX < (-120 * player_2.posY + 57215)))
+            player_2.posX += player_2.speed;
+          if (keyPressed.p2_up && (player_2.posY > 473)) {
+            player_2.posY -= 0.05;
+            player_2.posX += 6;
+            player_2_carril.x -= 10;
+            player_2_carril.y -= 5;
+          }
+          if (keyPressed.p2_down && (player_2.posY < 474)) {
+            player_2.posY += 0.05;
+            player_2.posX -= 6;
+            player_2_carril.x += 10;
+            player_2_carril.y += 5;
+          }
+          if (keyPressed.p2_fire_1) {
+            player_2_bullet_x = player_2_carril.x - 10;
+            player_2_bullet_y = player_2_carril.y - 10;
+            shoot();
+          }
+        }
       };
+
+      player_2.hit = function (){
+        player_2.life -= 1;
+        if(player_2.life == 0){
+            player_2_life_sprite.src = '';
+            player_2.src = player_2_killed.src;
+            setTimeout(function (){
+              game_over = true;
+            }, 1000);
+            
+        }
+      }
 
       player_2.killPlayer = function() {
         if (this.life > 0) {
-            this.dead = true;
-            //evilShotsBuffer.splice(0, evilShotsBuffer.length);
-            player_2_bullets.splice(0, player_2_bullets.length);
-            this.src = player_2_killed.src;
-            //createNewEvil();
-            setTimeout(function () {
-              player_2 = new Player_2(player_2.life - 1, player_2.score);
-            }, 500);
+          this.dead = true;
+          //evilShotsBuffer.splice(0, evilShotsBuffer.length);
+          player_2_bullets.splice(0, player_2_bullets.length);
+          this.src = player_2_killed.src;
+          //createNewEvil();
+          setTimeout(function () {
+            player_2 = new Player_2(player_2.life - 1, player_2.score);
+          }, 500);
         } else {
           //saveFinalScore();
           youLoose = true;
@@ -714,37 +773,114 @@ if(SMARTPHONE.any()){
     Enemy_1_Shoot.prototype.constructor = Enemy_1_Shoot;
 
     function checkCollisions(shot) {
-      if(carril_n(shot) == '0'){        
-        if(carril_n(enemy_1) == '0'){      
-        // cierto fallo cuando se sube un poco hacia el limite del carril
-        /*      
-        if(shot.posX == enemy_1.posX-140){
-        enemy_1.hit();
+      // ------------------------- colisiones con el enemigo 1
+      if(player_carril_n(shot) == enemy_1_carril_n(enemy_1_carril)){
+        if((shot.posX >= enemy_1.posX-3) &&(shot.posX <= enemy_1.posX + 3)){
+          enemy_1_life -= 1;
+          console.log(enemy_1_life);
+          if(enemy_1_life == 0){
+            enemy_1.kill();
+            //the_end = true;
+            //enemy_1 = null;
+          }          
           shot.deleteShot(parseInt(shot.identifier));
-            return false;
-        }*/   
+          return true;
+        } 
+      }       
+      return true;   
+    }
+
+    function checkCollisions_Enemy_1 (shoot){
+      if(FIREFOX){
+        if(enemy_1_carril_n(shoot) == player_carril_n_2(player_1)){
+          if(player_carril_n_2(player_1) == 0){
+            if((shoot.posX >= (player_1.posX + 192)) && (shoot.posX <= (player_1.posX + 198))){
+              player_1.hit();
+              shoot.deleteShot(parseInt(shoot.identifier));
+            }
+          }
+          if(player_carril_n_2(player_1) == 1){
+            if((shoot.posX >= (player_1.posX + 132)) && (shoot.posX <= (player_1.posX + 138))){
+              player_1.hit();
+              shoot.deleteShot(parseInt(shoot.identifier));
+            }
+          }
+          if(player_carril_n_2(player_1) == 2){
+            if((shoot.posX >= (player_1.posX + 52)) && (shoot.posX <= (player_1.posX + 58))){
+              player_1.hit();
+              shoot.deleteShot(parseInt(shoot.identifier));
+            }
+          }
+        }
+        if(Jugadores == '2'){
+          if(enemy_1_carril_n(shoot) == player_carril_n_2(player_2)){
+            if(player_carril_n_2(player_2) == 0){
+              if((shoot.posX >= (player_2.posX + 192)) && (shoot.posX <= (player_2.posX + 198))){
+                player_2.hit();
+                shoot.deleteShot(parseInt(shoot.identifier));
+              }
+            }
+            if(player_carril_n_2(player_2) == 1){
+              if((shoot.posX >= (player_2.posX + 132)) && (shoot.posX <= (player_2.posX + 138))){
+                player_2.hit();
+                shoot.deleteShot(parseInt(shoot.identifier));
+              }
+            }
+            if(player_carril_n_2(player_2) == 2){
+              if((shoot.posX >= (player_2.posX + 52)) && (shoot.posX <= (player_2.posX + 58))){
+                player_2.hit();
+                shoot.deleteShot(parseInt(shoot.identifier));
+              }
+            }
+          }
+        }
+      }else{
+        if(enemy_1_carril_n(shoot) == player_carril_n(player_1)){
+          if(player_carril_n(player_1) == 0){
+            if((shoot.posX >= (player_1.posX + 192)) && (shoot.posX <= (player_1.posX + 198))){
+              player_1.hit();
+              shoot.deleteShot(parseInt(shoot.identifier));
+            }
+          }
+          if(player_carril_n(player_1) == 1){
+            if((shoot.posX >= (player_1.posX + 132)) && (shoot.posX <= (player_1.posX + 138))){
+              player_1.hit();
+              shoot.deleteShot(parseInt(shoot.identifier));
+            }
+          }
+          if(player_carril_n(player_1) == 2){
+            if((shoot.posX >= (player_1.posX + 52)) && (shoot.posX <= (player_1.posX + 58))){
+              player_1.hit();
+              shoot.deleteShot(parseInt(shoot.identifier));
+            }
+          }
+        }
+        if(Jugadores == '2'){
+          if(enemy_1_carril_n(shoot) == player_carril_n(player_2)){
+            if(player_carril_n(player_2) == 0){
+              if((shoot.posX >= (player_2.posX + 192)) && (shoot.posX <= (player_2.posX + 198))){
+                player_2.hit();
+                shoot.deleteShot(parseInt(shoot.identifier));
+              }
+            }
+            if(player_carril_n(player_2) == 1){
+              if((shoot.posX >= (player_2.posX + 132)) && (shoot.posX <= (player_2.posX + 138))){
+                player_2.hit();
+                shoot.deleteShot(parseInt(shoot.identifier));
+              }
+            }
+            if(player_carril_n(player_2) == 2){
+              if((shoot.posX >= (player_2.posX + 52)) && (shoot.posX <= (player_2.posX + 58))){
+                player_2.hit();
+                shoot.deleteShot(parseInt(shoot.identifier));
+              }
+            }
+          }
         }
       }
-      if(carril_n(shot) == '1'){
-        if(carril_n(enemy_1) == '1'){/*
-          if(shot.posX == enemy_1.posX-140){
-            enemy_1.hit();
-            shot.deleteShot(parseInt(shot.identifier));
-            return false;
-          }*/
-        }
-      }
-      if(carril_n(shot) == '2'){
-        if(carril_n(enemy_1) == '2'){/*
-          if(shot.posX == enemy_1.posX-140){
-            enemy_1.hit();
-            shot.deleteShot(parseInt(shot.identifier));
-            return false;
-          }*/
-        }
-      }    
       return true;
     }
+
 
     function updatePlayer_1_Shoot(player_1_shoot, id) {
       if (player_1_shoot) {
@@ -776,18 +912,15 @@ if(SMARTPHONE.any()){
 
     function updateEnemy_1_Shoot(enemy_1_shoot, id) {
       if (enemy_1_shoot) {
-          enemy_1_shoot.identifier = id;
-          //if (!enemy_1_shoot.isHittingPlayer()) {
-              if (enemy_1_shoot.posX >= 0) {
-                //console.log("eaaa");
-                enemy_1_shoot.posX -= 5
-                bufferctx.drawImage(enemy_1_shoot.image, enemy_1_shoot.posX, enemy_1_shoot.posY, enemy_1_shoot.x, enemy_1_shoot.y);
-              } else {
-                enemy_1_shoot.deleteShot(parseInt(enemy_1_shoot.identifier));
-              }
-            //} else {
-          //    player.killPlayer();
-            //}
+        enemy_1_shoot.identifier = id;
+        if (checkCollisions_Enemy_1(enemy_1_shoot)) {
+          if (enemy_1_shoot.posX >= 0) {
+            enemy_1_shoot.posX -= 5
+            bufferctx.drawImage(enemy_1_shoot.image, enemy_1_shoot.posX, enemy_1_shoot.posY, enemy_1_shoot.x, enemy_1_shoot.y);
+          } else {
+            enemy_1_shoot.deleteShot(parseInt(enemy_1_shoot.identifier));
+          }
+        }
       }
     }
     // ---------------------------------------------------------------- Fin disparos ---------------------------------------------------------------
@@ -879,21 +1012,23 @@ if(SMARTPHONE.any()){
 
     // pinta los jugadores
     function drawPlayers() {
-        if (FIREFOX) {
-            console.log("ff");
-            bufferctx.drawImage(player_1, player_1.posX, player_1.posY + 270, player_1_carril.x, player_1_carril.y);
-            if (Jugadores == 2) {
-                bufferctx.drawImage(player_2, player_2.posX, player_2.posY + 270, player_2_carril.x, player_2_carril.y);
-            }
-            bufferctx.drawImage(enemy_1, enemy_1.posX, enemy_1.posY + 250, enemy_1_carril.x, enemy_1_carril.y);
-        } else {
-            console.log("ch");
-            bufferctx.drawImage(player_1, player_1.posX, player_1.posY, player_1_carril.x, player_1_carril.y);
-            if (Jugadores == 2) {
-                bufferctx.drawImage(player_2, player_2.posX, player_2.posY, player_2_carril.x, player_2_carril.y);
-            }
-            bufferctx.drawImage(enemy_1, enemy_1.posX, enemy_1.posY, enemy_1_carril.x, enemy_1_carril.y);
-        }     
+      if (FIREFOX) {
+        bufferctx.drawImage(player_1, player_1.posX, player_1.posY + 270, player_1_carril.x, player_1_carril.y);
+        if (Jugadores == 2) {
+            bufferctx.drawImage(player_2, player_2.posX, player_2.posY + 270, player_2_carril.x, player_2_carril.y);
+        }
+        if(enemy_1_life > 0){
+          bufferctx.drawImage(enemy_1, enemy_1.posX, enemy_1.posY + 250, enemy_1_carril.x, enemy_1_carril.y);
+        }
+      } else {
+        bufferctx.drawImage(player_1, player_1.posX, player_1.posY, player_1_carril.x, player_1_carril.y);
+        if (Jugadores == 2) {
+            bufferctx.drawImage(player_2, player_2.posX, player_2.posY, player_2_carril.x, player_2_carril.y);
+        }
+        if(enemy_1_life > 0){
+          bufferctx.drawImage(enemy_1, enemy_1.posX, enemy_1.posY, enemy_1_carril.x, enemy_1_carril.y);
+        }
+      }     
     }
 
     // pinta las balas de los personajes
@@ -906,10 +1041,11 @@ if(SMARTPHONE.any()){
         var disparoBueno = player_2_bullets[j];
         updatePlayer_2_Shoot(disparoBueno, j);
       }
-      for (var i = 0; i < enemy_1_bullets.length; i++) {
-        //console.log("actualizando");
-        var disparoMalo = enemy_1_bullets[i];
-        updateEnemy_1_Shoot(disparoMalo, i);
+      if(enemy_1_life > 0){
+        for (var i = 0; i < enemy_1_bullets.length; i++) {
+          var disparoMalo = enemy_1_bullets[i];
+          updateEnemy_1_Shoot(disparoMalo, i);
+        }
       }
     }
 
