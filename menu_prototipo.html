@@ -77,31 +77,33 @@
 			$(window).on('resize', function(){
     				resizeCanvas();
 			});
-
 		
 			//Variables para las imagenes
 			var bgImage = new Image();
 			var logoImage = new Image();
 			var playImage = new Image();
-			var instructImage = new Image();
-			var settingsImage = new Image();
+			var playImageEng = new Image();
+			var playtImage = new Image();
+			var playtImageEng = new Image();
 			var creditsImage = new Image();
+			var creditsImageEng = new Image();
 			var shipImage = new Image();
 			var spFlagImage = new Image ();
 			var ukFlagImage = new Image ();
 			var spFlagImageB = new Image (); //con borde
-			var ukFlagImageB = new Image (); //con borde
-			
+			var ukFlagImageB = new Image (); //con borde			
+			//var settingsImage = new Image();
+					
 			//Posiblemete borrable: Es para que el fondo se mueva hacia arriba 
 			var backgroundY = 0;
 			var speed = 1;
 			//Posición de los botones del menu
-			var buttonX = [540,460,500,510];
-			var buttonY = [200,240,280,320];
-			var buttonWidth = [96,260,182,160];
-			var buttonHeight = [40,40,40,40];
-			var mouseX = [541, 461, 507, 511];
-			var mouseY = [201, 241, 281, 321];
+			var buttonX = [540,540,510];
+			var buttonY = [195,245,305];
+			var buttonWidth = [96,96,160];
+			var buttonHeight = [40,40,40];
+			var mouseX = [541, 542, 511];
+			var mouseY = [196, 246, 306];
 			var mouse_index = 0;
 			//variables para modificar la posición y rotación de la nave (en nuestro caso un gato i guess)
 			var shipX = [0,0];
@@ -113,41 +115,59 @@
 			var shipRotate = 0;
 			//variables para definir el funcionamiento de las animaciones del canvas
 			var frames = 30;
-		   	 var timerId = 0;
+		   	var timerId = 0;
 			var fadeId = 0;
 			var time = 0.0;
 			//Se asignan a las imagenes el archivo fuente. Por ahora no tocar hasta tener las definitivas. Si no funca en normal, porque son 
 			//imagenes que puse de muestra
 			shipImage.src = "images/ship.png";  
-			bgImage.src = "images/Background_2.png";
+			bgImage.src = "images/Background_2.jpg";
 			logoImage.src = "images/logo.png";
-			playImage.src = "images/play.png";
-			instructImage.src = "images/instructions.png";
-			settingsImage.src = "images/settings.png";
+			playImage.src = "images/1play.png";
+			playImageEng.src = "images/1playe.png";
+			playtImage.src = "images/2play.png";
+			playtImageEng.src = "images/2playe.png";
 			creditsImage.src = "images/credits.png";
+			creditsImageEng.src = "images/creditse.png";
 			spFlagImage.src = "images/spain_flag.png";
 			ukFlagImage.src = "images/uk_flag.png";
 			spFlagImageB.src = "images/spain_flagB.png"; //con borde
-			ukFlagImageB.src = "images/uk_flagB.png"; //con borde			
+			ukFlagImageB.src = "images/uk_flagB.png"; //con borde		
+			//settingsImage.src = "images/settings.png";			
 			
 			bgImage.onload = function(){
 				context.drawImage(bgImage, 0, 0);
 			};
 			logoImage.onload = function(){
 				context.drawImage(logoImage, 50, -10);
-			}
+			};
 			playImage.onload = function(){
 				context.drawImage(playImage, buttonX[0], buttonY[0]);
-			}
-			instructImage.onload = function(){
-				context.drawImage(instructImage, buttonX[1], buttonY[1]);
-			}
-			settingsImage.onload = function(){
-				context.drawImage(settingsImage, buttonX[2], buttonY[2]);
-			}
+			};
+			playtImage.onload = function(){
+				context.drawImage(playtImage, buttonX[1], buttonY[1]);
+			};
 			creditsImage.onload = function(){
-				context.drawImage(creditsImage, buttonX[3], buttonY[3]);
+				context.drawImage(creditsImage, buttonX[2], buttonY[2]);
+			};
+			
+			/*
+			settingsImage.onload = function(){
+				context.drawImage(settingsImage, buttonX[3], buttonY[3]);
 			}
+			*/
+			
+			playImageEng.onload = function(){
+				context.drawImage(playImageEng, buttonX[0], buttonY[0]);
+			}
+			playtImageEng.onload = function(){
+				context.drawImage(playtImageEng, buttonX[1], buttonY[1]);
+			}
+			creditsImageEng.onload = function(){
+				context.drawImage(creditsImageEng, buttonX[2], buttonY[2]);
+			}
+			
+			
 			spFlagImage.onload = function() {
 			    context.drawImage(spFlagImage, 0, 0, 50, 50);
 			}
@@ -191,22 +211,28 @@
 			function draw(){
 				context.drawImage(bgImage, 0, backgroundY);
 				context.drawImage(logoImage, 400,-10);
-				context.drawImage(playImage, buttonX[0], buttonY[0]);
-				context.drawImage(instructImage, buttonX[1], buttonY[1]);
-				context.drawImage(settingsImage, buttonX[2], buttonY[2]);
-				context.drawImage(creditsImage, buttonX[3], buttonY[3]);
+				
 				if(shipVisible == true){
 					draw_ship();
 				}
 				
 				 //Las banderas se dibujan segun lo que este seleccionado
 				if(eng) {
+					context.drawImage(playImageEng, buttonX[0], buttonY[0]);
+					context.drawImage(playtImageEng, buttonX[1], buttonY[1]);
+					context.drawImage(creditsImageEng, buttonX[2], buttonY[2]);
+						
 				    context.drawImage(spFlagImage, 0, 0, 55, 55); //normal
 				    context.drawImage(ukFlagImageB, 60, 0, 55, 55); //con borde
 				} else {
+					context.drawImage(playImage, buttonX[0], buttonY[0]);
+					context.drawImage(playtImage, buttonX[1], buttonY[1]);
+					context.drawImage(creditsImage, buttonX[2], buttonY[2]);
+
 				    context.drawImage(spFlagImageB, 0, 0, 55, 55); //con borde
 				    context.drawImage(ukFlagImage, 60, 0, 55, 55); //normal
 				}
+				//context.drawImage(settingsImage, buttonX[3], buttonY[3]);
 			}
 			function draw_ship (){
 				context.drawImage(shipImage, shipX[0] - (shipSize/2), shipY[0], shipSize, shipHeight);
@@ -301,46 +327,43 @@
 
 			}*/
 			document.onkeydown = async function(e) {
-				   e = e || window.event; 
-				   if(e.keyCode == control.up){
-					   if(mouse_index > 0){
-						   mouse_index -= 1;
-					   }
-				   }
-				   if(e.keyCode == control.down){
-						if(mouse_index < 3){
-							mouse_index += 1;
-						}
-				   }
-				   if(e.keyCode == control.enter){
-						switch(mouse_index){
-							case 0:
-								fadeOut();
-								await sleep(500);
-								var Jugadores = 1;
-								localStorage.setItem("jugadores", Jugadores);
-								window.location.href = "juego.html";
-								break;
-							case 1:
-								fadeOut();
-								await sleep(500);
-								var Jugadores = 2;
-								localStorage.setItem("jugadores", Jugadores);
-								window.location.href = "juego.html";
-								break;
-							case 2:
-								fadeOut();
-								break;
-							case 3:
-								await sleep(500);
-								fadeOut();
-								console.log("Idioma: "+eng);
-								localStorage.setItem("idioma", eng); //guardar variable que indica el idioma
-								window.location.href = "creditos.html";
-								break;
-						}
-				   }
-				 //Selecciona idioma ingles
+				e = e || window.event; 
+				if(e.keyCode == control.up){
+					if(mouse_index > 0){
+						mouse_index -= 1;
+					}
+				}
+				if(e.keyCode == control.down){
+					if(mouse_index < 3){
+						mouse_index += 1;
+					}
+				}
+				if(e.keyCode == control.enter){
+					switch(mouse_index){
+						case 0:
+							fadeOut();
+							await sleep(500);
+							var Jugadores = 1;
+							localStorage.setItem("jugadores", Jugadores);
+							window.location.href = "juego.html";
+							break;
+						case 1:
+							fadeOut();
+							await sleep(500);
+							var Jugadores = 2;
+							localStorage.setItem("jugadores", Jugadores);
+							window.location.href = "juego.html";
+							break;
+						case 2:
+							await sleep(500);
+							fadeOut();
+							console.log("Idioma: "+eng);
+							localStorage.setItem("idioma", eng); //guardar variable que indica el idioma
+							window.location.href = "creditos.html";
+							break;
+					}
+				}
+				//Selecciona idioma ingles
 				if(e.keyCode === 69) {
 				    eng = 1;
 				    console.log("English");
