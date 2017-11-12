@@ -1,0 +1,42 @@
+﻿body{
+  /*background: url(../images/spain_flag.png);   */
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0;
+  overflow: hidden; /*  Disable scrollbars */
+  display: block;  /* No floating content on sides */
+}
+
+#header_creditos {
+	font: 30px 'Arial',sans-serif;
+	font-weight: bold;
+	text-shadow: 5px 5px 5px #36A1FF; /*Cambiar segun el fondo*/
+}
+
+p {
+	font: 17px 'Arial',sans-serif;
+}
+
+a {
+	font: 17px 'Arial',sans-serif;
+}
+
+#devby {
+	font: 23px 'Arial',sans-serif;
+}
+
+.glyphicon-envelope { 
+	color: blue; /*cambiar segun el fondo*/
+	font-size: 20px;
+}
+.glyphicon-globe { 
+	color: green; /*cambiar segun el fondo*/
+	font-size: 20px;
+}
+
+.glyphicon-arrow-left{
+	color: red;
+	font-size: 50px;
+}
