@@ -95,7 +95,6 @@ if(SMARTPHONE.any()){
     var enemy_1_bullet;
     var enemy_1_bullets = [];
     var enemy_1_sprite = {
-      //animation = [],
       damaged: new Image (),
       killed: new Image ()
     }
@@ -104,14 +103,19 @@ if(SMARTPHONE.any()){
       y: 600
     }
     // variables del enemigo 2
+    var enemy_2_created = false;
     var enemy_2;
-    var enemy_2_life = 10;
+    var enemy_2_life = 5;
+    var enemy_2_shoot;
     var enemy_2_bullet;
     var enemy_2_bullets = [];
     var enemy_2_sprite = {
-      //animation = [],
       damaged: new Image (),
       killed: new Image ()
+    }
+    var enemy_2_carril = {
+      x: 1200,
+      y: 600
     }
     // indice de enemigo
     var enemy_id = 0;
@@ -145,7 +149,7 @@ if(SMARTPHONE.any()){
     }
     // variable que determina el numero de jugadores a jugar
     var Jugadores = localStorage.getItem("jugadores");
-    console.log("Numero de jugadores " + Jugadores);
+    //console.log("Numero de jugadores " + Jugadores);
  
     // gameloop
     function loop () {
@@ -157,18 +161,7 @@ if(SMARTPHONE.any()){
 
     // funcion que carga las imagenes
     function preloadImages (){
-      // animaciones
-      /*
-      for(var i = 1; i <= 8; i++){
-        var enemy_1_frame = new Image ();
-        enemy_1_frame.src = 'images/' + i + '.png';
-        enemy_1_sprite.animation [i-1] = enemy_1_frame;
 
-        var enemy_2_frame = new Image ();
-        enemy_2_frame.src = 'images/' + i + '.png';
-        enemy_2_sprite.animation [i-1] = enemy_2_frame;
-      }
-      */
       // sprites del primer enemigo
       enemy_1_bullet = new Image ();
       enemy_1_bullet.src = 'images/pepino_bullet.png';
@@ -177,9 +170,9 @@ if(SMARTPHONE.any()){
 
       // sprites del segundo enemigo
       enemy_2_bullet = new Image ();
-      enemy_2_bullet = "";
-      enemy_2_sprite.damaged.src = "";
-      enemy_2_sprite.killed.src = "";
+      enemy_2_bullet.src = "images/laser_bullet.png";
+      enemy_2_sprite.damaged.src = "images/laser_damaged.png";
+      enemy_2_sprite.killed.src = "images/laser_killed.png";
 
         // sprites del jugador 1
       player_1_bullet = new Image ();
@@ -201,20 +194,20 @@ if(SMARTPHONE.any()){
       // sprites del escenario
       fondo_principal = new Image();
       fondo_principal.src = 'images/fondo_2.png';
-      console.log("con exito");
+      //console.log("con exito");
     }
 
     // funcion de inicializacion
     function init (){
     
       // se cargan los sprites
-      console.log("cargando imagenes ... :");
+      //console.log("cargando imagenes ... :");
       preloadImages ();
-      console.log("creando pantalla ... :");
+      //console.log("creando pantalla ... :");
       // se inicializa el canvas
       canvas = document.getElementById('canvas');
       var full_screen = localStorage.getItem("full_screen");
-      console.log("pantalla completa: " + full_screen);
+      //console.log("pantalla completa: " + full_screen);
     
       // resize de la pantalla
       window.addEventListener('resize', resizeCanvas, false);
@@ -224,24 +217,24 @@ if(SMARTPHONE.any()){
       buffer.width = canvas.width;
       buffer.height = canvas.height;
       bufferctx = buffer.getContext('2d');
-      console.log("con exito");
+      //console.log("con exito");
       // se inicializan los jugadores
-      console.log("creando al jugador 1 ... :");
+      //console.log("creando al jugador 1 ... :");
       player_1 = new Player_1 (player_1_life, 0);
-      console.log("con exito");
+      //console.log("con exito");
       if(Jugadores == 2){
-        console.log("creando al jugador 1 ... :");
+        //console.log("creando al jugador 1 ... :");
         player_2 = new Player_2 (player_2_life, 0);
         enemy_1_life = enemy_1_life*2;
-        console.log("con exito");
+        //console.log("con exito");
       }
       enemy_1 = new Enemy_1();
       // createNewEvil();
       // se inicializa la interfaz
-      console.log("cargando interfaz gráfica ... :");
+      //console.log("cargando interfaz gráfica ... :");
       showLifeAndScore ();
       // se inicializa el teclado
-      console.log("cargando inputs del teclado ... :")
+      //console.log("cargando inputs del teclado ... :")
       addListener(document, 'keydown', keyDown);
       addListener(document, 'keyup', keyUp);
       // se inicializa el bucle
@@ -303,6 +296,34 @@ if(SMARTPHONE.any()){
         return 2;
       }
       if((objeto.x == 92.3*0.8) && (objeto.y == 54.54*0.8)){
+        //console.log("enemigo en carril 2")
+        return 2;
+      }
+    }
+
+    function enemy_2_carril_n (objeto){   
+      //console.log("carril x" + objeto.x + " carril_y " + objeto.y) 
+      if((objeto.x == 250) && (objeto.y == 195)){
+        //console.log("enemigo en carril 0")
+        return 0;
+      }
+      if((objeto.x == 250*0.3) && (objeto.y == 195*0.3)){
+        //console.log("enemigo en carril 0")
+        return 0;
+      }
+      if((objeto.x == 220) && (objeto.y == 150)){
+        //console.log("enemigo en carril 1")
+        return 1;
+      }
+      if((objeto.x == 220*0.3) && (objeto.y == 150*0.3)){
+        //console.log("enemigo en carril 1")
+        return 1;
+      }
+      if((objeto.x == 200) && (objeto.y == 100)){
+        //console.log("enemigo en carril 2")
+        return 2;
+      }
+      if((objeto.x == 200*0.3 ) && (objeto.y == 100*0.33)){
         //console.log("enemigo en carril 2")
         return 2;
       }
@@ -422,7 +443,7 @@ if(SMARTPHONE.any()){
             player_1.posX += 6;
             player_1_carril.x -= 10;
             player_1_carril.y -= 5;
-            console.log("w pulsada");
+            //console.log("w pulsada");
           }
           if(keyPressed.p1_down  && (player_1.posY < 474)){
             player_1.posY += 0.05;
@@ -433,7 +454,7 @@ if(SMARTPHONE.any()){
           if (keyPressed.p1_fire_1){
             player_1_bullet_x = player_1_carril.x - 10;
             player_1_bullet_y = player_1_carril.y - 10;
-            console.log("disparar");
+            //console.log("disparar");
             shoot();
           }
           if(keyPressed.p1_dead_1){
@@ -532,7 +553,7 @@ if(SMARTPHONE.any()){
             shoot();
           }
         } else {
-          console.log("teclado2");
+          //console.log("teclado2");
           if (player_2.dead)
             return;
           if (keyPressed.p2_left && (player_2.posX > (-120 * player_2.posY + 56850)))
@@ -603,11 +624,8 @@ if(SMARTPHONE.any()){
         marginBottom : 60,
         defaultHeight : 66
       }
-      //this.image = enemyImages.animation[0];
       enemy_1 = new Image ();
       enemy_1.src = "images/pepino.png";
-      //enemy_1.imageNumber = 1;
-      //enemy_1.animation = 0;
       enemy_1.posX = 860;
       enemy_1.posY = canvas.height - (enemy_1.height == 0 ? settings.defaultHeight : enemy_1.height) - settings.marginBottom;
       enemy_1_carril.x = 171.43;
@@ -617,65 +635,19 @@ if(SMARTPHONE.any()){
       enemy_1.shots = 100;
       enemy_1.dead = false;
       enemy_1.bulletY = 524;
-      /*
-      var desplazamientoHorizontal = minHorizontalOffset +
-      getRandomNumber(maxHorizontalOffset - minHorizontalOffset);
-      this.minX = getRandomNumber(canvas.width - desplazamientoHorizontal);
-      this.maxX = this.minX + desplazamientoHorizontal - 40;
-     this.direction = 'D';
-      */
 
       enemy_1.kill = function() {
         enemy_1.dead = true;
         // se cambia al siguiente enemigo
         enemy_id += 1;
-        enemy_1.src = enemy_1_sprite.killed;
-        //verifyToCreateNewEvil();
+        enemy_1.src = enemy_1_sprite.killed.src;
       };
 
-     enemy_1.hit = function () {
+      enemy_1.hit = function () {
         enemy_1.src = enemy_1_sprite.damaged.src;
-        /*setTimeout(function (){
-          enemy_1.src = "images/pepino.png";
-        }, 100);*/
       }
-      // sprite se adapta al carril
-
-      /*
-      this.update = function () {
-          this.posY += this.goDownSpeed;
-          if (this.direction === 'D') {
-            if (this.posX <= this.maxX) {
-              this.posX += this.speed;
-            } else {
-              this.direction = 'I';
-              this.posX -= this.speed;
-            }
-          } else {
-            if (this.posX >= this.minX) {
-              this.posX -= this.speed;
-            } else {
-              this.direction = 'D';
-              this.posX += this.speed;
-            }
-          }
-          this.animation++;
-          if (this.animation > 5) {
-            this.animation = 0;
-            this.imageNumber ++;
-            if (this.imageNumber > 8) {
-                this.imageNumber = 1;
-            }
-            this.image = enemyImages.animation[this.imageNumber - 1];
-          }
-      };
-  
-      this.isOutOfScreen = function() {
-        return this.posY > (canvas.height + 15);
-      };
-      */
-
-      function cambio_carril (carril){
+      
+      function cambio_carril_1 (carril){
         switch(carril){
           case 0:
             enemy_1.bulletY = 524;
@@ -702,11 +674,9 @@ if(SMARTPHONE.any()){
             enemy_1_shoot.x = enemy_1_carril.x*0.8;
             enemy_1_shoot.y = enemy_1_carril.y*0.8;
             enemy_1_shoot.add();
-            //console.log("payum");
             shoot();
             var random_carril = getRandomNumber(0, 2);
-            cambio_carril(random_carril);
-            //console.log(random_carril);
+            cambio_carril_1(random_carril);
           }, getRandomNumber(500, 1500));
         }
       }
@@ -714,24 +684,92 @@ if(SMARTPHONE.any()){
         shoot();
       }, 1000 + getRandomNumber(2500));
 
-      /*
-      setTimeout(function() {
-          shoot();
-      }, 1000 + getRandomNumber(2500));*/
-      
-      //this.toString = function () {
-      //    return 'Enemigo con vidas:' + this.life + 'shoots: ' + this.shoots + ' puntos por matar: ' /*+ this.pointsToKill*/;
-      //}
       return enemy_1; 
+    }
+
+    function Enemy_2 () {
+      var settings = {
+        marginBottom : 170,
+        defaultHeight : 66
+      }
+      enemy_2 = new Image ();
+      enemy_2.src = "images/laser.png";
+      enemy_2.posX = 860;
+      enemy_2.posY = canvas.height - (enemy_2.height == 0 ? settings.defaultHeight : enemy_2.height) - settings.marginBottom;
+      enemy_2_carril.x = 380;
+      enemy_2_carril.y = 200;
+      enemy_2.life = enemy_2_life;
+      enemy_2.speed = 5;
+      enemy_2.shots = 100;
+      enemy_2.dead = false;
+      enemy_2.bulletY = 554;
+
+      enemy_2.kill = function() {
+        enemy_2.dead = true;
+        // se cambia al siguiente enemigo
+        enemy_id += 1;
+        enemy_2.src = enemy_2_sprite.killed.src;
+      };
+
+      enemy_2.hit = function () {
+        enemy_2.src = enemy_2_sprite.damaged.src;
+      }
+      
+      function cambio_carril_2 (carril){
+        switch(carril){
+          case 0:
+            enemy_2.bulletY = 554;
+            enemy_2_carril.x = 250;
+            enemy_2_carril.y = 195;
+            break;
+          case 1:
+            enemy_2.bulletY = 524;
+            enemy_2_carril.x = 220;
+            enemy_2_carril.y = 150;
+            break;
+          case 2: 
+            enemy_2.bulletY = 500;
+            enemy_2_carril.x = 200;
+            enemy_2_carril.y = 110;
+            break;
+        }
+      }
+
+      function shoot() {
+        if(enemy_2_life > 0){
+          setTimeout(function (){            
+            enemy_2_shoot = new Enemy_2_Shoot(enemy_2.posX , enemy_2.bulletY);
+            enemy_2_shoot.x = enemy_2_carril.x*0.3;
+            enemy_2_shoot.y = enemy_2_carril.y*0.3;
+            console.log(enemy_2_shoot.x + " " + enemy_2_shoot.y);
+            enemy_2_shoot.add();
+            shoot();
+            var random_carril = getRandomNumber(0, 2);
+            cambio_carril_2(random_carril);
+          }, getRandomNumber(300, 1000));
+        }
+      }
+      setTimeout(function() {
+        var random_carril = getRandomNumber(0, 2);
+        cambio_carril_2(random_carril);
+        shoot();
+      }, 1000 + getRandomNumber(2500));
+
+      return enemy_2; 
     }
 
     function Enemigo_1 () {
       Object.getPrototypeOf(Enemigo_1.prototype).constructor.call(this, enemy_1_life, enemy_1_bullet, "images/pepino.png");
-      //this.goDownSpeed = evilSpeed/2;
-      //this.pointsToKill = 20;
     }
     Enemigo_1.prototype = Object.create(Enemy_1.prototype);
     Enemigo_1.prototype.constructor = Enemigo_1;
+
+
+    function Enemigo_2 () {
+      Object.getPrototypeOf(Enemigo_2.prototype).constructor.call(this, enemy_2_life, enemy_2_bullet, "images/laser.png");
+    }
+    Enemigo_2.prototype = Object.create(Enemy_2.prototype);
+    Enemigo_2.prototype.constructor = Enemigo_2;
     // ---------------------------------------------------------------- Fin enemigos ---------------------------------------------------------------
 
 
@@ -772,20 +810,48 @@ if(SMARTPHONE.any()){
     Enemy_1_Shoot.prototype = Object.create(Shoot.prototype);
     Enemy_1_Shoot.prototype.constructor = Enemy_1_Shoot;
 
+    function Enemy_2_Shoot (x, y) {
+      Object.getPrototypeOf(Enemy_2_Shoot.prototype).constructor.call(this, x, y, enemy_2_bullets, enemy_2_bullet);
+      //console.log("creada la bala");
+    }
+    Enemy_2_Shoot.prototype = Object.create(Shoot.prototype);
+    Enemy_2_Shoot.prototype.constructor = Enemy_2_Shoot;
+
     function checkCollisions(shot) {
-      // ------------------------- colisiones con el enemigo 1
-      if(player_carril_n(shot) == enemy_1_carril_n(enemy_1_carril)){
-        if((shot.posX >= enemy_1.posX-3) &&(shot.posX <= enemy_1.posX + 3)){
-          enemy_1_life -= 1;
-          console.log(enemy_1_life);
-          if(enemy_1_life == 0){
-            enemy_1.kill();
-            //the_end = true;
-            //enemy_1 = null;
-          }          
-          shot.deleteShot(parseInt(shot.identifier));
-          return true;
-        } 
+      switch(enemy_id){
+        case 0:
+          // ------------------------- colisiones con el enemigo 1
+          if(player_carril_n(shot) == enemy_1_carril_n(enemy_1_carril)){
+            if((shot.posX >= enemy_1.posX-3) &&(shot.posX <= enemy_1.posX + 3)){
+              enemy_1_life -= 1;
+              //console.log(enemy_1_life);
+              if(enemy_1_life == 0){
+                enemy_1.kill();
+                //the_end = true;
+                //enemy_1 = null;
+              }          
+              shot.deleteShot(parseInt(shot.identifier));
+              return true;
+            } 
+          }
+          break;
+        case 1:
+          
+          if(player_carril_n(shot) == enemy_2_carril_n(enemy_2_carril)){
+            if((shot.posX >= enemy_2.posX-3) &&(shot.posX <= enemy_2.posX + 3)){
+              enemy_2_life -= 1;
+              console.log(enemy_2_life);
+              if(enemy_2_life == 0){
+                enemy_2.kill();
+                //the_end = true;
+                //enemy_1 = null;
+              }          
+              shot.deleteShot(parseInt(shot.identifier));
+              return true;
+            } 
+          }
+          return true; 
+          break;  
       }       
       return true;   
     }
@@ -881,6 +947,97 @@ if(SMARTPHONE.any()){
       return true;
     }
 
+    
+    function checkCollisions_Enemy_2 (shoot){
+      if(FIREFOX){
+        if(enemy_2_carril_n(shoot) == player_carril_n_2(player_1)){
+          if(player_carril_n_2(player_1) == 0){
+            if((shoot.posX >= (player_1.posX + 192)) && (shoot.posX <= (player_1.posX + 198))){
+              player_1.hit();
+              shoot.deleteShot(parseInt(shoot.identifier));
+            }
+          }
+          if(player_carril_n_2(player_1) == 1){
+            if((shoot.posX >= (player_1.posX + 132)) && (shoot.posX <= (player_1.posX + 138))){
+              player_1.hit();
+              shoot.deleteShot(parseInt(shoot.identifier));
+            }
+          }
+          if(player_carril_n_2(player_1) == 2){
+            if((shoot.posX >= (player_1.posX + 52)) && (shoot.posX <= (player_1.posX + 58))){
+              player_1.hit();
+              shoot.deleteShot(parseInt(shoot.identifier));
+            }
+          }
+        }
+        if(Jugadores == '2'){
+          if(enemy_2_carril_n(shoot) == player_carril_n_2(player_2)){
+            if(player_carril_n_2(player_2) == 0){
+              if((shoot.posX >= (player_2.posX + 192)) && (shoot.posX <= (player_2.posX + 198))){
+                player_2.hit();
+                shoot.deleteShot(parseInt(shoot.identifier));
+              }
+            }
+            if(player_carril_n_2(player_2) == 1){
+              if((shoot.posX >= (player_2.posX + 132)) && (shoot.posX <= (player_2.posX + 138))){
+                player_2.hit();
+                shoot.deleteShot(parseInt(shoot.identifier));
+              }
+            }
+            if(player_carril_n_2(player_2) == 2){
+              if((shoot.posX >= (player_2.posX + 52)) && (shoot.posX <= (player_2.posX + 58))){
+                player_2.hit();
+                shoot.deleteShot(parseInt(shoot.identifier));
+              }
+            }
+          }
+        }
+      }else{
+        if(enemy_2_carril_n(shoot) == player_carril_n(player_1)){
+          if(player_carril_n(player_1) == 0){
+            if((shoot.posX >= (player_1.posX + 192)) && (shoot.posX <= (player_1.posX + 198))){
+              player_1.hit();
+              shoot.deleteShot(parseInt(shoot.identifier));
+            }
+          }
+          if(player_carril_n(player_1) == 1){
+            if((shoot.posX >= (player_1.posX + 132)) && (shoot.posX <= (player_1.posX + 138))){
+              player_1.hit();
+              shoot.deleteShot(parseInt(shoot.identifier));
+            }
+          }
+          if(player_carril_n(player_1) == 2){
+            if((shoot.posX >= (player_1.posX + 52)) && (shoot.posX <= (player_1.posX + 58))){
+              player_1.hit();
+              shoot.deleteShot(parseInt(shoot.identifier));
+            }
+          }
+        }
+        if(Jugadores == '2'){
+          if(enemy_2_carril_n(shoot) == player_carril_n(player_2)){
+            if(player_carril_n(player_2) == 0){
+              if((shoot.posX >= (player_2.posX + 192)) && (shoot.posX <= (player_2.posX + 198))){
+                player_2.hit();
+                shoot.deleteShot(parseInt(shoot.identifier));
+              }
+            }
+            if(player_carril_n(player_2) == 1){
+              if((shoot.posX >= (player_2.posX + 132)) && (shoot.posX <= (player_2.posX + 138))){
+                player_2.hit();
+                shoot.deleteShot(parseInt(shoot.identifier));
+              }
+            }
+            if(player_carril_n(player_2) == 2){
+              if((shoot.posX >= (player_2.posX + 52)) && (shoot.posX <= (player_2.posX + 58))){
+                player_2.hit();
+                shoot.deleteShot(parseInt(shoot.identifier));
+              }
+            }
+          }
+        }
+      }
+      return true;
+    }
 
     function updatePlayer_1_Shoot(player_1_shoot, id) {
       if (player_1_shoot) {
@@ -923,6 +1080,21 @@ if(SMARTPHONE.any()){
         }
       }
     }
+    
+    function updateEnemy_2_Shoot(enemy_2_shoot, id) {
+      if (enemy_2_shoot) {
+        enemy_2_shoot.identifier = id;
+        if (checkCollisions_Enemy_2(enemy_2_shoot)) {
+          if (enemy_2_shoot.posX >= 0) {
+            //console.log("amos a imprimir " + enemy_2_shoot.image)
+            enemy_2_shoot.posX -= 5
+            bufferctx.drawImage(enemy_2_shoot.image, enemy_2_shoot.posX, enemy_2_shoot.posY, enemy_2_shoot.x, enemy_2_shoot.y);
+          } else {
+            enemy_2_shoot.deleteShot(parseInt(enemy_2_shoot.identifier));
+          }
+        }
+      }
+    }
     // ---------------------------------------------------------------- Fin disparos ---------------------------------------------------------------
 
     // ------------------------------------------------------------------ Teclado ------------------------------------------------------------------
@@ -934,7 +1106,7 @@ if(SMARTPHONE.any()){
       } else if (window.attachEvent) { // IE
           element.attachEvent('on' + type, expression);
       }
-      console.log("input con exito");
+      //console.log("input con exito");
     }
     // tecla pulsada
     function keyDown(e) {
@@ -963,7 +1135,17 @@ if(SMARTPHONE.any()){
     // funcion update
     function update() {    
       drawBackground();
-    
+      switch(enemy_id){
+        case 0:
+          //console.log("enemigo 0 ya creado");
+          break;
+        case 1:
+          if(enemy_2_created == false){
+            //console.log("creando segundo enemigo");
+            enemy_2 = new Enemy_2 ();
+            enemy_2_created = true;
+          }
+      }
       if (the_end) {
         //showCongratulations();
         return;
@@ -975,21 +1157,10 @@ if(SMARTPHONE.any()){
       }
     
       drawPlayers ();
-      /*
-      updateEvil();
-      */    
       drawShoots ();
-      /*
-      if (isEvilHittingPlayer()) {
-        player.killPlayer();
-      } else {
-        for (var i = 0; i < evilShotsBuffer.length; i++) {
-          var evilShot = evilShotsBuffer[i];
-          updateEvilShot(evilShot, i);
-        }
-      }
-      */
+
       showLifeAndScore();
+
       playerAction();
     }
 
@@ -1025,9 +1196,18 @@ if(SMARTPHONE.any()){
         if (Jugadores == 2) {
             bufferctx.drawImage(player_2, player_2.posX, player_2.posY, player_2_carril.x, player_2_carril.y);
         }
-        if(enemy_1_life > 0){
-          bufferctx.drawImage(enemy_1, enemy_1.posX, enemy_1.posY, enemy_1_carril.x, enemy_1_carril.y);
+        switch(enemy_id){
+          case 0:
+            if(enemy_1_life > 0){
+              bufferctx.drawImage(enemy_1, enemy_1.posX, enemy_1.posY, enemy_1_carril.x, enemy_1_carril.y);
+            }
+            break;
+          case 1:
+            if(enemy_2_life > 0){
+              bufferctx.drawImage(enemy_2, enemy_2.posX, enemy_2.posY, enemy_2_carril.x, enemy_2_carril.y);
+            }
         }
+          
       }     
     }
 
@@ -1041,12 +1221,24 @@ if(SMARTPHONE.any()){
         var disparoBueno = player_2_bullets[j];
         updatePlayer_2_Shoot(disparoBueno, j);
       }
-      if(enemy_1_life > 0){
-        for (var i = 0; i < enemy_1_bullets.length; i++) {
-          var disparoMalo = enemy_1_bullets[i];
-          updateEnemy_1_Shoot(disparoMalo, i);
-        }
-      }
+      switch(enemy_id){
+        case 0:
+          if(enemy_1_life > 0){
+            for (var i = 0; i < enemy_1_bullets.length; i++) {
+              var disparoMalo = enemy_1_bullets[i];
+              updateEnemy_1_Shoot(disparoMalo, i);
+            }
+          }
+          break;
+        case 1:
+          if(enemy_2_life > 0){
+            for (var i = 0; i < enemy_2_bullets.length; i++) {
+              var disparoMalo = enemy_2_bullets[i];
+              updateEnemy_2_Shoot(disparoMalo, i);
+            }
+          }
+          break;     
+      }      
     }
 
     // interfaz del juego

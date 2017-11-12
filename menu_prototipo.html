@@ -93,6 +93,12 @@
 			var ukFlagImage = new Image ();
 			var spFlagImageB = new Image (); //con borde
 			var ukFlagImageB = new Image (); //con borde
+
+			var button_left = new Image ();
+			var button_down = new Image ();
+			var button_right = new Image ();
+			var button_up = new Image ();
+			var button_attack = new Image ();
 			
 			//var settingsImage = new Image();
 			
@@ -130,12 +136,18 @@
 			playImageEng.src = "images/1playe.png";
 			playtImage.src = "images/2play.png";
 			playtImageEng.src = "images/2playe.png";
-			creditsImage.src = "images/credits esp.png";
+			creditsImage.src = "images/credits.png";
 			creditsImageEng.src = "images/creditse.png";
 			spFlagImage.src = "images/spain_flag.png";
 			ukFlagImage.src = "images/uk_flag.png";
 			spFlagImageB.src = "images/spain_flagB.png"; //con borde
-			ukFlagImageB.src = "images/uk_flagB.png"; //con borde		
+			ukFlagImageB.src = "images/uk_flagB.png"; //con borde	
+			
+			button_left.src = "images/button_left.png";
+			button_right.src = "images/button_right.png";
+			button_down.src = "images/button_down.png";
+			button_up.src = "images/button_up.png";
+			button_attack.src = "images/button_attack.png";	
 
 			//settingsImage.src = "images/settings.png";
 			
@@ -171,7 +183,24 @@
 			creditsImageEng.onload = function(){
 				context.drawImage(creditsImageEng, buttonX[2], buttonY[2]);
 			}
-			
+			if(SMARTPHONE.any()){
+				console.log("imprimo")
+				button_attack.onload = function() {
+			    	context.drawImage(button_attack, 55, 20, 50, 50);
+				}
+				button_left.onload = function() {
+			    	context.drawImage(button_left, 55, 40, 50, 50);
+				}
+				button_right.onload = function() {
+			    	context.drawImage(button_right, 55, 60, 50, 50);
+				}
+				button_up.onload = function() {
+			    	context.drawImage(button_up, 55, 80, 50, 50);
+				}
+				button_down.onload = function() {
+			    	context.drawImage(button_down, 55, 100, 50, 50);
+				}
+			}
 			
 			spFlagImage.onload = function() {
 			    context.drawImage(spFlagImage, 0, 0, 50, 50);
@@ -220,7 +249,13 @@
 				if(shipVisible == true){
 					draw_ship();
 				}
-				
+				if(SMARTPHONE.any()){
+					context.drawImage(button_left, 280, 460, 80, 80);
+					context.drawImage(button_right, 420, 460, 80, 80);
+					context.drawImage(button_up, 350, 425, 80, 80);
+					context.drawImage(button_down, 350, 495, 80, 80);
+					context.drawImage(button_attack, 550, 460, 80, 80);
+				}
 				 //Las banderas se dibujan segun lo que este seleccionado
 				if(eng) {
 					context.drawImage(playImageEng, buttonX[0], buttonY[0]);
