@@ -31,15 +31,13 @@
       					return (SMARTPHONE.Android() || SMARTPHONE.BlackBerry() || SMARTPHONE.iOS() || SMARTPHONE.Opera() || SMARTPHONE.Windows());
   				}
 			};
-			if(SMARTPHONE){
-				screen.orientation.lock("portrait-primary");
-			}
+		
 			//variable que contiene la música de fondo
 			var myMusic;
 			//Crea la música y la reproduce
 			function PlayMusic(){
 				myMusic= new sound("sound/bg_music.mp3");
-				myMusic.play();
+				//myMusic.play();
 			}
 
 			//Clase que coge sonido y crea los objetos para que se reproduzca. 
@@ -93,6 +91,12 @@
 			var ukFlagImage = new Image ();
 			var spFlagImageB = new Image (); //con borde
 			var ukFlagImageB = new Image (); //con borde
+
+			var button_left = new Image ();
+			var button_down = new Image ();
+			var button_right = new Image ();
+			var button_up = new Image ();
+			var button_attack = new Image ();
 			
 			//Posiblemete borrable: Es para que el fondo se mueva hacia arriba 
 			var backgroundY = 0;
@@ -130,7 +134,13 @@
 			spFlagImage.src = "images/spain_flag.png";
 			ukFlagImage.src = "images/uk_flag.png";
 			spFlagImageB.src = "images/spain_flagB.png"; //con borde
-			ukFlagImageB.src = "images/uk_flagB.png"; //con borde			
+			ukFlagImageB.src = "images/uk_flagB.png"; //con borde	
+
+			button_left.src = "images/button_left.png";
+			button_right.src = "images/button_right.png";
+			button_down.src = "images/button_down.png";
+			button_up.src = "images/button_up.png";
+			button_attack.src = "images/button_attack.png";	
 			
 			bgImage.onload = function(){
 				context.drawImage(bgImage, 0, 0);
@@ -154,7 +164,22 @@
 			    context.drawImage(spFlagImage, 0, 0, 50, 50);
 			}
 			ukFlagImage.onload = function() {
-			    context.drawImage(ukFlagImage, 55, 0, 50, 50);
+				context.drawImage(ukFlagImage, 55, 0, 50, 50);
+			}
+			button_attack.onload = function() {
+			    context.drawImage(button_attack, 55, 20, 50, 50);
+			}
+			button_left.onload = function() {
+			    context.drawImage(button_left, 55, 40, 50, 50);
+			}
+			button_right.onload = function() {
+			    context.drawImage(button_right, 55, 60, 50, 50);
+			}
+			button_up.onload = function() {
+			    context.drawImage(button_up, 55, 80, 50, 50);
+			}
+			button_down.onload = function() {
+			    context.drawImage(button_down, 55, 100, 50, 50);
 			}
 			
 			//intervalo de refresco del canvas
@@ -191,12 +216,21 @@
 			}
 			//Coloca las imagenes en el canvas
 			function draw(){
+				
 				context.drawImage(bgImage, 0, backgroundY);
 				context.drawImage(logoImage, 400,-10);
 				context.drawImage(playImage, buttonX[0], buttonY[0]);
 				context.drawImage(instructImage, buttonX[1], buttonY[1]);
 				context.drawImage(settingsImage, buttonX[2], buttonY[2]);
 				context.drawImage(creditsImage, buttonX[3], buttonY[3]);
+				if(SMARTPHONE){
+					context.drawImage(button_left, 280, 460, 80, 80);
+					context.drawImage(button_right, 420, 460, 80, 80);
+					context.drawImage(button_up, 350, 425, 80, 80);
+					context.drawImage(button_down, 350, 495, 80, 80);
+					context.drawImage(button_attack, 550, 460, 80, 80);
+				}
+					
 				if(shipVisible == true){
 					draw_ship();
 				}
