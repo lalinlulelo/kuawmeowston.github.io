@@ -42,21 +42,21 @@
 			document.addEventListener("mouseup", touchHandler);
 
 			function touchHandler(e) {
-				console.log(event.clientX + " " + event.clientY);
+				//console.log(event.clientX + " " + event.clientY);
 				//var playerX = event.clientX;
 				//var playerY = event.clientY;
     			if(e.touches) {
-        			var playerX = e.touches[0].pageX - canvas.offsetLeft - playerWidth / 2;
-					var playerY = e.touches[0].pageY - canvas.offsetTop - playerHeight / 2;
+        			var playerX = e.changedTouches[0].pageX;
+					var playerY = e.changedTouches[0].pageY;
 					console.log(playerX + " " + playerY);
         			e.preventDefault();
 				}
-				if((playerX <= 496)&&(playerX >= 413)&&(playerY <= 556)&&(playerY >= 478)){
+				if((playerX <= 230)&&(playerX >= 190)&&(playerY <= 272)&&(playerY >= 226)){
 					if(mouse_index > 0){
 						mouse_index -= 1;
 					}
 				}
-				if((playerX <= 495)&&(playerX >= 412)&&(playerY <= 647)&&(playerY >= 565)){
+				if((playerX <= 234)&&(playerX >= 186)&&(playerY <= 345)&&(playerY >= 296)){
 					if(mouse_index < 2){
 						mouse_index += 1;
 					}
@@ -214,7 +214,7 @@
 			creditsImageEng.onload = function(){
 				context.drawImage(creditsImageEng, buttonX[2], buttonY[2]);
 			}
-			//if(SMARTPHONE.any()){
+			if(SMARTPHONE.any()){
 				console.log("imprimo")
 				button_attack.onload = function() {
 			    	context.drawImage(button_attack, 55, 20, 50, 50);
@@ -231,7 +231,7 @@
 				button_down.onload = function() {
 			    	context.drawImage(button_down, 55, 100, 50, 50);
 				}
-			//}
+			}
 			
 			spFlagImage.onload = function() {
 			    context.drawImage(spFlagImage, 0, 0, 50, 50);
@@ -280,13 +280,13 @@
 				if(shipVisible == true){
 					draw_ship();
 				}
-				//if(SMARTPHONE.any()){
-					context.drawImage(button_left, 270, 460, 100, 100);
-					context.drawImage(button_right, 430, 460, 100, 100);
-					context.drawImage(button_up, 350, 420, 100, 100);
-					context.drawImage(button_down, 350, 500, 100, 100);
-					context.drawImage(button_attack, 550, 460, 100, 100);
-				//}
+				if(SMARTPHONE.any()){
+					context.drawImage(button_left, 200, 400, 150, 150);
+					context.drawImage(button_right, 440, 400, 150, 150);
+					context.drawImage(button_up, 320, 340, 150, 150);
+					context.drawImage(button_down, 320, 460, 150, 150);
+					context.drawImage(button_attack, 650, 400, 150, 150);
+				}
 				 //Las banderas se dibujan segun lo que este seleccionado
 				if(eng) {
 					context.drawImage(playImageEng, buttonX[0], buttonY[0]);
