@@ -1289,6 +1289,9 @@ var game = (function () {
     function draw() {
       // coge tambien el tamaño de la ventana del navegador
       //Pintar capas en orden de atras (2) adelante (0) 
+      if(SMARTPHONE.any()){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
       ctx.drawImage(capa2, 0, 0, window.innerWidth, window.innerHeight);
       ctx.drawImage(capa1, 0, 0, window.innerWidth, window.innerHeight);
       ctx.drawImage(capa0, 0, 0, window.innerWidth, window.innerHeight);
