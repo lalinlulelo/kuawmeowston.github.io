@@ -34,37 +34,7 @@ var SMARTPHONE = {
       return (SMARTPHONE.Android() || SMARTPHONE.BlackBerry() || SMARTPHONE.iOS() || SMARTPHONE.Opera() || SMARTPHONE.Windows());
   }
 };
-function touchHandler(e) {
-  if(e.touches) {
-    var playerX = e.changedTouches[0].pageX;
-    var playerY = e.changedTouches[0].pageY;
-    console.log(playerX + " " + playerY);
-    e.preventDefault();
-  }
-  if((playerX <= 220)&&(playerX >= 180)&&(playerY <= 195)&&(playerY >= 170)){
-    console.log("arriba")
-    if(player_1.posY > 199.1){
-      player_1.posY -= 0.05;
-      player_1.posX += 6;
-      player_1_carril.x -= 10;
-      player_1_carril.y -= 5;                  
-    }
-  }
-  if((playerX <= 220)&&(playerX >= 180)&&(playerY <= 260)&&(playerY >= 230)){
-    console.log("abajo")
-    if(player_1.posY < 474){
-      player_1.posY += 0.05;
-      player_1.posX -= 6;
-      player_1_carril.x += 10;
-      player_1_carril.y += 5;
-    }
-  }
-  if((playerX <= 375)&&(playerX >= 332)&&(playerY <= 235)&&(playerY >= 190)){
-    player_1_bullet_x = player_1_carril.x - 10;
-    player_1_bullet_y = player_1_carril.y - 10;
-    shoot();
-  }
-}
+
 // juego
 var game = (function () {
 
@@ -1545,7 +1515,38 @@ var game = (function () {
         capa0ctx.fillText("GAME OVER", canvas.width / 2 - 100, canvas.height / 2);
     }
     // ------------------------------------------------------- FIn funciones de pintado -------------------------------------------------------
-  
+    
+    function touchHandler(e) {
+      if(e.touches) {
+        var playerX = e.changedTouches[0].pageX;
+        var playerY = e.changedTouches[0].pageY;
+        console.log(playerX + " " + playerY);
+        e.preventDefault();
+      }
+      if((playerX <= 220)&&(playerX >= 180)&&(playerY <= 195)&&(playerY >= 170)){
+        console.log("arriba")
+        if(player_1.posY > 199.1){
+          player_1.posY -= 0.05;
+          player_1.posX += 6;
+          player_1_carril.x -= 10;
+          player_1_carril.y -= 5;                  
+        }
+      }
+      if((playerX <= 220)&&(playerX >= 180)&&(playerY <= 260)&&(playerY >= 230)){
+        console.log("abajo")
+        if(player_1.posY < 474){
+          player_1.posY += 0.05;
+          player_1.posX -= 6;
+          player_1_carril.x += 10;
+          player_1_carril.y += 5;
+        }
+      }
+      if((playerX <= 375)&&(playerX >= 332)&&(playerY <= 235)&&(playerY >= 190)){
+        player_1_bullet_x = player_1_carril.x - 10;
+        player_1_bullet_y = player_1_carril.y - 10;
+        shoot();
+      }
+    }
 
   return {
     init: init
