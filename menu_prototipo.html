@@ -65,6 +65,28 @@
 						mouse_index += 1;
 					}
 				}
+				if((playerX <= 375)&&(playerX >= 332)&&(playerY <= 235)&&(playerY >= 190)){
+					switch(mouse_index){
+						case 0:
+							fadeOut();
+							await sleep(500);
+							var Jugadores = 1;
+							localStorage.setItem("jugadores", Jugadores);
+							window.location.href = "juego.html";
+							break;
+						case 1:
+							alert("accion no disponible en plataforma movil")
+							fadeOut();
+							break;
+						case 2:
+							await sleep(500);
+							fadeOut();
+							console.log("Idioma: "+eng);
+							localStorage.setItem("idioma", eng); //guardar variable que indica el idioma
+							window.location.href = "creditos.html";
+							break;
+					}
+				}
 			}
 
 			//variable que contiene la música de fondo
