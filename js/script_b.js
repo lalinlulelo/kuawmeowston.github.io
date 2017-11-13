@@ -35,7 +35,7 @@ var SMARTPHONE = {
 
 // juego
 var game = (function () {
-  document.addEventListener("touchstart", touchHandler);
+  document.addEventListener("touchmove", touchHandler);
   document.addEventListener("mouseup", touchHandler);
 
   function touchHandler(e) {
@@ -46,7 +46,7 @@ var game = (function () {
       e.preventDefault();
     }
     if((playerX <= 170)&&(playerX >= 110)&&(playerY <= 20)&&(playerY >= 75)){
-      //console.log("arriba")
+      console.log("flecha arriba")
       if(player_1.posY > 199.1){
         player_1.posY -= 0.05;
         player_1.posX += 6;
@@ -55,7 +55,7 @@ var game = (function () {
       }
     }
     if((playerX <= 175)&&(playerX >= 114)&&(playerY <= 140)&&(playerY >= 85)){
-      //console.log("abajo")
+      console.log("flecha abajo")
       if(player_1.posY < 474){
         player_1.posY += 0.05;
         player_1.posX -= 6;
@@ -64,10 +64,12 @@ var game = (function () {
       }
     }
     if((playerX <= 109)&&(playerX >= 55)&&(playerY <= 107)&&(playerY >= 54)){
+      console.log("flecha izquierda")
       if (player_1.posX > (-120*player_1.posY + 56850))
         player_1.posX -= player_1.speed;   
     }
     if((playerX <= 230)&&(playerX >= 175)&&(playerY <= 107)&&(playerY >= 54)){
+      console.log("flecha derecha")
       if (player_1.posX < (-120*player_1.posY + 57215))
         player_1.posX += player_1.speed;
     }
