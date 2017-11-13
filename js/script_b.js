@@ -45,7 +45,7 @@ var game = (function () {
       console.log(playerX + " " + playerY);
       e.preventDefault();
     }
-    if((playerX <= 170)&&(playerX >= 110)&&(playerY <= 20)&&(playerY >= 75)){
+    if((playerX <= 170)&&(playerX >= 110)&&(playerY <= 75)&&(playerY >= 20)){
       console.log("flecha arriba")
       console.log(player_1.posY)
       if(player_1.posY > 199.1){
