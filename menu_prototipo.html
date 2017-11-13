@@ -41,7 +41,7 @@
 			document.addEventListener("touchend", touchHandler);
 			document.addEventListener("mouseup", touchHandler);
 
-			async function touchHandler(e) {
+			function touchHandler(e) {
 				//console.log(event.clientX + " " + event.clientY);
 				//var playerX = event.clientX;
 				//var playerY = event.clientY;
@@ -72,7 +72,7 @@
 					switch(mouse_index){
 						case 0:
 							fadeOut();
-							await sleep(500);
+							//await sleep(500);
 							var Jugadores = 1;
 							localStorage.setItem("jugadores", Jugadores);
 							window.location.href = "juego.html";
@@ -82,7 +82,7 @@
 							fadeOut();
 							break;
 						case 2:
-							await sleep(500);
+							//await sleep(500);
 							fadeOut();
 							console.log("Idioma: "+eng);
 							localStorage.setItem("idioma", eng); //guardar variable que indica el idioma
