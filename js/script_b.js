@@ -35,6 +35,40 @@ var SMARTPHONE = {
 
 // juego
 var game = (function () {
+  document.addEventListener("touchend", touchHandler);
+  document.addEventListener("mouseup", touchHandler);
+
+  function touchHandler(e) {
+    if(e.touches) {
+      var playerX = e.changedTouches[0].pageX;
+      var playerY = e.changedTouches[0].pageY;
+      console.log(playerX + " " + playerY);
+      e.preventDefault();
+    }
+    if((playerX <= 220)&&(playerX >= 180)&&(playerY <= 195)&&(playerY >= 170)){
+      console.log("arriba")
+      if(player_1.posY > 199.1){
+        player_1.posY -= 0.05;
+        player_1.posX += 6;
+        player_1_carril.x -= 10;
+        player_1_carril.y -= 5;                  
+      }
+    }
+    if((playerX <= 220)&&(playerX >= 180)&&(playerY <= 260)&&(playerY >= 230)){
+      console.log("abajo")
+      if(player_1.posY < 474){
+        player_1.posY += 0.05;
+        player_1.posX -= 6;
+        player_1_carril.x += 10;
+        player_1_carril.y += 5;
+      }
+    }
+    if((playerX <= 375)&&(playerX >= 332)&&(playerY <= 235)&&(playerY >= 190)){
+      player_1_bullet_x = player_1_carril.x - 10;
+      player_1_bullet_y = player_1_carril.y - 10;
+      shoot();
+    }
+  }
   /*
 if(SMARTPHONE.any()){
   alert("Usas smartphone");
@@ -152,6 +186,12 @@ if(SMARTPHONE.any()){
     var Jugadores = localStorage.getItem("jugadores");
     //console.log("Numero de jugadores " + Jugadores);
  
+    var button_attack;
+    var button_down;
+    var button_left;
+    var button_right;
+    var button_up;
+
     // gameloop
     function loop () {
       update ();
@@ -191,6 +231,17 @@ if(SMARTPHONE.any()){
       player_2_life_sprite.src = 'images/player_2_1_lifes.png';
       player_2_killed = new Image ();
       player_2_killed.src = 'images/player_2_killed.png';
+
+      button_left = new Image ();
+      button_left.src = "images/button_left.png";
+      button_down = new Image ();
+      button_down.src = "images/button_down.png";
+      button_right = new Image ();
+      button_right.src = "images/button_right.png";
+      button_up = new Image ();
+      button_up.src = "images/button_up.png";
+      button_attack = new Image ();
+      button_attack.src = "images/button_attack.png";	
 
       // sprites del escenario
       fondo_principal = new Image();
@@ -1197,6 +1248,11 @@ if(SMARTPHONE.any()){
     function draw() {
       // coge tambien el tamaño de la ventana del navegador
       ctx.drawImage(buffer, 0, 0, window.innerWidth, window.innerHeight);
+      ctx.drawImage(button_left, 200, 400, 150, 150);
+      ctx.drawImage(button_right, 440, 400, 150, 150);
+      ctx.drawImage(button_up, 320, 340, 150, 150);
+      ctx.drawImage(button_down, 320, 460, 150, 150);
+      ctx.drawImage(button_attack, 650, 400, 150, 150);
     }
 
     // pinta los jugadores
