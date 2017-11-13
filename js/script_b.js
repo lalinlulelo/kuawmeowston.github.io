@@ -1248,10 +1248,10 @@ if(SMARTPHONE.any()){
     function draw() {
       // coge tambien el tamaño de la ventana del navegador
       ctx.drawImage(buffer, 0, 0, window.innerWidth, window.innerHeight);
-      ctx.drawImage(button_left, 50, 180, 75, 75);
-      ctx.drawImage(button_right, 150, 150, 75, 75);
-      ctx.drawImage(button_up, 120, 120, 75, 75);
-      ctx.drawImage(button_down, 85, 160, 75, 75);
+      ctx.drawImage(button_left, 150, 180, 75, 75);
+      ctx.drawImage(button_right, 350, 180, 75, 75);
+      ctx.drawImage(button_up, 120, 140, 75, 75);
+      ctx.drawImage(button_down, 85, 200, 75, 75);
       ctx.drawImage(button_attack, 160, 150, 75, 75);
     }
 
