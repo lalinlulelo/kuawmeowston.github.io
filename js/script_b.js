@@ -1074,7 +1074,16 @@ if(SMARTPHONE.any()){
         if (checkCollisions_Enemy_1(enemy_1_shoot)) {
           if (enemy_1_shoot.posX >= 0) {
             enemy_1_shoot.posX -= 5
-            bufferctx.drawImage(enemy_1_shoot.image, enemy_1_shoot.posX, enemy_1_shoot.posY, enemy_1_shoot.x, enemy_1_shoot.y);
+            console.log(enemy_1_carril_n(enemy_1_shoot) + " " + player_carril_n(player_1));
+            if(enemy_1_carril_n(enemy_1_shoot) > player_carril_n(player_1)){
+              console.log(enemy_1_shoot.posX + " " + player_1.posX);
+              //bufferctx.drawImage(enemy_1_shoot.image, enemy_1_shoot.posX, enemy_1_shoot.posY, enemy_1_shoot.x, enemy_1_shoot.y);
+              if((enemy_1_shoot.posX > player_1.posX + 192)||(enemy_1_shoot.posX < player_1.posX)){
+                bufferctx.drawImage(enemy_1_shoot.image, enemy_1_shoot.posX, enemy_1_shoot.posY, enemy_1_shoot.x, enemy_1_shoot.y);
+              }
+            }else{
+              bufferctx.drawImage(enemy_1_shoot.image, enemy_1_shoot.posX, enemy_1_shoot.posY, enemy_1_shoot.x, enemy_1_shoot.y);
+            }    
           } else {
             enemy_1_shoot.deleteShot(parseInt(enemy_1_shoot.identifier));
           }
@@ -1089,7 +1098,15 @@ if(SMARTPHONE.any()){
           if (enemy_2_shoot.posX >= 0) {
             //console.log("amos a imprimir " + enemy_2_shoot.image)
             enemy_2_shoot.posX -= 5
-            bufferctx.drawImage(enemy_2_shoot.image, enemy_2_shoot.posX, enemy_2_shoot.posY, enemy_2_shoot.x, enemy_2_shoot.y);
+            if(enemy_2_carril_n(enemy_2_shoot) > player_carril_n(player_1)){
+              console.log(enemy_2_shoot.posX + " " + player_1.posX);
+              //bufferctx.drawImage(enemy_1_shoot.image, enemy_1_shoot.posX, enemy_1_shoot.posY, enemy_1_shoot.x, enemy_1_shoot.y);
+              if((enemy_2_shoot.posX > player_1.posX + 240)||(enemy_2_shoot.posX < player_1.posX)){
+                bufferctx.drawImage(enemy_2_shoot.image, enemy_2_shoot.posX, enemy_2_shoot.posY, enemy_2_shoot.x, enemy_2_shoot.y);
+              }
+            }else{
+              bufferctx.drawImage(enemy_2_shoot.image, enemy_2_shoot.posX, enemy_2_shoot.posY, enemy_2_shoot.x, enemy_2_shoot.y);
+            } 
           } else {
             enemy_2_shoot.deleteShot(parseInt(enemy_2_shoot.identifier));
           }
