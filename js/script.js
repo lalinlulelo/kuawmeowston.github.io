@@ -9,8 +9,7 @@ window.requestAnimFrame = (function () {
           window.setTimeout(callback, 1000 / 60);
       };
 })();
-document.addEventListener("touchend", touchHandler);
-document.addEventListener("mouseup", touchHandler);
+
 // si es navegador FIREFOX
 var FIREFOX = /Firefox/i.test(navigator.userAgent);
 // si es smartphone
@@ -37,7 +36,8 @@ var SMARTPHONE = {
 
 // juego
 var game = (function () {
-
+  document.addEventListener("touchend", touchHandler);
+  document.addEventListener("mouseup", touchHandler);
     // ------------------------------------------------------ Inicializacion de las variables ------------------------------------------------------
     // variables globales de la aplicacion
     var canvas;
