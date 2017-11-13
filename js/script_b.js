@@ -530,7 +530,7 @@ if(SMARTPHONE.any()){
       };
 
       player_1.hit = function (){
-        player_1.life -= 1;
+        //player_1.life -= 1;
         if(player_1.life == 0){
           player_1_life_sprite.src = '';
           player_1.src = player_1_killed.src;
