@@ -1248,11 +1248,11 @@ if(SMARTPHONE.any()){
     function draw() {
       // coge tambien el tamaño de la ventana del navegador
       ctx.drawImage(buffer, 0, 0, window.innerWidth, window.innerHeight);
-      ctx.drawImage(button_left, 150, 180, 75, 75);
-      ctx.drawImage(button_right, 250, 180, 75, 75);
-      ctx.drawImage(button_up, 170, 160, 75, 75);
-      ctx.drawImage(button_down, 170, 220, 75, 75);
-      ctx.drawImage(button_attack, 160, 150, 75, 75);
+      ctx.drawImage(button_left, 150, 50, 75, 75);
+      ctx.drawImage(button_right, 250, 50, 75, 75);
+      ctx.drawImage(button_up, 200, 30, 75, 75);
+      ctx.drawImage(button_down, 200, 90, 75, 75);
+      ctx.drawImage(button_attack, 160, 50, 75, 75);
     }
 
     // pinta los jugadores
