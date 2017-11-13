@@ -67,12 +67,10 @@
 				}
 				console.log((playerX <= 375)&&(playerX >= 332)&&(playerY <= 235)&&(playerY >= 190))
 				if((playerX <= 375)&&(playerX >= 332)&&(playerY <= 235)&&(playerY >= 190)){
-					console.log("bajo")
-					
+					console.log("bajo")				
 					switch(mouse_index){
 						case 0:
 							fadeOut();
-							//await sleep(500);
 							var Jugadores = 1;
 							localStorage.setItem("jugadores", Jugadores);
 							window.location.href = "juego.html";
@@ -82,7 +80,6 @@
 							fadeOut();
 							break;
 						case 2:
-							//await sleep(500);
 							fadeOut();
 							console.log("Idioma: "+eng);
 							localStorage.setItem("idioma", eng); //guardar variable que indica el idioma
