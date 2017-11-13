@@ -1249,10 +1249,10 @@ if(SMARTPHONE.any()){
       // coge tambien el tamaño de la ventana del navegador
       ctx.drawImage(buffer, 0, 0, window.innerWidth, window.innerHeight);
       ctx.drawImage(button_left, 50, 50, 75, 75);
-      ctx.drawImage(button_right, 190, 50, 75, 75);
-      ctx.drawImage(button_up, 120, 30, 75, 75);
-      ctx.drawImage(button_down, 120, 90, 75, 75);
-      ctx.drawImage(button_attack, 260, 50, 75, 75);
+      ctx.drawImage(button_right, 170, 50, 75, 75);
+      ctx.drawImage(button_up, 110, 30, 75, 75);
+      ctx.drawImage(button_down, 10, 90, 75, 75);
+      ctx.drawImage(button_attack, 360, 50, 75, 75);
     }
 
     // pinta los jugadores
