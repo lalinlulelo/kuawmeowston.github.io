@@ -35,7 +35,7 @@ var SMARTPHONE = {
 
 // juego
 var game = (function () {
-  document.addEventListener("touchmove", touchHandler);
+  document.addEventListener("touchstart", touchHandler);
   document.addEventListener("mouseup", touchHandler);
 
   function touchHandler(e) {
@@ -47,6 +47,7 @@ var game = (function () {
     }
     if((playerX <= 170)&&(playerX >= 110)&&(playerY <= 20)&&(playerY >= 75)){
       console.log("flecha arriba")
+      console.log(player_1.posY)
       if(player_1.posY > 199.1){
         player_1.posY -= 0.05;
         player_1.posX += 6;
@@ -56,6 +57,7 @@ var game = (function () {
     }
     if((playerX <= 175)&&(playerX >= 114)&&(playerY <= 140)&&(playerY >= 85)){
       console.log("flecha abajo")
+      console.log(player_1.posY)
       if(player_1.posY < 474){
         player_1.posY += 0.05;
         player_1.posX -= 6;
