@@ -46,7 +46,7 @@ var game = (function () {
       e.preventDefault();
     }
     if((playerX <= 220)&&(playerX >= 180)&&(playerY <= 195)&&(playerY >= 170)){
-      console.log("arriba")
+      //console.log("arriba")
       if(player_1.posY > 199.1){
         player_1.posY -= 0.05;
         player_1.posX += 6;
@@ -55,7 +55,7 @@ var game = (function () {
       }
     }
     if((playerX <= 220)&&(playerX >= 180)&&(playerY <= 260)&&(playerY >= 230)){
-      console.log("abajo")
+      //console.log("abajo")
       if(player_1.posY < 474){
         player_1.posY += 0.05;
         player_1.posX -= 6;
@@ -793,7 +793,7 @@ if(SMARTPHONE.any()){
             enemy_2_shoot = new Enemy_2_Shoot(enemy_2.posX , enemy_2.bulletY);
             enemy_2_shoot.x = enemy_2_carril.x*0.3;
             enemy_2_shoot.y = enemy_2_carril.y*0.3;
-            console.log(enemy_2_shoot.x + " " + enemy_2_shoot.y);
+            //console.log(enemy_2_shoot.x + " " + enemy_2_shoot.y);
             enemy_2_shoot.add();
             shoot();
             var random_carril = getRandomNumber(0, 2);
@@ -1125,9 +1125,9 @@ if(SMARTPHONE.any()){
         if (checkCollisions_Enemy_1(enemy_1_shoot)) {
           if (enemy_1_shoot.posX >= 0) {
             enemy_1_shoot.posX -= 5
-            console.log(enemy_1_carril_n(enemy_1_shoot) + " " + player_carril_n(player_1));
+            //console.log(enemy_1_carril_n(enemy_1_shoot) + " " + player_carril_n(player_1));
             if(enemy_1_carril_n(enemy_1_shoot) > player_carril_n(player_1)){
-              console.log(enemy_1_shoot.posX + " " + player_1.posX);
+              //console.log(enemy_1_shoot.posX + " " + player_1.posX);
               //bufferctx.drawImage(enemy_1_shoot.image, enemy_1_shoot.posX, enemy_1_shoot.posY, enemy_1_shoot.x, enemy_1_shoot.y);
               if((enemy_1_shoot.posX > player_1.posX + 192)||(enemy_1_shoot.posX < player_1.posX)){
                 bufferctx.drawImage(enemy_1_shoot.image, enemy_1_shoot.posX, enemy_1_shoot.posY, enemy_1_shoot.x, enemy_1_shoot.y);
