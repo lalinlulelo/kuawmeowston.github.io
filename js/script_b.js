@@ -78,7 +78,7 @@ var game = (function () {
     if((playerX <= 520)&&(playerX >= 465)&&(playerY <= 110)&&(playerY >= 55)){
       player_1_bullet_x = player_1_carril.x - 10;
       player_1_bullet_y = player_1_carril.y - 10;
-      player_1.shoot();
+      player_1.shoot_touch();
     }
   }
   /*
@@ -459,6 +459,32 @@ if(SMARTPHONE.any()){
           }
         }        
       };
+
+      player_1.shoot_touch = function (){
+        if (FIREFOX) {
+          if (player_1_next_shoot < player_1_now || player_1_now == 0) {
+            player_1_shoot = new Player_1_Shoot(player_1.posX + 30, player_1.posY + 285);
+            player_1_shoot.x = player_1_carril.x;
+            player_1_shoot.y = player_1_carril.y;
+            player_1_shoot.add();
+            player_1_now += player_1_shoot_delay;
+            player_1_next_shoot = player_1_now + player_1_shoot_delay;
+          } else {
+            player_1_now = new Date().getTime();
+          }
+        } else {
+          if (player_1_next_shoot < player_1_now || player_1_now == 0) {
+            player_1_shoot = new Player_1_Shoot(player_1.posX + 30, player_1.posY);
+            player_1_shoot.x = player_1_carril.x;
+            player_1_shoot.y = player_1_carril.y;
+            player_1_shoot.add();
+            player_1_now += player_1_shoot_delay;
+            player_1_next_shoot = player_1_now + player_1_shoot_delay;
+          } else {
+            player_1_now = new Date().getTime();
+          }
+        } 
+      }
 
       // acciones del jugador
       player_1.doAnything = function() {
