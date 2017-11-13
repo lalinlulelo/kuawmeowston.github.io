@@ -35,7 +35,7 @@ var SMARTPHONE = {
 
 // juego
 var game = (function () {
-  document.addEventListener("touchend", touchHandler);
+  document.addEventListener("touchstart", touchHandler);
   document.addEventListener("mouseup", touchHandler);
 
   function touchHandler(e) {
@@ -45,7 +45,7 @@ var game = (function () {
       console.log(playerX + " " + playerY);
       e.preventDefault();
     }
-    if((playerX <= 220)&&(playerX >= 180)&&(playerY <= 195)&&(playerY >= 170)){
+    if((playerX <= 170)&&(playerX >= 110)&&(playerY <= 20)&&(playerY >= 75)){
       //console.log("arriba")
       if(player_1.posY > 199.1){
         player_1.posY -= 0.05;
@@ -54,7 +54,7 @@ var game = (function () {
         player_1_carril.y -= 5;                  
       }
     }
-    if((playerX <= 220)&&(playerX >= 180)&&(playerY <= 260)&&(playerY >= 230)){
+    if((playerX <= 175)&&(playerX >= 114)&&(playerY <= 140)&&(playerY >= 85)){
       //console.log("abajo")
       if(player_1.posY < 474){
         player_1.posY += 0.05;
@@ -63,7 +63,15 @@ var game = (function () {
         player_1_carril.y += 5;
       }
     }
-    if((playerX <= 375)&&(playerX >= 332)&&(playerY <= 235)&&(playerY >= 190)){
+    if((playerX <= 109)&&(playerX >= 55)&&(playerY <= 107)&&(playerY >= 54)){
+      if (player_1.posX > (-120*player_1.posY + 56850))
+        player_1.posX -= player_1.speed;   
+    }
+    if((playerX <= 230)&&(playerX >= 175)&&(playerY <= 107)&&(playerY >= 54)){
+      if (player_1.posX < (-120*player_1.posY + 57215))
+        player_1.posX += player_1.speed;
+    }
+    if((playerX <= 520)&&(playerX >= 465)&&(playerY <= 110)&&(playerY >= 55)){
       player_1_bullet_x = player_1_carril.x - 10;
       player_1_bullet_y = player_1_carril.y - 10;
       shoot();
