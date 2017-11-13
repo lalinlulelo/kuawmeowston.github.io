@@ -1248,7 +1248,7 @@ if(SMARTPHONE.any()){
     function draw() {
       // coge tambien el tamaño de la ventana del navegador
       ctx.drawImage(buffer, 0, 0, window.innerWidth, window.innerHeight);
-      ctx.drawImage(button_left, 50, 50, 75, 75);
+      ctx.drawImage(button_left, 50, 150, 75, 75);
       ctx.drawImage(button_right, 140, 400, 150, 150);
       ctx.drawImage(button_up, 120, 340, 150, 150);
       ctx.drawImage(button_down, 120, 460, 150, 150);
