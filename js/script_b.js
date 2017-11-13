@@ -74,7 +74,7 @@ var game = (function () {
     if((playerX <= 520)&&(playerX >= 465)&&(playerY <= 110)&&(playerY >= 55)){
       player_1_bullet_x = player_1_carril.x - 10;
       player_1_bullet_y = player_1_carril.y - 10;
-      shoot();
+      player_1.shoot();
     }
   }
   /*
