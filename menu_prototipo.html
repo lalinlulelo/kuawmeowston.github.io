@@ -52,12 +52,14 @@
         			e.preventDefault();
 				}
 				if((playerX <= 220)&&(playerX >= 180)&&(playerY <= 195)&&(playerY >= 170)){
+					console.log("subo")
 					if(mouse_index > 0){
 						console.log("subo")
 						mouse_index -= 1;
 					}
 				}
 				if((playerX <= 220)&&(playerX >= 180)&&(playerY <= 260)&&(playerY >= 230)){
+					console.log("bajo")
 					if(mouse_index < 2){
 						console.log("bajo")
 						mouse_index += 1;
