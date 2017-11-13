@@ -9,6 +9,8 @@ window.requestAnimFrame = (function () {
           window.setTimeout(callback, 1000 / 60);
       };
 })();
+document.addEventListener("touchend", touchHandler);
+document.addEventListener("mouseup", touchHandler);
 // si es navegador FIREFOX
 var FIREFOX = /Firefox/i.test(navigator.userAgent);
 // si es smartphone
@@ -32,12 +34,40 @@ var SMARTPHONE = {
       return (SMARTPHONE.Android() || SMARTPHONE.BlackBerry() || SMARTPHONE.iOS() || SMARTPHONE.Opera() || SMARTPHONE.Windows());
   }
 };
-
+function touchHandler(e) {
+  if(e.touches) {
+    var playerX = e.changedTouches[0].pageX;
+    var playerY = e.changedTouches[0].pageY;
+    console.log(playerX + " " + playerY);
+    e.preventDefault();
+  }
+  if((playerX <= 220)&&(playerX >= 180)&&(playerY <= 195)&&(playerY >= 170)){
+    console.log("arriba")
+    if(player_1.posY > 199.1){
+      player_1.posY -= 0.05;
+      player_1.posX += 6;
+      player_1_carril.x -= 10;
+      player_1_carril.y -= 5;                  
+    }
+  }
+  if((playerX <= 220)&&(playerX >= 180)&&(playerY <= 260)&&(playerY >= 230)){
+    console.log("abajo")
+    if(player_1.posY < 474){
+      player_1.posY += 0.05;
+      player_1.posX -= 6;
+      player_1_carril.x += 10;
+      player_1_carril.y += 5;
+    }
+  }
+  if((playerX <= 375)&&(playerX >= 332)&&(playerY <= 235)&&(playerY >= 190)){
+    player_1_bullet_x = player_1_carril.x - 10;
+    player_1_bullet_y = player_1_carril.y - 10;
+    shoot();
+  }
+}
 // juego
 var game = (function () {
-if(SMARTPHONE.any()){
-  alert("Usas smartphone");
-} else {
+
     // ------------------------------------------------------ Inicializacion de las variables ------------------------------------------------------
     // variables globales de la aplicacion
     var canvas;
@@ -150,6 +180,11 @@ if(SMARTPHONE.any()){
     // variable que determina el numero de jugadores a jugar
     var Jugadores = localStorage.getItem("jugadores");
     //console.log("Numero de jugadores " + Jugadores);
+    var button_attack;
+    var button_down;
+    var button_left;
+    var button_right;
+    var button_up;
  
     // gameloop
     function loop () {
@@ -192,6 +227,17 @@ if(SMARTPHONE.any()){
       player_2_life_sprite.src = 'images/player_2_1_lifes.png';
       player_2_killed = new Image ();
       player_2_killed.src = 'images/player_2_killed.png';
+
+      button_left = new Image ();
+      button_left.src = "images/button_left.png";
+      button_down = new Image ();
+      button_down.src = "images/button_down.png";
+      button_right = new Image ();
+      button_right.src = "images/button_right.png";
+      button_up = new Image ();
+      button_up.src = "images/button_up.png";
+      button_attack = new Image ();
+      button_attack.src = "images/button_attack.png";	
 
       // sprites del escenario
       fondo_principal = new Image();
@@ -760,7 +806,7 @@ if(SMARTPHONE.any()){
             enemy_2_shoot = new Enemy_2_Shoot(enemy_2.posX , enemy_2.bulletY);
             enemy_2_shoot.x = enemy_2_carril.x*0.3;
             enemy_2_shoot.y = enemy_2_carril.y*0.3;
-            console.log(enemy_2_shoot.x + " " + enemy_2_shoot.y);
+            //console.log(enemy_2_shoot.x + " " + enemy_2_shoot.y);
             enemy_2_shoot.add();
             shoot();
             var random_carril = getRandomNumber(0, 2);
@@ -859,7 +905,7 @@ if(SMARTPHONE.any()){
           if(player_carril_n(shot) == enemy_2_carril_n(enemy_2_carril)){
             if((shot.posX >= enemy_2.posX-3) &&(shot.posX <= enemy_2.posX + 3)){
               enemy_2_life -= 1;
-              console.log(enemy_2_life);
+              //console.log(enemy_2_life);
               if(enemy_2_life == 0){
                 enemy_2.kill();
                 //the_end = true;
@@ -1246,7 +1292,7 @@ if(SMARTPHONE.any()){
           }
           if (enemy_1_life > 0) {
               enemy_1.zindex = enemy_1_carril_n(enemy_1_carril);
-              console.log("Zindex enemigo: " + enemy_1.zindex);
+              //console.log("Zindex enemigo: " + enemy_1.zindex);
           }
       }
     
@@ -1276,6 +1322,13 @@ if(SMARTPHONE.any()){
       ctx.drawImage(capa2, 0, 0, window.innerWidth, window.innerHeight);
       ctx.drawImage(capa1, 0, 0, window.innerWidth, window.innerHeight);
       ctx.drawImage(capa0, 0, 0, window.innerWidth, window.innerHeight);
+      if(SMARTPHONE.any()){
+        ctx.drawImage(button_left, 200, 400, 150, 150);
+        ctx.drawImage(button_right, 440, 400, 150, 150);
+        ctx.drawImage(button_up, 320, 340, 150, 150);
+        ctx.drawImage(button_down, 320, 460, 150, 150);
+        ctx.drawImage(button_attack, 650, 400, 150, 150);
+      }
     }
 
     // pinta los jugadores
@@ -1492,7 +1545,7 @@ if(SMARTPHONE.any()){
         capa0ctx.fillText("GAME OVER", canvas.width / 2 - 100, canvas.height / 2);
     }
     // ------------------------------------------------------- FIn funciones de pintado -------------------------------------------------------
-  }
+  
 
   return {
     init: init
