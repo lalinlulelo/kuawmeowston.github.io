@@ -35,9 +35,10 @@ var SMARTPHONE = {
 
 // juego
 var game = (function () {
+  /*
 if(SMARTPHONE.any()){
   alert("Usas smartphone");
-} else {
+} else {*/
     // ------------------------------------------------------ Inicializacion de las variables ------------------------------------------------------
     // variables globales de la aplicacion
     var canvas;
@@ -1305,7 +1306,7 @@ if(SMARTPHONE.any()){
       bufferctx.fillText("GAME OVER", canvas.width / 2 - 100, canvas.height / 2);
     }
     // ------------------------------------------------------- FIn funciones de pintado -------------------------------------------------------
-  }
+  //}
 
   return {
     init: init
