@@ -46,7 +46,7 @@ var game = (function () {
   var boton_atack = false;
 
 
-  function touchHandler(e) {
+  function touchHandler_aux(e) {
     // arriba
     if((playerX <= 170)&&(playerX >= 110)&&(playerY <= 75)&&(playerY >= 20)){
       boton_up = false;
