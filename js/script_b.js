@@ -36,23 +36,7 @@ var SMARTPHONE = {
 // juego
 var game = (function () {
   document.addEventListener("touchstart", touchHandler);
-  document.addEventListener("touchend", touchHandler_aux);
   document.addEventListener("mouseup", touchHandler);
-
-  var boton_left = false;
-  var boton_right = false;
-  var boton_up = false;
-  var boton_down = false;
-  var boton_atack = false;
-
-
-  function touchHandler_aux(e) {
-    console.log("stop");
-      boton_up = false;
-      boton_down = false;
-      boton_right = false;
-      boton_left = false;
-  }
 
   function touchHandler(e) {
     if(e.touches) {
@@ -64,52 +48,37 @@ var game = (function () {
     if((playerX <= 170)&&(playerX >= 110)&&(playerY <= 75)&&(playerY >= 20)){
       console.log("flecha arriba")
       console.log(player_1.posY)
-      boton_up = true;
-      while(boton_up == true){
-        if(player_1.posY > 199.1){
-          player_1.posY -= 0.05;
-          player_1.posX += 6;
-          player_1_carril.x -= 10;
-          player_1_carril.y -= 5;                  
-        }
-      }      
+      if(player_1.posY > 199.1){
+        player_1.posY -= 0.05;
+        player_1.posX += 6;
+        player_1_carril.x -= 10;
+        player_1_carril.y -= 5;                  
+      }
     }
     if((playerX <= 175)&&(playerX >= 114)&&(playerY <= 140)&&(playerY >= 85)){
       console.log("flecha abajo")
       console.log(player_1.posY)
-      boton_down = true;
-      while(boton_down == true){
-        if(player_1.posY < 474){
-          player_1.posY += 0.05;
-          player_1.posX -= 6;
-          player_1_carril.x += 10;
-          player_1_carril.y += 5;
-        }
-      }      
+      if(player_1.posY < 474){
+        player_1.posY += 0.05;
+        player_1.posX -= 6;
+        player_1_carril.x += 10;
+        player_1_carril.y += 5;
+      }
     }
     if((playerX <= 109)&&(playerX >= 55)&&(playerY <= 107)&&(playerY >= 54)){
       console.log("flecha izquierda")
-      boton_left = true;
-      while(boton_left == true){
-        if (player_1.posX > (-120*player_1.posY + 56850))
+      if (player_1.posX > (-120*player_1.posY + 56850))
         player_1.posX -= player_1.speed;   
-      }
     }
     if((playerX <= 230)&&(playerX >= 175)&&(playerY <= 107)&&(playerY >= 54)){
       console.log("flecha derecha")
-      boton_right = true;
-      while(boton_right == true){
-        if (player_1.posX < (-120*player_1.posY + 57215))
+      if (player_1.posX < (-120*player_1.posY + 57215))
         player_1.posX += player_1.speed;
-      }
     }
     if((playerX <= 520)&&(playerX >= 465)&&(playerY <= 110)&&(playerY >= 55)){
-      boton_atack = true;
-      while(boton_atack == true){
-        player_1_bullet_x = player_1_carril.x - 10;
-        player_1_bullet_y = player_1_carril.y - 10;
-        player_1.shoot_touch();
-      }
+      player_1_bullet_x = player_1_carril.x - 10;
+      player_1_bullet_y = player_1_carril.y - 10;
+      player_1.shoot_touch();
     }
   }
   /*
