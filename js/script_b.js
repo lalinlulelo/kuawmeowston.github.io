@@ -47,22 +47,11 @@ var game = (function () {
 
 
   function touchHandler_aux(e) {
-    // arriba
-    if((playerX <= 170)&&(playerX >= 110)&&(playerY <= 75)&&(playerY >= 20)){
+    console.log("stop");
       boton_up = false;
-    }
-    // abajo
-    if((playerX <= 175)&&(playerX >= 114)&&(playerY <= 140)&&(playerY >= 85)){
       boton_down = false;
-    }
-    // derecha 
-    if((playerX <= 230)&&(playerX >= 175)&&(playerY <= 107)&&(playerY >= 54)){
       boton_right = false;
-    }
-    // izquierda
-    if((playerX <= 109)&&(playerX >= 55)&&(playerY <= 107)&&(playerY >= 54)){
       boton_left = false;
-    }
   }
 
   function touchHandler(e) {
