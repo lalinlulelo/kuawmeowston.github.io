@@ -189,6 +189,10 @@ var game = (function () {
     var button_left;
     var button_right;
     var button_up;
+
+    var fecha = new Date();
+    var segundos_0 = fecha.getSeconds();
+    var minutos_0 = fecha.getMinutes();
  
     // gameloop
     function loop () {
@@ -1550,7 +1554,17 @@ var game = (function () {
     function showGameOver() {
         capa0ctx.fillStyle = "rgb(255,0,0)";
         capa0ctx.font = "bold 35px Arial";
-        capa0ctx.fillText("GAME OVER", canvas.width / 2 - 100, canvas.height / 2);
+        fecha = new Date ();
+        var segundos_f = fecha.getSeconds();
+        var minutos_f = fecha.getMinutes();
+        var minutos_m = minutos_f - minutos_0;
+        var segundos_m = segundos_f - segundos_0; 
+        localStorage.setItem("minutos_0", minutos_0);
+        localStorage.setItem("segundos_0", segundos_0);
+        localStorage.setItem("segundos_f", segundos_f);
+        localStorage.setItem("minutos_f", minutos_f);
+        localStorage.setItem("enemigos", enemy_id);
+        window.location.href = "game_over.html";
     }
     // ------------------------------------------------------- FIn funciones de pintado -------------------------------------------------------
     

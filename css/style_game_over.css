@@ -1,0 +1,47 @@
+h3{
+    margin-left: 500;
+    font: 200% 'Arial',sans-serif;
+    position: absolute;    
+}
+#tituloPuntuaciones{
+    position: absolute;
+    top: 10%;
+}
+p1{
+    font: 100% 'Arial',sans-serif;
+    margin-left: 500;
+    position:  absolute;
+    top: 22%;
+}
+p2{
+    font: 100% 'Arial',sans-serif;
+    margin-left: 650;
+    position:  absolute;
+    top: 22%;
+}
+p3{
+    font: 100% 'Arial',sans-serif;
+    margin-left: 800;
+    position:  absolute;
+    top: 22%;
+}
+#pusheen_1{
+    width: 20%;
+    position: absolute;
+    top:22%;
+    left: 15%
+}
+#pusheen_2{
+    width: 20%;
+    position: absolute;
+    top:22%;
+    left: 65%
+}
+body{
+    background: #fcf0e4;
+}
+#salida{
+    position: absolute;
+    top: 60%;
+    left: -3%;
+}

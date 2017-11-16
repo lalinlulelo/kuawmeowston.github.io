@@ -1,13 +1,29 @@
 <html>
     <head>
         <title>Game Over</title>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link type="text/css" rel="stylesheet" href="css/style_game_over.css"/>
         <link rel="icon" href="images/huella_gato.png">
-        <script type="text/javascript" src="js/script_game_over.js"></script>
+        
+        
     </head>
     <body>
-
+        <script>
+            $(document).keyup(function(e) {
+                if (e.keyCode == 13) { // escape key maps to keycode `27`
+                    window.location.href = "menu_prototipo.html";
+                }
+            });
+        </script>
+        <h3 id="tituloPuntuaciones">Mejores puntuaciones</h3>
+        <div id="ids"></div>
+        <div id="nombres"></div>
+        <div id="puntuaciones"></div>
+        <image id="pusheen_1" src="images/end.gif"></image>
+        <image id="pusheen_2" src="images/end.gif"></image>
+        <script type="text/javascript" src="js/script_game_over.js"></script>
+        <h3 id="salida">Pulsa enter para salir al menu</h3>
     </body>
 </html>
