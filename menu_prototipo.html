@@ -146,6 +146,9 @@
 			var creditsImage = new Image();
 			var creditsImageEng = new Image();
 			var shipImage = new Image();
+			var helpImage = new Image();
+			var ayudaImage = new Image();
+			
 			var spFlagImage = new Image ();
 			var ukFlagImage = new Image ();
 			var spFlagImageB = new Image (); //con borde
@@ -164,12 +167,12 @@
 			var backgroundY = 0;
 			var speed = 1;
 			//Posición de los botones del menu
-			var buttonX = [540,540,510];
-			var buttonY = [195,246,305];
-			var buttonWidth = [96,96,160];
-			var buttonHeight = [40,40,40];
-			var mouseX = [541, 542, 511];
-			var mouseY = [196, 247, 306];
+			var buttonX = [540,540,510,540];
+			var buttonY = [195,246,305,355];
+			var buttonWidth = [96,96,160,96];
+			var buttonHeight = [40,40,40,40];
+			var mouseX = [541, 542, 511, 541];
+			var mouseY = [196, 247, 306, 356];
 			var mouse_index = 0;
 			//variables para modificar la posición y rotación de la nave (en nuestro caso un gato i guess)
 			var shipX = [0,0];
@@ -195,6 +198,8 @@
 			playtImageEng.src = "images/2playe.png";
 			creditsImage.src = "images/credits.png";
 			creditsImageEng.src = "images/creditse.png";
+			helpImage.src = "images/help.png"
+			ayudaImage.src = "images/ayuda.png"
 			spFlagImage.src = "images/spain_flag.png";
 			ukFlagImage.src = "images/uk_flag.png";
 			spFlagImageB.src = "images/spain_flagB.png"; //con borde
@@ -224,6 +229,9 @@
 			creditsImage.onload = function(){
 				context.drawImage(creditsImage, buttonX[2], buttonY[2]);
 			};
+			ayudaImage.onload = function(){
+				context.drawImage(ayudaImage, buttonX[3], buttonY[3]);
+			};
 			
 			/*
 			settingsImage.onload = function(){
@@ -240,6 +248,11 @@
 			creditsImageEng.onload = function(){
 				context.drawImage(creditsImageEng, buttonX[2], buttonY[2]);
 			}
+			helpImage.onload = function(){
+				context.drawImage(helpImage, buttonX[3], buttonY[3]);
+			};
+			
+			
 			if(SMARTPHONE.any()){
 				console.log("imprimo")
 				button_attack.onload = function() {
@@ -318,6 +331,7 @@
 					context.drawImage(playImageEng, buttonX[0], buttonY[0]);
 					context.drawImage(playtImageEng, buttonX[1], buttonY[1]);
 					context.drawImage(creditsImageEng, buttonX[2], buttonY[2]);
+					context.drawImage(helpImage, buttonX[3], buttonY[3]);
 						
 				    context.drawImage(spFlagImage, 0, 0, 55, 55); //normal
 				    context.drawImage(ukFlagImageB, 60, 0, 55, 55); //con borde
@@ -325,6 +339,7 @@
 					context.drawImage(playImage, buttonX[0], buttonY[0]);
 					context.drawImage(playtImage, buttonX[1], buttonY[1]);
 					context.drawImage(creditsImage, buttonX[2], buttonY[2]);
+					context.drawImage(ayudaImage, buttonX[3], buttonY[3]);
 
 				    context.drawImage(spFlagImageB, 0, 0, 55, 55); //con borde
 				    context.drawImage(ukFlagImage, 60, 0, 55, 55); //normal
@@ -457,6 +472,13 @@
 							console.log("Idioma: "+eng);
 							localStorage.setItem("idioma", eng); //guardar variable que indica el idioma
 							window.location.href = "creditos.html";
+							break;
+						case 3:
+							await sleep(500);
+							fadeOut();
+							console.log("Idioma: "+eng);
+							localStorage.setItem("idioma", eng); //guardar variable que indica el idioma
+							window.location.href = "";
 							break;
 					}
 				}
