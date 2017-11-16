@@ -40,7 +40,6 @@
 			//document.addEventListener("touchstart", touchHandler);
 			document.addEventListener("touchend", touchHandler);
 			document.addEventListener("mouseup", touchHandler);
-
 			function touchHandler(e) {
 				//console.log(event.clientX + " " + event.clientY);
 				//var playerX = event.clientX;
@@ -88,7 +87,6 @@
 					}
 				}
 			}
-
 			//variable que contiene la música de fondo
 			var myMusic;
 			//Crea la música y la reproduce
@@ -96,7 +94,6 @@
 				myMusic= new sound("sound/bg_music.mp3");
 				myMusic.play();
 			}
-
 			//Clase que coge sonido y crea los objetos para que se reproduzca. 
 			function sound(src) {
     			this.sound = document.createElement("audio");
@@ -134,7 +131,6 @@
 			$(window).on('resize', function(){
     				resizeCanvas();
 			});
-
 		
 			//Variables para las imagenes
 			var bgImage = new Image();
@@ -153,7 +149,6 @@
 			var ukFlagImage = new Image ();
 			var spFlagImageB = new Image (); //con borde
 			var ukFlagImageB = new Image (); //con borde
-
 			var button_left = new Image ();
 			var button_down = new Image ();
 			var button_right = new Image ();
@@ -210,7 +205,6 @@
 			button_down.src = "images/button_down.png";
 			button_up.src = "images/button_up.png";
 			button_attack.src = "images/button_attack.png";	
-
 			//settingsImage.src = "images/settings.png";
 			
 			
@@ -340,7 +334,6 @@
 					context.drawImage(playtImage, buttonX[1], buttonY[1]);
 					context.drawImage(creditsImage, buttonX[2], buttonY[2]);
 					context.drawImage(ayudaImage, buttonX[3], buttonY[3]);
-
 				    context.drawImage(spFlagImageB, 0, 0, 55, 55); //con borde
 				    context.drawImage(ukFlagImage, 60, 0, 55, 55); //normal
 				}
@@ -436,7 +429,6 @@
 			}
 			/*
 			if(SMARTPHONE.any()){
-
 			}*/
 			document.onkeydown = async function(e) {
 				e = e || window.event; 
@@ -478,7 +470,7 @@
 							fadeOut();
 							console.log("Idioma: "+eng);
 							localStorage.setItem("idioma", eng); //guardar variable que indica el idioma
-							window.location.href = "";
+							window.location.href = "help.html";
 							break;
 					}
 				}
@@ -491,7 +483,6 @@
 				    eng = 0;
 				    console.log("Spanish");
 				}
-
 			}
 		</script> 
 	</body>

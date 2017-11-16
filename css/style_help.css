@@ -1,0 +1,89 @@
+body{
+    background: #fcf0e4;
+    /*background-image: url("../images/help_bg.png");*/ 
+    color: #333;
+    font: 100% 'Arial',sans-serif;
+    text-align: left;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    border: 0;
+    overflow: hidden; /*  Disable scrollbars */
+    display: block;  /* No floating content on sides */
+  }
+  t1{
+    font: 200% 'Arial',sans-serif;
+    margin-left: 185;
+    position:  absolute;
+    top: 4%;
+  }
+  t2{
+    font: 200% 'Arial',sans-serif;
+    margin-left: 185;
+    position:  absolute;
+    top: 28%;
+  }
+  p2{
+    margin-left: 185;
+    position:  absolute;
+    top: 12%;
+  }
+  p1{
+    margin-left: 200;
+    position:  absolute;
+    top: 78%;
+  }
+  p5{
+    margin-left: 530;
+    position:  absolute;
+    top: 78%; 
+  }
+  p6{
+    margin-left: 740;
+    position:  absolute;
+    top: 78%; 
+  }
+  p7{
+    margin-left: 1010;
+    position:  absolute;
+    top: 78%; 
+  }
+  html{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    border: 0;
+    overflow: hidden; /*  Disable scrollbars */
+    display: block;  /* No floating content on sides */
+  }
+  #move{
+      z-index: 200;
+      width: 10%;
+      position: absolute;
+      top: 50%;
+      left: 18.2%;
+  }
+  #attack{
+    z-index: 200;
+    width: 10%;
+    position: absolute;
+    top: 45%;
+    left: 38%;
+  }
+  #exit{
+    z-index: 200;
+    width: 10%;
+    position: absolute;
+    top: 41%;
+    left: 57%;
+  }
+  #bug{
+    z-index: 200;
+    width: 10%;
+    position: absolute;
+    top: 46%;
+    left: 75%;
+  }
+  #bg{
+      width: 103%;
+  }

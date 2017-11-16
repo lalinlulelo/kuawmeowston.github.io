@@ -1,0 +1,64 @@
+<html>
+<head>
+    <title>Help Window</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="css/style_help.css"/>
+    <link rel="icon" href="images/huella_gato.png">
+    
+</head>
+    <body>
+        <div>   
+            <script>
+                $(document).keyup(function(e) {
+                    if (e.keyCode == 27) { // escape key maps to keycode `27`
+                        window.location.href = "menu_prototipo.html";
+                    }
+                });
+            </script>
+                <image id="bg" src="images/help_bg.png"></image>
+                <image id="move" src="images/walk.gif"></image>
+                <image id="attack" src="images/atack.gif"></image>
+                <image id="exit" src="images/exit.gif"></image>
+                <image id="bug" src="images/bug.gif"></image>
+                <t1>¿En que consiste el juego?</t1>
+                <p2>Se jugara con un gato que afrontara sus miedo lanzandoles obillos de lana para derrotarlos. 
+                    cada vez que el enemigo es golpeado, se le reduce una <br>porcion de vida. El gato es capaz de  moverse
+                    horizontalmente hacia delante y detras, y a su vez es capaz de moverse hacia un lado u otro</p2>
+                <t2>¿Con que controles se juega?</t2>
+                <p1>W avanza un carril mas lejos <br> S avanza un carril mas cercano <br> A avanza en el carril hacia la izquierda<br> D avanza en el carril hacia la derecha</p1>
+                <p5>Q acciona el ataque</p5>
+                <p6>Esc para retoceder a la anterior <br>pantalla</p6>
+                <p7>Ctrl + F5 en caso de error en <br> el juego para refrescar la pantalla </p7>               
+        </div>
+       
+        
+        <script>
+            /*
+             <canvas id="myCanvas" width="1400" height="600" style="z-index: 1"><p>Your browser does not support HTML5!</p></canvas>
+            var canvas = document.getElementById("myCanvas");
+			var context = canvas.getContext("2d");
+			var width = canvas.getAttribute('width');
+            var height = canvas.getAttribute('height');
+            
+            $(function(){
+    				resizeCanvas();
+			});
+			$(window).on('resize', function(){
+    				resizeCanvas();
+            });
+            function resizeCanvas() {
+				var canvas = $('#myCanvas');
+				canvas.css("width", $(window).width());
+				canvas.css("height", $(window).height());
+            }
+            
+            var bgImage = new Image();
+            bgImage.src = "images/help_bg.png";
+            bgImage.onload = function(){
+				context.drawImage(bgImage, 0, 0);
+            };*/
+        </script>
+    </body>
+</html>
