@@ -541,6 +541,7 @@ var game = (function () {
 
       player_1.hit = function (){
         player_1.life -= 1;
+        GatoDañado();
         if(player_1.life == 0){
           player_1_life_sprite.src = '';
           player_1.src = player_1_killed.src;
@@ -653,6 +654,7 @@ var game = (function () {
 
       player_2.hit = function (){
         player_2.life -= 1;
+        GatoDañado();
         if(player_2.life == 0){
             player_2_life_sprite.src = '';
             player_2.src = player_2_killed.src;
@@ -897,6 +899,10 @@ var game = (function () {
           if(player_carril_n(shot) == enemy_1_carril_n(enemy_1_carril)){
             if((shot.posX >= enemy_1.posX-3) &&(shot.posX <= enemy_1.posX + 3)){
               enemy_1_life -= 1;
+              enemy_1.src = enemy_1_sprite.damaged.src;
+              setTimeout(function (){
+                enemy_1.src = "images/pepino.png";
+              }, 100);
               //console.log(enemy_1_life);
               if(enemy_1_life == 0){
                 enemy_1.kill();
@@ -913,6 +919,10 @@ var game = (function () {
           if(player_carril_n(shot) == enemy_2_carril_n(enemy_2_carril)){
             if((shot.posX >= enemy_2.posX-3) &&(shot.posX <= enemy_2.posX + 3)){
               enemy_2_life -= 1;
+              enemy_2.src = enemy_2_sprite.damaged.src;
+              setTimeout(function (){
+                enemy_2.src = "images/laser.png";
+              },100)
               //console.log(enemy_2_life);
               if(enemy_2_life == 0){
                 enemy_2.kill();
@@ -1276,6 +1286,7 @@ var game = (function () {
       }
       if (the_end) {
         //showCongratulations();
+        showGameOver();
         return;
       }
 
@@ -1549,7 +1560,29 @@ var game = (function () {
             }
         }
     }
-
+    function GatoDañado(){
+      myMusic= new sound("sound/golpe_al_gatini_1.wav");
+      myMusic.play();
+    }
+    function sound(src) {
+      this.sound = document.createElement("audio");
+      this.sound.src = src;
+      this.sound.setAttribute("preload", "auto");
+      this.sound.setAttribute("controls", "volume");
+      this.sound.volume=0.1;
+      this.sound.style.display = "none";
+      document.body.appendChild(this.sound);
+      this.play = function(){
+        this.sound.play();
+      }
+      this.stop = function(){
+        this.sound.pause();
+      }  
+      //Esta funcion cambia el volumen
+      this.changeVolume= function(newVolume){
+        this.sound.volume=newVolume;
+      }  
+    }
     // fin de partida: pinta el game over
     function showGameOver() {
         capa0ctx.fillStyle = "rgb(255,0,0)";
