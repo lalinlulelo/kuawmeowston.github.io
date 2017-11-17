@@ -7,15 +7,20 @@
 		<link rel="icon" href="images/huella_gato.png">
 		<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
 	</head>
-
 	<body onload="PlayMusic()">
 		<!--Canvas para el menu-->
 		<div>
 			<canvas id="myCanvas" width="1200" height="600" style="z-index: 1"><p>Your browser does not support HTML5!</p></canvas>
 			<input type="button" style="z-index:5">Pulsame</input>			
-		</div>
-		 
+		</div>		 
 		<script type="text/javascript">
+			/*
+				Script de menu prototipo
+
+				Maneja la interfaz, seleccionando mediante el teclado (en el caso del ordenador), y mediante los botones en el caso
+				de las pantallas tactiles, las distintas funcionalidades del menu
+			*/
+			// variable que definira si el dispositivo desde el que se esta visualizando es un dispositivo portatil
 			var SMARTPHONE = {
   				Android: function() {
 					return navigator.userAgent.match(/Android/i);
@@ -37,64 +42,63 @@
   				}
 			};
 			
-			//document.addEventListener("touchstart", touchHandler);
+			// definimos el input para dispositivos tactiles
 			document.addEventListener("touchend", touchHandler);
-			document.addEventListener("mouseup", touchHandler);
+			// metodo que gestiona la pulsacion de la pantalla
 			function touchHandler(e) {
-				//console.log(event.clientX + " " + event.clientY);
-				//var playerX = event.clientX;
-				//var playerY = event.clientY;
+				// se toma la posicion de la pulsacion
     			if(e.touches) {
         			var playerX = e.changedTouches[0].pageX;
 					var playerY = e.changedTouches[0].pageY;
-					console.log(playerX + " " + playerY);
         			e.preventDefault();
 				}
+				// en funcion de la posicion se acciona una de las posiciones
+				// boton de direccion hacia arriba
 				if((playerX <= 220)&&(playerX >= 180)&&(playerY <= 195)&&(playerY >= 170)){
-					console.log("subo")
 					if(mouse_index > 0){
-						console.log("subo")
 						mouse_index -= 1;
 					}
 				}
+				// boton de direccion hacia abajo
 				if((playerX <= 220)&&(playerX >= 180)&&(playerY <= 260)&&(playerY >= 230)){
-					console.log("bajo")
 					if(mouse_index < 2){
-						console.log("bajo")
 						mouse_index += 1;
 					}
 				}
-				console.log((playerX <= 375)&&(playerX >= 332)&&(playerY <= 235)&&(playerY >= 190))
+				// boton de aceptar
 				if((playerX <= 375)&&(playerX >= 332)&&(playerY <= 235)&&(playerY >= 190)){
-					console.log("bajo")				
+					// en funcion de la opcion selecciona se efectua una accion distinta			
 					switch(mouse_index){
+						// 1 jugador
 						case 0:
 							fadeOut();
 							var Jugadores = 1;
 							localStorage.setItem("jugadores", Jugadores);
 							window.location.href = "juego_m.html";
 							break;
+						// dos jugadores
 						case 1:
 							alert("accion no disponible en plataforma movil")
 							fadeOut();
 							break;
+						// creditos
 						case 2:
 							fadeOut();
-							console.log("Idioma: "+eng);
-							localStorage.setItem("idioma", eng); //guardar variable que indica el idioma
+							//guardar variable que indica el idioma
+							localStorage.setItem("idioma", eng); 
 							window.location.href = "creditos.html";
 							break;
 					}
 				}
 			}
-			//variable que contiene la música de fondo
+			// variable que contiene la música de fondo
 			var myMusic;
-			//Crea la música y la reproduce
+			// Crea la música y la reproduce
 			function PlayMusic(){
 				myMusic= new sound("sound/bg_music.mp3");
 				myMusic.play();
 			}
-			//Clase que coge sonido y crea los objetos para que se reproduzca. 
+			// Clase que coge sonido y crea los objetos para que se reproduzca. 
 			function sound(src) {
     			this.sound = document.createElement("audio");
 				this.sound.src = src;
@@ -116,22 +120,30 @@
 			}
 			
 			//Variable para indicar si esta en ingles
-			var eng = 0; //por defecto sale en español
+			//por defecto sale en español
+			var eng = 0; 
 			
+			// variable que define los controles del teclado
 			var control = {up: 38, enter: 13, down:40};
-			//Declarar el canvas, con sus variables
+			// se declara el canvas y sus variables
 			var canvas = document.getElementById("myCanvas");
 			var context = canvas.getContext("2d");
 			var width = canvas.getAttribute('width');
 			var height = canvas.getAttribute('height');
-			// funciones de resize
+			// --------------------------------------------------- Funcion de Resize ----------------------------------------------------------
 			$(function(){
     				resizeCanvas();
 			});
 			$(window).on('resize', function(){
     				resizeCanvas();
 			});
-		
+			function resizeCanvas() {
+				var canvas = $('#myCanvas');
+				canvas.css("width", $(window).width());
+				canvas.css("height", $(window).height());
+			}
+			// ------------------------------------------------ Fin Funcion de Resize ---------------------------------------------------------
+			// ---------------------------------------------------- Inicializacion ------------------------------------------------------------
 			//Variables para las imagenes
 			var bgImage = new Image();
 			var logoImage = new Image();
@@ -154,9 +166,6 @@
 			var button_right = new Image ();
 			var button_up = new Image ();
 			var button_attack = new Image ();
-			
-			//var settingsImage = new Image();
-			
 			
 			//Posiblemete borrable: Es para que el fondo se mueva hacia arriba 
 			var backgroundY = 0;
@@ -205,9 +214,8 @@
 			button_down.src = "images/button_down.png";
 			button_up.src = "images/button_up.png";
 			button_attack.src = "images/button_attack.png";	
-			//settingsImage.src = "images/settings.png";
-			
-			
+
+			// se cargan las imagenes en pantalla, nada mas abrir la ventana
 			bgImage.onload = function(){
 				context.drawImage(bgImage, 0, 0);
 			};
@@ -225,14 +233,7 @@
 			};
 			ayudaImage.onload = function(){
 				context.drawImage(ayudaImage, buttonX[3], buttonY[3]);
-			};
-			
-			/*
-			settingsImage.onload = function(){
-				context.drawImage(settingsImage, buttonX[3], buttonY[3]);
-			}
-			*/
-			
+			};		
 			playImageEng.onload = function(){
 				context.drawImage(playImageEng, buttonX[0], buttonY[0]);
 			}
@@ -245,10 +246,8 @@
 			helpImage.onload = function(){
 				context.drawImage(helpImage, buttonX[3], buttonY[3]);
 			};
-			
-			
+			// botones para pantallas tactiles
 			if(SMARTPHONE.any()){
-				console.log("imprimo")
 				button_attack.onload = function() {
 			    	context.drawImage(button_attack, 55, 20, 50, 50);
 				}
@@ -265,21 +264,18 @@
 			    	context.drawImage(button_down, 55, 100, 50, 50);
 				}
 			}
-			
+			// banderas del idioma			
 			spFlagImage.onload = function() {
 			    context.drawImage(spFlagImage, 0, 0, 50, 50);
 			}
 			ukFlagImage.onload = function() {
 			    context.drawImage(ukFlagImage, 55, 0, 50, 50);
 			}
-			
+			// -------------------------------------------------- Fin Inicializacion ----------------------------------------------------------
+			// -------------------------------------------------- Funcion de Pintado ----------------------------------------------------------
 			//intervalo de refresco del canvas
 			timerId = setInterval("update()", 1000/frames);
 			//metodos para controlar el raton
-			/*
-			canvas.addEventListener("mousemove", checkPos);
-			canvas.addEventListener("mouseup", checkClick);
-			*/
 			//Actualiza los frames
 			function update() {
 				clear();
@@ -343,67 +339,6 @@
 				context.drawImage(shipImage, shipX[0] - (shipSize/2), shipY[0], shipSize, shipHeight);
 				context.drawImage(shipImage, shipX[1] - (shipSize/2), shipY[1], shipSize, shipHeight);
 			}
-			//Comprueba la posicion del raton para saber como interactuar con el
-			function checkPos(){
-				for(i = 0; i < buttonX.length; i++){
-					if(mouseX[mouse_index] > buttonX[i] && mouseX[mouse_index] < buttonX[i] + buttonWidth[i]){
-						if(mouseY[mouse_index] > buttonY[i] && mouseY[mouse_index] < buttonY[i] + buttonHeight[i]){
-							//console.log(mouseX[mouse_index] + " " + buttonX[i] + " " + mouseY[mouse_index] + " " + buttonY[i]);
-							//console.log(mouseX[mouse_index] + " " + (buttonX[i] + buttonWidth[i]) + " " + mouseY[mouse_index] + " " + (buttonY[i] + buttonHeight[i]));
-							shipVisible = true;
-							console.log(mouse_index + " " + shipVisible);
-							shipX[0] = buttonX[i] - (shipWidth/2) - 2;
-							shipY[0] = buttonY[i] + 2;
-							shipX[1] = buttonX[i] + buttonWidth[i] + (shipWidth/2); 
-							shipY[1] = buttonY[i] + 2;
-							//console.log(shipX[0] + " " + shipY[0] + " " + shipX[1] + " " + shipY[0]);
-							draw_ship ();
-						}
-					}else{
-						shipVisible = false;
-					}
-				}
-			}
-			//Comprueba los click del raton
-			function checkClick(){
-				for(i = 0; i < buttonX.length; i++){
-					/*
-					if(mouseX > buttonX[i] && mouseX < buttonX[i] + buttonWidth[i]){
-						if(mouseY > buttonY[i] && mouseY < buttonY[i] + buttonHeight[i]){
-							fadeId = setInterval("fadeOut()", 1000/frames);
-							clearInterval(timerId);
-							canvas.removeEventListener("mousemove", checkPos);
-							canvas.removeEventListener("mouseup", checkClick);
-						}
-					}*/
-					if(mouseX[mouse_index] > buttonX[0] && mouseX[mouse_index] < buttonX[0] + buttonWidth[0]){
-						if(mouseY[mouseX] > buttonY[0] && mouseY[mouse_index] < buttonY[0] + buttonHeight[0]){
-							fadeId = setInterval("fadeOut()", 1000/frames);
-							clearInterval(timerId);
-							/*
-							canvas.removeEventListener("mousemove", checkPos);
-							canvas.removeEventListener("mouseup", checkClick);
-							*/
-							var Jugadores = 1;
-							localStorage.setItem("jugadores", Jugadores);
-							window.location.href = "juego.html";
-						}
-					}
-					if(mouseX[mouse_index] > buttonX[1] && mouseX[mouse_index] < buttonX[1] + buttonWidth[1]){
-						if(mouseY[mouse_index] > buttonY[1] && mouseY[mouse_index] < buttonY[1] + buttonHeight[1]){
-							fadeId = setInterval("fadeOut()", 1000/frames);
-							clearInterval(timerId);
-							/*
-							canvas.removeEventListener("mousemove", checkPos);
-							canvas.removeEventListener("mouseup", checkClick);
-							*/
-							var Jugadores = 2;
-							localStorage.setItem("jugadores", Jugadores);
-							window.location.href = "juego.html";
-						}
-					}
-				}
-			}
 			//Pone la pantalla a negro cuando se clica en uno de los botones
 			function fadeOut(){
 				context.fillStyle = "rgba(0,0,0, 0.2)";
@@ -413,23 +348,28 @@
 					clearInterval(fadeId);
 					time = 0;
 					timerId = setInterval("update()", 1000/frames);
-					/*
-					canvas.addEventListener("mousemove", checkPos);
-					canvas.addEventListener("mouseup", checkClick);
-					*/
 				}
 			}
-			function resizeCanvas() {
-				var canvas = $('#myCanvas');
-				canvas.css("width", $(window).width());
-				canvas.css("height", $(window).height());
+			// -------------------------------------------------- Fin Funcion de Pintado ---------------------------------------------------------
+			// ------------------------------------------------ Administracion de Controles ------------------------------------------------------
+			//Comprueba la posicion del control para saber como interactuar con el y mostrar las formas rotatorias
+			function checkPos(){
+				for(i = 0; i < buttonX.length; i++){
+					if(mouseX[mouse_index] > buttonX[i] && mouseX[mouse_index] < buttonX[i] + buttonWidth[i]){
+						if(mouseY[mouse_index] > buttonY[i] && mouseY[mouse_index] < buttonY[i] + buttonHeight[i]){
+							shipVisible = true;
+							console.log(mouse_index + " " + shipVisible);
+							shipX[0] = buttonX[i] - (shipWidth/2) - 2;
+							shipY[0] = buttonY[i] + 2;
+							shipX[1] = buttonX[i] + buttonWidth[i] + (shipWidth/2); 
+							shipY[1] = buttonY[i] + 2;
+							draw_ship ();
+						}
+					}else{
+						shipVisible = false;
+					}
+				}
 			}
-			function sleep(ms) {
-  				return new Promise(resolve => setTimeout(resolve, ms));
-			}
-			/*
-			if(SMARTPHONE.any()){
-			}*/
 			document.onkeydown = async function(e) {
 				e = e || window.event; 
 				if(e.keyCode == control.up){
@@ -484,6 +424,11 @@
 				    console.log("Spanish");
 				}
 			}
+			// --------------------------------------------- Funciones auxiliares ------------------------------------------------------------			
+			function sleep(ms) {
+  				return new Promise(resolve => setTimeout(resolve, ms));
+			}
+			// ------------------------------------------- Fin Funciones auxiliares ----------------------------------------------------------			
 		</script> 
 	</body>
 </html> 
