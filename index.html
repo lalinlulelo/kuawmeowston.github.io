@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
+	<head>	
+		<title>Portfolio de Kuawmeowston</title>
+		
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<link rel="icon" href="images/huella_gato.png">	
-
-		<title>Portfolio de Kuawmeowston</title>		
+		<link rel="icon" href="images/huella_gato.png">				
 		
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -18,25 +18,30 @@
 		<![endif]-->
 	</head>
 
-	<body id="page-top" data-spy="scroll" data-target=".navbar-custom" style="background-image: url(images/fondo_carrusel.png); cursor: url(images/cursor.png), auto;">						
-		<nav class="navbar navbar-inverse">
+	<body id="page-top" data-spy="scroll" data-target=".navbar" data-offset="50" style="background-image: url(images/fondo_carrusel.png); cursor: url(images/cursor.png), auto;">						
+		
+		<!-- Section: Navbar -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">Kuawmewoston</a>
 				</div>
-				<ul class="nav navbar-nav">
-		      		<li class="active"><a href="#intro">Home</a></li>
-					<li><a href="#portfolio">Portfolio</a></li>
-					<li><a href="#about">Sobre nosotros</a></li>
-					<li><a href="#contact">Contacto</a></li>
-					<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Juegos <b class="caret"></b></a>
-							<ul class="dropdown-menu">
-							<li><a href="menu_prototipo.html">Katwaii</a></li>
-							</ul>
-					</li>
-		    	</ul>		
-		  	</div>
+				<div>
+					<div class="collapse navbar-collapse" id="myNavbar">
+						<ul class="nav navbar-nav">		      		
+							<li><a href="#portfolio">Portfolio</a></li>
+							<li><a href="#about">Sobre nosotros</a></li>
+							<li><a href="#contact">Contacto</a></li>
+							<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Juegos <b class="caret"></b></a>
+									<ul class="dropdown-menu">
+									<li><a href="menu_prototipo.html">Katwaii</a></li>
+									</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</nav>
 		
 		<!-- Section: Carousel -->
@@ -52,7 +57,7 @@
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner">
 				<div class="item active" style="background-color: #ffd677;">
-					<a href="#"><img src="images/logo.png" class="img-responsive img-centered"/></a>					
+					<a href="menu_prototipo.html"><img src="images/logo.png" class="img-responsive img-centered"/></a>					
 					<div class="carousel-caption">
 						<h3>Katwaii</h3>
 						<p>Portada</p>
@@ -77,13 +82,13 @@
 				<div class="item" style="background-color: #fafd9a">
 					<a href="#"><img src="images/laser_carrusel.gif" class="img-responsive img-centered" /></a>	
 					<div class="carousel-caption">
-						<h3>Antagonista</h3>
-						<p>Pepino</p>
+						<h3>Antagonista 2</h3>
+						<p>Láser</p>
 					</div>
 				</div>
 			</div>
 
-		<!-- Left and right controls -->
+			<!-- Left and right controls -->
 			<a class="left carousel-control" href="#myCarousel" data-slide="prev">
 				<span class="glyphicon glyphicon-chevron-left"></span>
 				<span class="sr-only">Previous</span>
@@ -98,15 +103,15 @@
 		
 		<!-- Section: intro -->
 		<section id="intro" class="intro">	
-			<div class="slogan">
-				<h2>BIENVENIDOS A <span style="color:blue">KUAWMEOWSTON</span> </h2>
-				<h4>EL GRUPO MÁS <span style="color:pink">KAWAII</span> </h4>
-			</div>
+			<div class="slogan">		
+				<h2>BIENVENIDOS A <span><span style="color:pink">KUAWMEOWSTON</span> </h2>
+				<h4>EL GRUPO MÁS <span style="color:purple">KAWAII</span> </h4>			
+			</div>	
 			<div class="page-scroll">
 				<a href="#service" class="btn btn-circle">
 					<i class="fa fa-angle-double-down animated"></i>
 				</a>
-			</div>
+			</div>			
 		</section>
 		<!-- /Section: intro -->
 		
@@ -139,7 +144,7 @@
 							<div class="team boxed-grey">
 								<a href="#Persona1" class="portfolio-link" data-toggle="modal">
 									<div class="inner">
-										<h5>Guillermo</h5>
+										<h5>Guille</h5>
 										<p class="subtitle">Programador</p>
 										<div class="avatar"><img src="https://catfriendly.com/wp-content/uploads/2016/10/tab-HERO-toybox_300x300_acf_cropped.jpg" alt="" class="img-responsive img-circle" /></div>
 									</div>
@@ -221,7 +226,7 @@
 								<h2>Guillermo Meléndez Morales</h2>
 								<hr class="star-primary">
 								<img src="https://www.petdarling.com/articulos/wp-content/uploads/2015/01/que-significa-so%C3%B1ar-con-gatos.jpg" class="img-responsive img-centered" alt="">
-								<p>Se ha encargado de la programación del juego y parte de los menús.</p>
+								<p>Se ha encargado de la programación del juego, los menús, las animaciones y algunos assets.</p>
 								<ul class="list-inline item-details">
 									<li>Portfolio:
 										<strong><a href="http://startbootstrap.com">git</a>
@@ -232,7 +237,7 @@
 										</strong>
 									</li>
 								</ul>
-								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
 							</div>
 						</div>
 					</div>
@@ -254,14 +259,14 @@
 								<h2>Marta Fernández de la Mela Salcedo</h2>
 								<hr class="star-primary">
 								<img src="https://www.petdarling.com/articulos/wp-content/uploads/2015/01/que-significa-so%C3%B1ar-con-gatos.jpg" class="img-responsive img-centered" alt="">
-								<p>Se ha encargado de la programación del juego y parte de los menús.</p>
+								<p>Se ha encargado de la programación del juego, los menús y ajustar el juego para los distintos navegadores.</p>
 								<ul class="list-inline item-details">
 									<li>Portfolio:
 										<strong><a href="http://startbootstrap.com">git</a>
 										</strong>
 									</li>
 								</ul>
-								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
 							</div>
 						</div>
 					</div>
@@ -283,14 +288,14 @@
 								<h2>Salvador Nieto Garrido</h2>
 								<hr class="star-primary">
 								<img src="https://www.petdarling.com/articulos/wp-content/uploads/2015/01/que-significa-so%C3%B1ar-con-gatos.jpg" class="img-responsive img-centered" alt="">
-								<p>Se ha encargado del diseño de sprites de personajes y botones</p>
+								<p>Se ha encargado del diseño de sprites de personajes.</p>
 								<ul class="list-inline item-details">
 									<li>Portfolio:
 										<strong><a href="http://startbootstrap.com">git</a>
 										</strong>
 									</li>
 								</ul>
-								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
 							</div>
 						</div>
 					</div>
@@ -312,14 +317,14 @@
 								<h2>Adrián David Morillas Marco</h2>
 								<hr class="star-primary">
 								<img src="http://4.bp.blogspot.com/-hismyZ8XJNU/VrCKQOaNvKI/AAAAAAAAAKQ/3D8zjnS5fx8/s1600/jojo%2Bpose%2Bshiza%2Bjoseph.jpg" class="img-responsive img-centered" alt="">
-								<p>Encargado de la documentación y parte de los menús.</p>
+								<p>Se ha encargado de la documentación, los menús y efectos de sonidos.</p>
 								<ul class="list-inline item-details">
 									<li>Portfolio:
 										<strong><a href="http://startbootstrap.com">git</a>
 										</strong>
 									</li>
 								</ul>
-								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
 							</div>
 						</div>
 					</div>
@@ -341,14 +346,14 @@
 								<h2>Zhong Hao Lin Chen</h2>
 								<hr class="star-primary">
 								<img src="http://4.bp.blogspot.com/-hismyZ8XJNU/VrCKQOaNvKI/AAAAAAAAAKQ/3D8zjnS5fx8/s1600/jojo%2Bpose%2Bshiza%2Bjoseph.jpg" class="img-responsive img-centered" alt="">
-								<p>Encargado del portfolio y parte de los menús.</p>
+								<p>Se ha encargado del porfolio, los menús y algunos assets.</p>
 								<ul class="list-inline item-details">
 									<li>Portfolio:
 										<strong><a href="http://startbootstrap.com">git</a>
 										</strong>
 									</li>
 								</ul>
-								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
 							</div>
 						</div>
 					</div>
@@ -377,7 +382,7 @@
 										<i class="fa fa-search-plus fa-3x"></i>
 									</div>
 								</div>								
-								<img src="http://www.pawculture.com/uploads/small-cat-breeds-card.jpg" class="img-thumbnail" alt="">
+								<img src="images/start.jpeg" class="img-thumbnail" alt="">
 							</div>
 						</a>
 					</div>
@@ -389,7 +394,7 @@
 										<i class="fa fa-search-plus fa-3x"></i>
 									</div>
 								</div>								
-								<img src="http://www.pawculture.com/uploads/small-cat-breeds-card.jpg" class="img-thumbnail" alt="">
+								<img src="images/face2face.jpeg" class="img-thumbnail" alt="">
 							</div>
 						</a>
 					</div>
@@ -401,7 +406,7 @@
 										<i class="fa fa-search-plus fa-3x"></i>
 									</div>
 								</div>								
-								<img src="http://www.pawculture.com/uploads/small-cat-breeds-card.jpg" class="img-thumbnail" alt="">
+								<img src="images/cat_attack.jpeg" class="img-thumbnail" alt="">
 							</div>
 						</a>
 					</div>
@@ -413,7 +418,7 @@
 										<i class="fa fa-search-plus fa-3x"></i>
 									</div>
 								</div>								
-								<img src="http://www.pawculture.com/uploads/small-cat-breeds-card.jpg" class="img-thumbnail" alt="">
+								<img src="images/multiplayer.jpeg" class="img-thumbnail" alt="">
 							</div>
 						</a>
 					</div>
@@ -425,7 +430,7 @@
 										<i class="fa fa-search-plus fa-3x"></i>
 									</div>
 								</div>								
-								<img src="http://www.pawculture.com/uploads/small-cat-breeds-card.jpg" class="img-thumbnail" alt="">
+								<img src="images/cat_victory.jpg" class="img-thumbnail" alt="">
 							</div>
 						</a>
 					</div>
@@ -458,11 +463,29 @@
 					<div class="row">
 						<div class="col-lg-8 col-lg-offset-2">
 							<div class="modal-body">
-								<h2>Katwaii</h2>
+								<h2>Menú de inicio</h2>
 								<hr class="star-primary">
-								<img src="https://www.petdarling.com/articulos/wp-content/uploads/2015/01/que-significa-so%C3%B1ar-con-gatos.jpg" class="img-responsive img-centered" alt="">
-								<p>Pantallas del juego. Nuestro juego consiste en cuatro pantallas. Concretamente son el menú principal, Game Over, Créditos/Contactar y el de jugar, ya sea para un jugador o dos.</p>							
-								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+								<img src="images/menu_inicio.jpg" class="img-responsive img-centered" alt="">
+								<p>Desde el menú de inicio el jugador puede acceder a jugar sólo o en cooperativo. 
+								También está la pantalla de ayuda con las instrucciones del juego y la pantalla de créditos. 
+								El jugador puede cambiar de idioma pulsando la tecla "S" para español y "E" para inglés.</p>
+
+								<ul class="list-inline item-details">
+									<li>Menu:
+										<strong><a href="menu_prototipo.html">Menú de inicio</a>
+										</strong>
+									</li>
+									<li>Creditos:
+										<strong><a href="creditos.html">Créditos</a>
+										</strong>
+									</li>
+									<li>Ayuda:
+										<strong><a href="help.html">Ayuda</a>
+										</strong>
+									</li>
+								</ul>
+								
+								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
 							</div>
 						</div>
 					</div>
@@ -481,11 +504,15 @@
 					<div class="row">
 						<div class="col-lg-8 col-lg-offset-2">
 							<div class="modal-body">
-								<h2>Implementación extra 1</h2>
+								<h2>Enemigos</h2>
 								<hr class="star-primary">
-								<img src="http://www.pawculture.com/uploads/small-cat-breeds-card.jpg" class="img-responsive img-centered" alt="">
-								<p>Explicación de las mecánicas del juego Katwaii y cómo se han implementado.</p>
-								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+								<img src="images/pepino_carrusel.gif" alt="">
+								<img src="images/laser_carrusel.gif" alt="">
+								<img src="http://www.pawculture.com/uploads/small-cat-breeds-card.jpg" alt="">
+								<p>En el juego nuestro gato se enfrentará a estos temibles enemigos.
+								El pepino y el lasér vienen a ser los dos niveles obligatorios, y la tostadora es el nivel de dificultad extra.
+								</p>
+								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
 							</div>
 						</div>
 					</div>
@@ -504,11 +531,12 @@
 					<div class="row">
 						<div class="col-lg-8 col-lg-offset-2">
 							<div class="modal-body">
-								<h2>Puntuaciones</h2>
+								<h2>Ataques</h2>
 								<hr class="star-primary">
-								<img src="http://www.sobreseguros.com/images/2015/10/ranking-las-mejores-companias-aseguradoras-no-vida-de-europa-01.jpg" class="img-responsive img-centered" alt="">
-								<p>Estos son las puntuaciones</p>						
-								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+								<img src="images/disparo_ovillos.jpg" class="img-responsive img-centered" alt="">
+								<p>Nuestro simpático gato disparará ovillos de lana contra sus enemigos. 
+								Mientras los enemigos cada uno tendrá su propio ataque y patrones.</p>						
+								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
 							</div>
 						</div>
 					</div>
@@ -527,25 +555,12 @@
 					<div class="row">
 						<div class="col-lg-8 col-lg-offset-2">
 							<div class="modal-body">
-								<h2>Project Title</h2>
+								<h2>Multijugador</h2>
 								<hr class="star-primary">
-								<img src="https://misanimales.com/wp-content/uploads/2016/10/crecen-los-gatos.jpg" class="img-responsive img-centered" alt="">
-								<p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-								<ul class="list-inline item-details">
-									<li>Client:
-										<strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-										</strong>
-									</li>
-									<li>Date:
-										<strong><a href="http://startbootstrap.com">April 2014</a>
-										</strong>
-									</li>
-									<li>Service:
-										<strong><a href="http://startbootstrap.com">Web Development</a>
-										</strong>
-									</li>
-								</ul>
-								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+								<img src="images/multiplayer.jpg" class="img-responsive img-centered" alt="">
+								<p>Nuestro juego dispone de multijugador local donde cada uno controlará a un gato diferente. </p>
+		
+								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
 							</div>
 						</div>
 					</div>
@@ -564,25 +579,11 @@
 					<div class="row">
 						<div class="col-lg-8 col-lg-offset-2">
 							<div class="modal-body">
-								<h2>Project Title</h2>
+								<h2>Puntuaciones</h2>
 								<hr class="star-primary">
-								<img src="https://misanimales.com/wp-content/uploads/2016/10/crecen-los-gatos.jpg" class="img-responsive img-centered" alt="">
-								<p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-								<ul class="list-inline item-details">
-									<li>Client:
-										<strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-										</strong>
-									</li>
-									<li>Date:
-										<strong><a href="http://startbootstrap.com">April 2014</a>
-										</strong>
-									</li>
-									<li>Service:
-										<strong><a href="http://startbootstrap.com">Web Development</a>
-										</strong>
-									</li>
-								</ul>
-								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+								<img src="images/tabla_puntuaciones.jpg" class="img-responsive img-centered" alt="">
+								<p>El juego almacena las 10 mejores puntuaciones. </p>
+								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
 							</div>
 						</div>
 					</div>
@@ -601,25 +602,11 @@
 					<div class="row">
 						<div class="col-lg-8 col-lg-offset-2">
 							<div class="modal-body">
-								<h2>Project Title</h2>
+								<h2>Assets y audio propio</h2>
 								<hr class="star-primary">
 								<img src="https://misanimales.com/wp-content/uploads/2016/10/crecen-los-gatos.jpg" class="img-responsive img-centered" alt="">
-								<p>Use this area of the page to describe your project. The icon above is part of a free icon set by <a href="https://sellfy.com/p/8Q9P/jV3VZ/">Flat Icons</a>. On their website, you can download their free set with 16 icons, or you can purchase the entire set with 146 icons for only $12!</p>
-								<ul class="list-inline item-details">
-									<li>Client:
-										<strong><a href="http://startbootstrap.com">Start Bootstrap</a>
-										</strong>
-									</li>
-									<li>Date:
-										<strong><a href="http://startbootstrap.com">April 2014</a>
-										</strong>
-									</li>
-									<li>Service:
-										<strong><a href="http://startbootstrap.com">Web Development</a>
-										</strong>
-									</li>
-								</ul>
-								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+								<p>El equipo se ha encargado de diseñar sus propios assets y audio para dicho juego. </p>
+								<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
 							</div>
 						</div>
 					</div>
@@ -718,6 +705,24 @@
 		</section>
 		<!-- /Section: contact -->
 		
+		
+		<footer>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-lg-12">
+						<div class="wow shake" data-wow-delay="0.4s">
+						<div class="page-scroll marginbot-30">
+							<a href="#intro" id="totop" class="btn btn-circle">
+								<i class="fa fa-angle-double-up animated"></i>
+							</a>
+						</div>
+						</div>
+						<p>&copy;KUAWMEOWSTON</p>
+					</div>
+				</div>	
+			</div>
+		</footer>
+		
 
 		<!-- Bootstrap core JavaScript
 		================================================== -->
@@ -736,6 +741,7 @@
 		
 		<!-- Custom CSS -->
 		<link href="css/freelancer.css" rel="stylesheet">
+		<link href="css/style_index.css" rel="stylesheet">
 		
 		<!-- jQuery library -->		
 		<script
@@ -759,6 +765,7 @@
 				$("#myCarouselCustom").carousel("next");
 			});
 		</script>
+		
 	
 	</body>
 </html>
