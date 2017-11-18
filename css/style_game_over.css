@@ -1,0 +1,92 @@
+/*
+    CSS de la seccion de Game Over
+
+    Describe el tamaño de las fuentes de texto, asi como las posiciones de las imagenes y
+    de dichos textos
+*/
+/* Tamaño de la fuente de los titulos */
+h3{
+	text-align: center;
+	margin-top: 5%;
+    /*margin-left: 500;*/
+    font: 200% 'Arial',sans-serif;
+    /*position: absolute; */   
+}
+/* Posicion del titulo de las puntuaciones */
+#tituloPuntuaciones{
+	text-align: center;
+    /*position: absolute;*/
+    top: 10%;
+}
+/* Tamaño y posicion de los indices de las puntuaciones */
+p1{
+	text-align: center;
+    font: 100% 'Arial',sans-serif;
+    margin-left: 40%;
+    position:  absolute;
+    top: 22%;
+}
+/* Tamaño y posicion de los nombres de las puntuaciones */
+p2{
+	text-align: center;
+    font: 100% 'Arial',sans-serif;
+    margin-left: 43%;
+    position:  absolute;
+    top: 22%;
+}
+/* Tamaño y posicion de los valores de las puntuaciones */
+p3{
+	text-align: center;
+    font: 100% 'Arial',sans-serif;
+    margin-left: 50%;
+    position:  absolute;
+    top: 22%;
+}
+/* Tamaño y posicion de la primera imagen animada del fondo */
+#pusheen_1{
+    width: 20%;
+    position: absolute;
+    top:22%;
+    left: 15%
+}
+/* Tamaño y posicion de la segunda imagen animada del fondo */
+#pusheen_2{
+    width: 20%;
+    position: absolute;
+    top:22%;
+    left: 65%
+}
+/* Color del fondo de la página */
+body{
+    background: #fcf0e4;
+}
+/* Tamaño y posicion de la instruccion para salir del game over*/
+#salida{
+	text-align: center;
+    /*position: absolute;*/
+    margin-top: 20%;
+    /*left: -3%;*/
+}
+
+#msg{
+	text-align: center;    
+	margin-top: 10%;
+	font: 50px 'Arial',sans-serif;
+}
+
+#cont {
+  background: #ffcfa3;
+  background-image: -webkit-linear-gradient(top, #ffcfa3, #fa64d7);
+  background-image: -moz-linear-gradient(top, #ffcfa3, #fa64d7);
+  background-image: -ms-linear-gradient(top, #ffcfa3, #fa64d7);
+  background-image: -o-linear-gradient(top, #ffcfa3, #fa64d7);
+  background-image: linear-gradient(to bottom, #ffcfa3, #fa64d7);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
