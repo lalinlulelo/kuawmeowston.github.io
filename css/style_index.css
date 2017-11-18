@@ -1,0 +1,207 @@
+/* ==== Google font ==== */
+@import url('http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic|Montserrat:700|Merriweather:400italic');
+
+
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* ===========================
+--- Intro
+============================ */
+
+.intro {
+	width:100%;
+	position:relative;
+}
+
+#intro.intro {
+	padding:15% 0 0 0;
+}
+
+.intro .slogan {
+	text-align: center;
+
+}
+
+.brand-heading {
+    font-size: 40px;
+}
+
+.intro-text {
+    font-size: 18px;
+}
+
+.intro .slogan h2 {
+	color: #FFA500;
+	text-shadow: none;
+	font-size: 60px;
+	line-height: 60px;
+	font-weight: 700;
+	font-family: Montserrat, sans-serif;
+	background-color: rgba(0, 0, 0, 0);
+	text-decoration: none;
+	text-transform: uppercase;
+	border-width: 0px;
+	border-color: #000000;
+	border-style: none;
+	text-shadow: -2px 0 4px #000;
+}
+
+.intro .slogan h4 {
+	color: #FFA500;
+	text-shadow: -1px 1px 1px #000;
+}
+
+/* ===========================
+--- Contact
+============================ */
+
+form#contact-form .form-group label {
+	text-align: left !important;
+	display: block;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-size: 12px;
+}
+form#contact-form input,form#contact-form select,form#contact-form textarea {
+	border-radius: 0;
+	border: 1px solid #eee;
+  -webkit-box-shadow: none;
+          box-shadow:  none;
+}
+
+form#contact-form input:focus,form#contact-form select:focus,form#contact-form textarea:focus {
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+}
+.input-group-addon {
+  background-color: #fefefe;
+  border: 1px solid #eee;
+  border-radius: 0;
+}
+
+.widget-contact {
+	text-align: left;
+}
+
+
+.company-social {
+	margin-left: 0;
+	padding-left: 0;
+	margin-top: 10px;
+}
+
+.company-social {
+	text-align: left;
+}
+
+.company-social li{
+    display: inline-block;
+	margin:0 !important;
+	padding:0;
+}
+
+
+.company-social a{
+	margin:0;
+	padding:0;
+    display: block;
+	width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: #3bbec0;
+	color: #fff;
+    -webkit-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+}
+.company-social a i{
+	text-align: center;
+	margin:0;
+	padding:0;
+}
+.company-social .social-facebook a{background: #3873ae;}
+.company-social .social-twitter a{background: #62c6f8;}
+.company-social .social-dribble a{background: #d74980;}
+.company-social .social-deviantart a{background: #8da356;}
+.company-social .social-google a{background: #000;}
+.company-social .social-vimeo a{background: #51a6d3;}
+.company-social .social-facebook a:hover{background: #4893ce;}
+.company-social .social-twitter a:hover{background: #82e6ff;}
+.company-social .social-dribble a:hover{background: #f769a0;}
+.company-social .social-deviantart a:hover{background: #adc376;}
+.company-social .social-google a:hover{background: #333;}
+.company-social .social-vimeo a:hover{background: #71c6f3;}
+
+
+
+/* ===========================
+--- Footer
+============================ */
+
+footer {
+	text-align: center;
+	padding: 50px 0 ;
+	
+}
+
+footer p {
+	color: #808080;
+}
+
+/* ===========================
+--- Elements
+============================ */
+
+.page-scroll .btn-circle i.animated {
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 1s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 1s;
+}
+
+.page-scroll .btn-circle:hover i.animated {
+    -webkit-animation-name: pulse;
+    -moz-animation-name: pulse;
+    -webkit-animation-duration: 1.5s;
+    -moz-animation-duration: 1.5s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+}
+
+
+.btn-skin:hover,
+.btn-skin:focus,
+.btn-skin:active,
+.btn-skin.active {
+  color: #fff;
+  background-color: #666;
+  border-color: #666;
+}
+
+
+.btn-default:hover,
+.btn-default:focus {
+    border: 1px solid #28c3ab;
+    outline: 0;
+    color: #000;
+    background-color: #28c3ab;
+}
+
+.btn-huge {
+    padding: 25px;
+    font-size: 26px;
+}
+
+.banner-social-buttons {
+    margin-top: 0;
+}
+
+
+}
