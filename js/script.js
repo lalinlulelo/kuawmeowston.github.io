@@ -1285,7 +1285,7 @@ var game = (function () {
 
     function checkCollisions_Enemy_3(shoot) {
         if (FIREFOX) {
-            if (enemy_3_carril_n(shoot) == player_carril_n_3(player_1)) {
+            if (enemy_3_carril_n(shoot) == player_carril_n(player_1)) {
                 if (player_carril_n_2(player_1) == 0) {
                     if ((shoot.posX >= (player_1.posX + 192)) && (shoot.posX <= (player_1.posX + 198))) {
                         player_1.hit();
