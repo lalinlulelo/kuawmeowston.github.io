@@ -16,12 +16,14 @@ body{
     margin-left: 185;
     position:  absolute;
     top: 4%;
+	text-shadow: 3px 2px 5px #996699;
   }
   t2{
     font: 200% 'Arial',sans-serif;
     margin-left: 185;
     position:  absolute;
     top: 28%;
+	text-shadow: 3px 2px 5px #996699;
   }
   p2{
     margin-left: 185;

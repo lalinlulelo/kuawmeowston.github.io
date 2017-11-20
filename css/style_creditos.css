@@ -1,5 +1,5 @@
 ﻿body{
-  /*background: url(../images/spain_flag.png);   */
+  background: #fcf0e4;
   text-align: center;
   width: 100%;
   height: 100%;
@@ -12,7 +12,7 @@
 #header_creditos {
 	font: 30px 'Arial',sans-serif;
 	font-weight: bold;
-	text-shadow: 5px 5px 5px #36A1FF; /*Cambiar segun el fondo*/
+	text-shadow: 3px 2px 5px #996699; /*Cambiar segun el fondo*/
 }
 
 p {
@@ -28,15 +28,15 @@ a {
 }
 
 .glyphicon-envelope { 
-	color: blue; /*cambiar segun el fondo*/
+	color: #99cccc; /*cambiar segun el fondo*/
 	font-size: 20px;
 }
 .glyphicon-globe { 
-	color: green; /*cambiar segun el fondo*/
+	color: #99cccc; /*cambiar segun el fondo*/
 	font-size: 20px;
 }
 
 .glyphicon-arrow-left{
-	color: red;
+	color: #996699;
 	font-size: 50px;
 }
