@@ -10,13 +10,7 @@
 </head>
     <body>
         <div>   
-            <script>
-                $(document).keyup(function(e) {
-                    if (e.keyCode == 27) { // escape key maps to keycode `27`
-                        window.location.href = "menu_prototipo.html";
-                    }
-                });
-            </script>
+            
                 <image id="bg" src="images/help_bg.png"></image>
                 <image id="move" src="images/walk.gif"></image>
                 <image id="attack" src="images/atack.gif"></image>
@@ -32,5 +26,62 @@
                 <p6 id="p6">Esc para retroceder a la anterior <br>pantalla</p6>
                 <p7 id ="p7">Ctrl + F5 en caso de error en <br> el juego para refrescar la pantalla </p7>               
         </div>
+        
+        <script>
+            $(document).keyup(function(e) {
+                if (e.keyCode == 27) { // escape key maps to keycode `27`
+                    window.location.href = "menu_prototipo.html";
+                }
+            });
+            
+            //Idioma
+            var eng = 0; //1 para ingles
+            var t1Eng = "What is the game about?";
+            var t1Spa = "¿En qué consiste el juego?";
+            var p2Spa = "Se jugará con un gato que afrontará sus miedos lanzándoles ovillos de lana para derrotarlos."+
+                    "Cada vez que el enemigo es golpeado, se le reduce una <br>porción de vida. El gato es capaz de  moverse"+
+                    "horizontalmente hacia delante y detrás, y a su vez es capaz de moverse hacia un lado u otro.";
+            var p2Eng = "You play as a cat that faces its fears by throwing balls of yarn until it defeats them."+
+                "Every time an enemy is hit by the ball, its life is reduced. The cat can move forward and backwards, and also to the"+
+                "right and to the left.";
+            var t2Spa = "¿Con qué controles se juega?";
+            var t2Eng = "How do you play?";
+            var p1Spa = "W avanza un carril más lejos <br> S avanza un carril más cercano <br> A avanza en el carril hacia"+
+                "a la izquierda<br> D avanza en el carril hacia la derecha.";
+            var p1Eng = "W moves the cat backwards on the rails <br> S mmoves the cat forward on the rails <br> A moves the cat"+
+                "to the left <br> D moves the cat to the right.";
+            var p5Spa = "Q acciona el ataque.";
+            var p5Eng = "Q shoots the ball of yarn";
+            var p6Spa = "Esc para retroceder a la anterior <br>pantalla";
+            var p6Eng = "Esc to go back to the previous screen";
+            var p7Spa = "Ctrl + F5 en caso de error en <br> el juego para refrescar la pantalla";
+            var p7Eng = "Ctrl + F5 to reload the screen in case the game crashes";
+            
+            window.onload = function () {
+                eng = localStorage.getItem("idioma");
+                
+                console.log("id: " + eng);
+                if (eng == 1) {
+                    console.log("ingles")
+                    document.getElementById("t1").innerHTML = t1Eng;
+                    document.getElementById("p2").innerHTML = p2Eng;
+                    document.getElementById("t2").innerHTML = t2Eng;
+                    document.getElementById("p1").innerHTML = p1Eng;
+                    document.getElementById("p5").innerHTML = p5Eng;
+                    document.getElementById("p6").innerHTML = p6Eng;
+                    document.getElementById("p7").innerHTML = p7Eng;
+                } else if (eng == 0) {
+                    console.log("español");
+                    document.getElementById("t1").innerHTML = t1Spa;
+                    document.getElementById("p2").innerHTML = p2Spa;
+                    document.getElementById("t2").innerHTML = t2Spa;
+                    document.getElementById("p1").innerHTML = p1Spa;
+                    document.getElementById("p5").innerHTML = p5Spa;
+                    document.getElementById("p6").innerHTML = p6Spa;
+                    document.getElementById("p7").innerHTML = p7Spa;
+                }
+            };
+         </script>
+            
     </body>
 </html>
