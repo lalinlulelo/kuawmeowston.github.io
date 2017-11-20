@@ -16,9 +16,11 @@
 visibilidad('rank');
 
 var win = localStorage.getItem("win");
+console.log("win: "+win);
 var eng = localStorage.getItem("idioma"); //0 español, 1 ingles
+console.log("eng: "+eng);
 //Cambiar mensaje si ha perdido, dejarlo como estaba si ha ganado
-if (win == 0 && eng ==0) {
+if (win == 0 && eng == 0) {
     document.getElementById("txt").innerHTML = "¡Has perdido! Seguro que tienes más suerte la próxima vez.";
 } else if (win == 0 && eng == 1) {
     document.getElementById("txt").innerHTML = "You lose! You'll be luckier next time";
