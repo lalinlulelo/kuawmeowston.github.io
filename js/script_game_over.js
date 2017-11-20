@@ -25,8 +25,10 @@ if (win == 0 && eng == 0) {
     document.getElementById("txt").innerHTML = "¡Has perdido! Seguro que tienes más suerte la próxima vez.";
 } else if (win == 0 && eng == 1) {
     document.getElementById("txt").innerHTML = "You lose! You'll be luckier next time";
+    document.getElementById("cont").innerHTML = "Continue";       
 } else if(win == 1 && eng ==1) {
     document.getElementById("txt").innerHTML = "You win! Congratulations :D";
+    document.getElementById("cont").innerHTML = "Continue";     
 }
 
 //Cuando se pulsa el boton de continuar, ocultar parte del msg, mostrar la del ranking
@@ -217,5 +219,6 @@ function rankings() {
     
     if (eng == 1) {
         document.getElementById("tituloPuntuaciones").innerHTML = "Best scores";        
+        document.getElementById("salida").innerHTML = "Press enter to go back to the menu";       
     }
 };
