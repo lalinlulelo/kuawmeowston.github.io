@@ -17,7 +17,8 @@ visibilidad('rank');
 
 var win = localStorage.getItem("win");
 console.log("win: "+win);
-var eng = localStorage.getItem("idioma"); //0 español, 1 ingles
+var eng = 0; //0 español, 1 ingles
+eng = localStorage.getItem("idioma");
 console.log("eng: "+eng);
 //Cambiar mensaje si ha perdido, dejarlo como estaba si ha ganado
 if (win == 0 && eng == 0) {
