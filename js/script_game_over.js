@@ -16,16 +16,21 @@
 visibilidad('rank');
 
 var win = localStorage.getItem("win");
+var eng = localStorage.getItem("idioma"); //0 español, 1 ingles
 //Cambiar mensaje si ha perdido, dejarlo como estaba si ha ganado
-if (win == 0) {
+if (win == 0 && eng ==0) {
     document.getElementById("txt").innerHTML = "¡Has perdido! Seguro que tienes más suerte la próxima vez.";
+} else if (win == 0 && eng == 1) {
+    document.getElementById("txt").innerHTML = "You lose! You'll be luckier next time";
+} else if(win == 1 && eng ==1) {
+    document.getElementById("txt").innerHTML = "You win! Congratulations :D";
 }
 
 //Cuando se pulsa el boton de continuar, ocultar parte del msg, mostrar la del ranking
 function cont() {    
     visibilidad('msg');
-    visibilidad('rank');   
-
+    visibilidad('rank'); 
+    
     //gestion de rankings
     rankings();
 };
@@ -206,4 +211,8 @@ function rankings() {
         var puntuaciones = document.getElementById("puntuaciones");
         puntuaciones.innerHTML = "<p3>" + cadena_puntuacion + "</p3>";
     };
+    
+    if (eng == 1) {
+        document.getElementById("tituloPuntuaciones").innerHTML = "Best scores";        
+    }
 };
