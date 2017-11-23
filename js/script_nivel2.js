@@ -374,6 +374,7 @@ var game = (function () {
     // ----------------------------------------------------------------- Jugadores -----------------------------------------------------------------
     // jugador 1
     function Player_1(life, score) {
+      console.log("Creando al jugador 1");
       // ubicacion del jugador 1
       var settings = {
           marginBottom : 60,
