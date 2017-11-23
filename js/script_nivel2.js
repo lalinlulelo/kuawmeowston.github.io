@@ -1119,7 +1119,8 @@ var game = (function () {
                
       } else {
         //obtener el carril en el que esta
-        var carril = player_1.zindex;
+          var carril = player_1.zindex;
+          console.log("carril jugador "+carril);
         //Segun el carril, pintarlo en una capa u otra
         switch (carril) {
             case 0: capa0ctx.drawImage(player_1, player_1.posX, player_1.posY, player_1_carril.x, player_1_carril.y);
