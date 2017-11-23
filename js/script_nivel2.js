@@ -997,6 +997,7 @@ var game = (function () {
     // funcion update
     function update() {
 
+       console.log(player_1.posX+" "+ player_1.posY);
         //Limpiar las capas
         capa0ctx.clearRect(0, 0, canvas.width, canvas.height);
         capa1ctx.clearRect(0, 0, canvas.width, canvas.height);
