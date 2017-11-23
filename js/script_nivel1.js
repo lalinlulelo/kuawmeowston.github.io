@@ -1012,7 +1012,8 @@ var game = (function () {
 
       if (game_over) {
           localStorage.setItem("win", 0);
-          //saveScore(); //Perder en el primer enemigo no puntua
+          //Perder en el primer enemigo no puntua
+          localStorage.setItem("puntos", 0);
           window.location.href = "game_over.html";
           return;
       }
