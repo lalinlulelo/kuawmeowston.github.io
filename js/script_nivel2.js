@@ -268,8 +268,8 @@ var game = (function () {
 
 
       // se inicializan los jugadores
-      console.log("creando al jugador 1 ... :");
-      player_1 = new Player_1 (player_1_life, 0);
+      //console.log("creando al jugador 1 ... :");
+      //player_1 = new Player_1 (player_1_life, 0);
       console.log("con exito");
       if(Jugadores == 2){
         //console.log("creando al jugador 1 ... :");
@@ -478,7 +478,7 @@ var game = (function () {
           if (keyPressed.p1_fire_1){
             player_1_bullet_x = player_1_carril.x - 10;
             player_1_bullet_y = player_1_carril.y - 10;
-            //console.log("disparar");
+            console.log("disparar");
             shoot();
           }
           if(keyPressed.p1_dead_1){
@@ -494,6 +494,7 @@ var game = (function () {
       };
 
       player_1.hit = function (){
+        console.log("Golpe al jugador!");
         player_1.life -= 1;
         GatoDañado();
         if(player_1.life == 0){
@@ -1083,10 +1084,13 @@ var game = (function () {
         //Segun el carril, pintarlo en una capa u otra
         switch (carril) {
             case 0: capa0ctx.drawImage(player_1, player_1.posX, player_1.posY + 270, player_1_carril.x, player_1_carril.y);
+                console.log("dibujar jugador en carril 0 "+player_1.posX+" "+player_1.posY); 
                 break;
             case 1: capa1ctx.drawImage(player_1, player_1.posX, player_1.posY + 270, player_1_carril.x, player_1_carril.y);
+                console.log("dibujar jugador en carril 1"+player_1.posX+" "+player_1.posY); 
                 break;
             case 2: capa2ctx.drawImage(player_1, player_1.posX, player_1.posY + 270, player_1_carril.x, player_1_carril.y);
+                console.log("dibujar jugador en carril 2"+player_1.posX+" "+player_1.posY); 
                 break;
         }
         if (Jugadores == 2) {
@@ -1123,10 +1127,13 @@ var game = (function () {
         //Segun el carril, pintarlo en una capa u otra
         switch (carril) {
             case 0: capa0ctx.drawImage(player_1, player_1.posX, player_1.posY, player_1_carril.x, player_1_carril.y);
+                console.log("dibujar jugador en carril 0 "+player_1.posX+" "+player_1.posY); 
                 break;
             case 1: capa1ctx.drawImage(player_1, player_1.posX, player_1.posY, player_1_carril.x, player_1_carril.y);
+                console.log("dibujar jugador en carril 1 "+player_1.posX+" "+player_1.posY); 
                 break;
             case 2: capa2ctx.drawImage(player_1, player_1.posX, player_1.posY, player_1_carril.x, player_1_carril.y);
+                console.log("dibujar jugador en carril 2 "+player_1.posX+" "+player_1.posY); 
                 break;
         }
 
