@@ -268,9 +268,9 @@ var game = (function () {
 
 
       // se inicializan los jugadores
-      //console.log("creando al jugador 1 ... :");
+      console.log("creando al jugador 1 ... :");
       player_1 = new Player_1 (player_1_life, 0);
-      //console.log("con exito");
+      console.log("con exito");
       if(Jugadores == 2){
         //console.log("creando al jugador 1 ... :");
         player_2 = new Player_2 (player_2_life, 0);
