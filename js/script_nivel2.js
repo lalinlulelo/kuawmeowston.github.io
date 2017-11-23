@@ -385,7 +385,7 @@ var game = (function () {
       player_1.src = 'images/player_1.png';
       player_1.posX = -40;
       player_1.posY = canvas.height - (player_1.height == 0 ? settings.defaultHeight : player_1.height) - settings.marginBottom;
-      player_1.life = life;
+      player_1.life = player_1_life;
       player_1.score = score;
       player_1.dead = false;
       player_1.speed = player_1_speed;
