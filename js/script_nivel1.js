@@ -124,7 +124,7 @@ var game = (function () {
     }
     // variables del enemigo 1
     var enemy_1;
-    var enemy_1_life =10; 
+    var enemy_1_life =1; 
     var enemy_1_shoot;
     var enemy_1_bullet;
     var enemy_1_bullets = [];
