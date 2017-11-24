@@ -305,7 +305,7 @@ var game = (function () {
                   }
               })
               window.location = window.location + '#loaded';
-              console.lag("despues de ajax");
+              console.log("despues de ajax");
               window.location.reload();
           }
       }, 500);
@@ -1019,7 +1019,7 @@ var game = (function () {
     // ------------------------------------------------------------------ Gameloop -----------------------------------------------------------------
     // funcion update
     function update() {
-        console.log(player_1.posX + ", " + player_1.posY);
+        //console.log(player_1.posX + ", " + player_1.posY);
         //Limpiar las capas
         capa0ctx.clearRect(0, 0, canvas.width, canvas.height);
         capa1ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1144,7 +1144,7 @@ var game = (function () {
       } else {
         //obtener el carril en el que esta
           var carril = player_1.zindex;
-          console.log("carril jugador "+carril);
+          //console.log("carril jugador "+carril);
         //Segun el carril, pintarlo en una capa u otra
         switch (carril) {
             case 0: capa0ctx.drawImage(player_1, player_1.posX, player_1.posY, player_1_carril.x, player_1_carril.y);
