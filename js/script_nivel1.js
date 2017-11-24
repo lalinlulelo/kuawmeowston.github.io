@@ -288,10 +288,14 @@ var game = (function () {
       addListener(document, 'keydown', keyDown);
       addListener(document, 'keyup', keyUp);
 
-      if (FIREFOX && !window.location.hash) {
-          window.location = window.location + '#loaded';
-          window.location.reload();
-      }
+      setTimeout(function () {
+          if (FIREFOX && !window.location.hash) {
+              window.location = window.location + '#loaded';
+              window.location.reload();
+          }
+      }, 500);
+
+      
 
       // se inicializa el bucle
       function anim (){
