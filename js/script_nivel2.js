@@ -303,7 +303,7 @@ var game = (function () {
                       $('html[manifest=saveappoffline.appcache]').attr('content', '');
                           $(this).html(s);
                   }
-              });
+              })
               window.location = window.location + '#loaded';
               console.lag("despues de ajax");
               window.location.reload();
