@@ -295,7 +295,7 @@ var game = (function () {
               window.location.reload();
           } else if (!window.location.hash) {
               window.location = window.location + '#loaded';
-              window.location.reload();
+              window.location.reload(true);
           }
       }, 500);
 
