@@ -294,6 +294,10 @@ var game = (function () {
         loop ();
         requestAnimFrame(anim);
       }
+
+      //Antes de iniciar el gameloop se recarga la página si es firefox
+      if (FIREFOX) location.reload();
+
       anim ();
     }  
     // ---------------------------------------------------- Fin inicializacion de las variables ----------------------------------------------------
