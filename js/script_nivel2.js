@@ -294,8 +294,17 @@ var game = (function () {
               window.location = window.location + '#loaded';
               window.location.reload();
           } else if (!window.location.hash) {
+               $.ajax({
+                  url: "",
+                  context: document.body,
+                  success: function(s,x){
+
+                      $('html[manifest=saveappoffline.appcache]').attr('content', '');
+                          $(this).html(s);
+                  }
+              });
               window.location = window.location + '#loaded';
-              window.location.reload(true);
+              window.location.reload();
           }
       }, 500);
 
