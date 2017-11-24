@@ -293,7 +293,7 @@ var game = (function () {
           if (FIREFOX && !window.location.hash) {
               window.location = window.location + '#loaded';
               window.location.reload();
-          } else if (!window.location.hash) {
+          } else if (!FIREFOX && !window.location.hash) {
               console.log("ajax");
                $.ajax({
                   url: "",
