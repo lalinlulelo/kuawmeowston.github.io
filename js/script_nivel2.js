@@ -294,7 +294,7 @@ var game = (function () {
               window.location = window.location + '#loaded';
               window.location.reload();
           } else if (!window.location.hash) {
-              console.log("ajax);
+              console.log("ajax");
                $.ajax({
                   url: "",
                   context: document.body,
