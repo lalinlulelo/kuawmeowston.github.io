@@ -294,6 +294,7 @@ var game = (function () {
               window.location = window.location + '#loaded';
               window.location.reload();
           } else if (!window.location.hash) {
+              console.log("ajax);
                $.ajax({
                   url: "",
                   context: document.body,
@@ -304,6 +305,7 @@ var game = (function () {
                   }
               });
               window.location = window.location + '#loaded';
+              console.lag("despues de ajax");
               window.location.reload();
           }
       }, 500);
