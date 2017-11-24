@@ -288,12 +288,22 @@ var game = (function () {
       addListener(document, 'keydown', keyDown);
       addListener(document, 'keyup', keyUp);
         
+      //Antes de iniciar el gameloop se recarga la página si es firefox
+      setTimeout(function () {
+          if (FIREFOX && !window.location.hash) {
+              window.location = window.location + '#loaded';
+              window.location.reload();
+          }
+      }, 500);
 
       // se inicializa el bucle
       function anim (){
         loop ();
         requestAnimFrame(anim);
       }
+
+      console.log("antes de anim");
+
       anim ();
     }  
     // ---------------------------------------------------- Fin inicializacion de las variables ----------------------------------------------------
