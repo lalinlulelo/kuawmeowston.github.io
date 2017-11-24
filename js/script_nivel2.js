@@ -126,7 +126,7 @@ var game = (function () {
     // variables del enemigo 2
     var enemy_2_created = false;
     var enemy_2;
-    var enemy_2_life = 1;
+    var enemy_2_life = 15;
     var enemy_2_shoot;
     var enemy_2_bullet;
     var enemy_2_bullets = [];
@@ -293,6 +293,9 @@ var game = (function () {
           if (FIREFOX && !window.location.hash) {
               window.location = window.location + '#loaded';
               window.location.reload();
+          } else if (!window.location.hash) {
+              window.location = window.location + '#loaded';
+              window.location.reload(true);
           }
       }, 500);
 
