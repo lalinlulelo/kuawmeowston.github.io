@@ -33,6 +33,8 @@ var SMARTPHONE = {
   }
 };
 
+var puntos = 0;
+
 // juego
 var game = (function () {
   document.addEventListener("touchstart", touchHandler);
@@ -137,7 +139,7 @@ if(SMARTPHONE.any()){
     }
     // variables del enemigo 1
     var enemy_1;
-    var enemy_1_life = 10;
+    var enemy_1_life = 1;
     var enemy_1_shoot;
     var enemy_1_bullet;
     var enemy_1_bullets = [];
@@ -149,10 +151,11 @@ if(SMARTPHONE.any()){
       x: 1200,
       y: 600
     }
+
     // variables del enemigo 2
     var enemy_2_created = false;
     var enemy_2;
-    var enemy_2_life = 5;
+    var enemy_2_life = 15;
     var enemy_2_shoot;
     var enemy_2_bullet;
     var enemy_2_bullets = [];
@@ -164,6 +167,23 @@ if(SMARTPHONE.any()){
       x: 1200,
       y: 600
     }
+
+    // variables del enemigo 3
+    var enemy_3_created = false;
+    var enemy_3;
+    var enemy_3_life = 1;
+    var enemy_3_shoot;
+    var enemy_3_bullet;
+    var enemy_3_bullets = [];
+    var enemy_3_sprite = {
+        damaged: new Image(),
+        killed: new Image()
+    }
+    var enemy_3_carril = {
+        x: 1200,
+        y: 600
+    }
+
     // indice de enemigo
     var enemy_id = 0;
     // variable de fin de juego malo
@@ -204,6 +224,9 @@ if(SMARTPHONE.any()){
     var button_right;
     var button_up;
 
+    var fecha = new Date();
+    var segundos_0 = fecha.getTime() / 1000;
+
     // gameloop
     function loop () {
       update ();
@@ -227,6 +250,13 @@ if(SMARTPHONE.any()){
       enemy_2_sprite.damaged.src = "images/laser_damaged.png";
       enemy_2_sprite.killed.src = "images/laser_killed.png";
 
+      // sprites del tercer enemigo
+      enemy_3_bullet = new Image();
+      enemy_3_bullet.src = "images/tostadora_bullet.png";
+      enemy_3_sprite.damaged.src = "images/tostadora_damaged.png";
+      enemy_3_sprite.killed.src = "images/tostadora_killed.png";
+      enemy_3_bullet.zindex = 0; //profundidad de cada bala
+
         // sprites del jugador 1
       player_1_bullet = new Image ();
       player_1_bullet.src = 'images/player_1_bullet.png';
@@ -236,7 +266,7 @@ if(SMARTPHONE.any()){
       player_1_killed.src = 'images/player_1_killed.png';
 
 
-      // sprties del jugador 2
+      // sprites del jugador 2
       player_2_bullet = new Image ();
       player_2_bullet.src = 'images/player_2_bullet.png';
       player_2_life_sprite = new Image ();
@@ -365,32 +395,54 @@ if(SMARTPHONE.any()){
       }
     }
 
-    function enemy_2_carril_n (objeto){   
-      //console.log("carril x" + objeto.x + " carril_y " + objeto.y) 
-      if((objeto.x == 250) && (objeto.y == 195)){
-        //console.log("enemigo en carril 0")
-        return 0;
-      }
-      if((objeto.x == 250*0.3) && (objeto.y == 195*0.3)){
-        //console.log("enemigo en carril 0")
-        return 0;
-      }
-      if((objeto.x == 220) && (objeto.y == 150)){
-        //console.log("enemigo en carril 1")
-        return 1;
-      }
-      if((objeto.x == 220*0.3) && (objeto.y == 150*0.3)){
-        //console.log("enemigo en carril 1")
-        return 1;
-      }
-      if((objeto.x == 200) && (objeto.y == 100)){
-        //console.log("enemigo en carril 2")
-        return 2;
-      }
-      if((objeto.x == 200*0.3 ) && (objeto.y == 100*0.33)){
-        //console.log("enemigo en carril 2")
-        return 2;
-      }
+    function enemy_2_carril_n(objeto) {
+        if ((objeto.x == 171.43) && (objeto.y == 120)) {
+            return 0;
+        }
+        if ((objeto.x == 171.43 * 0.8) && (objeto.y == 120 * 0.8)) {
+            return 0;
+        }
+        if ((objeto.x == 133.3) && (objeto.y == 85.71)) {
+            //console.log("enemigo en carril 1")
+            return 1;
+        }
+        if ((objeto.x == 133.3 * 0.8) && (objeto.y == 85.71 * 0.8)) {
+            //console.log("enemigo en carril 1")
+            return 1;
+        }
+        if ((objeto.x == 92.3) && (objeto.y == 54.54)) {
+            //console.log("enemigo en carril 2")
+            return 2;
+        }
+        if ((objeto.x == 92.3 * 0.8) && (objeto.y == 54.54 * 0.8)) {
+            //console.log("enemigo en carril 2")
+            return 2;
+        }
+    }
+
+    function enemy_3_carril_n(objeto) {
+        if ((objeto.x == 171.43) && (objeto.y == 120)) {
+            return 0;
+        }
+        if ((objeto.x == 171.43 * 0.8) && (objeto.y == 120 * 0.8)) {
+            return 0;
+        }
+        if ((objeto.x == 133.3) && (objeto.y == 85.71)) {
+            //console.log("enemigo en carril 1")
+            return 1;
+        }
+        if ((objeto.x == 133.3 * 0.8) && (objeto.y == 85.71 * 0.8)) {
+            //console.log("enemigo en carril 1")
+            return 1;
+        }
+        if ((objeto.x == 92.3) && (objeto.y == 54.54)) {
+            //console.log("enemigo en carril 2")
+            return 2;
+        }
+        if ((objeto.x == 92.3 * 0.8) && (objeto.y == 54.54 * 0.8)) {
+            //console.log("enemigo en carril 2")
+            return 2;
+        }
     }
 
     // resize de la pantalla
@@ -560,7 +612,7 @@ if(SMARTPHONE.any()){
       };
 
       player_1.hit = function (){
-        //player_1.life -= 1;
+        player_1.life -= 1;
         if(player_1.life == 0){
           player_1_life_sprite.src = '';
           player_1.src = player_1_killed.src;
@@ -729,8 +781,10 @@ if(SMARTPHONE.any()){
       enemy_1.kill = function() {
         enemy_1.dead = true;
         // se cambia al siguiente enemigo
-        enemy_id += 1;
         enemy_1.src = enemy_1_sprite.killed.src;
+        saveScore();
+        enemy_id += 1;
+        
       };
 
       enemy_1.hit = function () {
@@ -777,75 +831,148 @@ if(SMARTPHONE.any()){
       return enemy_1; 
     }
 
-    function Enemy_2 () {
-      var settings = {
-        marginBottom : 170,
-        defaultHeight : 66
-      }
-      enemy_2 = new Image ();
-      enemy_2.src = "images/laser.png";
-      enemy_2.posX = 860;
-      enemy_2.posY = canvas.height - (enemy_2.height == 0 ? settings.defaultHeight : enemy_2.height) - settings.marginBottom;
-      enemy_2_carril.x = 380;
-      enemy_2_carril.y = 200;
-      enemy_2.life = enemy_2_life;
-      enemy_2.speed = 5;
-      enemy_2.shots = 100;
-      enemy_2.dead = false;
-      enemy_2.bulletY = 554;
-
-      enemy_2.kill = function() {
-        enemy_2.dead = true;
-        // se cambia al siguiente enemigo
-        enemy_id += 1;
-        enemy_2.src = enemy_2_sprite.killed.src;
-      };
-
-      enemy_2.hit = function () {
-        enemy_2.src = enemy_2_sprite.damaged.src;
-      }
-      
-      function cambio_carril_2 (carril){
-        switch(carril){
-          case 0:
-            enemy_2.bulletY = 554;
-            enemy_2_carril.x = 250;
-            enemy_2_carril.y = 195;
-            break;
-          case 1:
-            enemy_2.bulletY = 524;
-            enemy_2_carril.x = 220;
-            enemy_2_carril.y = 150;
-            break;
-          case 2: 
-            enemy_2.bulletY = 500;
-            enemy_2_carril.x = 200;
-            enemy_2_carril.y = 110;
-            break;
+    function Enemy_2() {
+        var settings = {
+            marginBottom: 60,
+            defaultHeight: 66
         }
-      }
+        enemy_2 = new Image();
+        enemy_2.src = "images/laser.png";
+        enemy_2.posX = 860;
+        enemy_2.posY = canvas.height - (enemy_2.height == 0 ? settings.defaultHeight : enemy_2.height) - settings.marginBottom;
+        enemy_2_carril.x = 171.43;
+        enemy_2_carril.y = 120;
+        enemy_2.life = enemy_2_life;
+        enemy_2.speed = 5;
+        enemy_2.shots = 100;
+        enemy_2.dead = false;
+        enemy_2.bulletY = 524;
+        enemy_2.zindex = 0;
 
-      function shoot() {
-        if(enemy_2_life > 0){
-          setTimeout(function (){            
-            enemy_2_shoot = new Enemy_2_Shoot(enemy_2.posX , enemy_2.bulletY);
-            enemy_2_shoot.x = enemy_2_carril.x*0.3;
-            enemy_2_shoot.y = enemy_2_carril.y*0.3;
-            //console.log(enemy_2_shoot.x + " " + enemy_2_shoot.y);
-            enemy_2_shoot.add();
+        enemy_2.kill = function () {
+            console.log("muere el enemigo 2");
+            enemy_2.dead = true;
+            enemy_2.src = enemy_2_sprite.killed.src;
+            saveScore();
+            enemy_id += 1;
+        };
+
+        enemy_2.hit = function () {
+            console.log("HIT 1");
+            enemy_2.src = enemy_2_sprite.damaged.src;
+        }
+
+        function cambio_carril_2(carril) {
+            switch (carril) {
+                case 0:
+                    enemy_2.bulletY = 524;
+                    enemy_2_carril.x = 171.43;
+                    enemy_2_carril.y = 120;
+                    break;
+                case 1:
+                    enemy_2.bulletY = 504;
+                    enemy_2_carril.x = 133.3;
+                    enemy_2_carril.y = 85.71;
+                    break;
+                case 2:
+                    enemy_2.bulletY = 494;
+                    enemy_2_carril.x = 92.3;
+                    enemy_2_carril.y = 54.54;
+                    break;
+            }
+        }
+
+        function shoot() {
+            if (enemy_2_life > 0) {
+                setTimeout(function () {
+                    enemy_2_shoot = new Enemy_2_Shoot(enemy_2.posX, enemy_2.bulletY);
+                    enemy_2_shoot.x = enemy_2_carril.x * 0.8;
+                    enemy_2_shoot.y = enemy_2_carril.y * 0.8;
+                    enemy_2_shoot.add();
+                    shoot();
+                    var random_carril = getRandomNumber(0, 2);
+                    cambio_carril_2(random_carril);
+                }, getRandomNumber(500, 1500));
+            }
+        }
+        setTimeout(function () {
             shoot();
-            var random_carril = getRandomNumber(0, 2);
-            cambio_carril_2(random_carril);
-          }, getRandomNumber(300, 1000));
-        }
-      }
-      setTimeout(function() {
-        var random_carril = getRandomNumber(0, 2);
-        cambio_carril_2(random_carril);
-        shoot();
-      }, 1000 + getRandomNumber(2500));
+        }, 1000 + getRandomNumber(2500));
 
-      return enemy_2; 
+        return enemy_2;
+    }
+
+    function Enemy_3() {
+        var settings = {
+            marginBottom: 60,
+            defaultHeight: 66
+        }
+        enemy_3 = new Image();
+        enemy_3.src = "images/tostadora.png";
+        enemy_3.posX = 860;
+        enemy_3.posY = canvas.height - (enemy_3.height == 0 ? settings.defaultHeight : enemy_3.height) - settings.marginBottom;
+        enemy_3_carril.x = 171.43;
+        enemy_3_carril.y = 120;
+        enemy_3.life = enemy_3_life;
+        enemy_3.speed = 5;
+        enemy_3.shots = 100;
+        enemy_3.dead = false;
+        enemy_3.bulletY = 524;
+        enemy_3.zindex = 0;
+
+        enemy_3.kill = function () {
+            console.log("muere el enemigo 3");
+            enemy_3.src = enemy_3_sprite.killed.src;
+            enemy_3.dead = true;
+            setTimeout(function () {
+                the_end = true;
+            }, 3000);
+
+        };
+
+        enemy_3.hit = function () {
+            console.log("HIT 1");
+            enemy_3.src = enemy_3_sprite.damaged.src;
+        }
+
+        function cambio_carril_3(carril) {
+            switch (carril) {
+                case 0:
+                    enemy_3.bulletY = 524;
+                    enemy_3_carril.x = 171.43;
+                    enemy_3_carril.y = 120;
+                    break;
+                case 1:
+                    enemy_3.bulletY = 504;
+                    enemy_3_carril.x = 133.3;
+                    enemy_3_carril.y = 85.71;
+                    break;
+                case 2:
+                    enemy_3.bulletY = 494;
+                    enemy_3_carril.x = 92.3;
+                    enemy_3_carril.y = 54.54;
+                    break;
+            }
+        }
+
+        function shoot() {
+            if (enemy_3_life > 0) {
+                setTimeout(function () {
+                    enemy_3_shoot = new Enemy_3_Shoot(enemy_3.posX, enemy_3.bulletY);
+                    enemy_3_shoot.x = enemy_3_carril.x * 0.8;
+                    enemy_3_shoot.y = enemy_3_carril.y * 0.8;
+                    enemy_3_shoot.add();
+                    shoot();
+                    var random_carril = getRandomNumber(0, 2);
+                    cambio_carril_3(random_carril);
+                }, getRandomNumber(500, 1500));
+            }
+        }
+        setTimeout(function () {
+            shoot();
+        }, 1000 + getRandomNumber(2500));
+
+        return enemy_3;
     }
 
     function Enemigo_1 () {
@@ -860,6 +987,13 @@ if(SMARTPHONE.any()){
     }
     Enemigo_2.prototype = Object.create(Enemy_2.prototype);
     Enemigo_2.prototype.constructor = Enemigo_2;
+
+    function Enemigo_3() {
+        Object.getPrototypeOf(Enemigo_3.prototype).constructor.call(this, enemy_3_life, enemy_3_bullet, "images/tostadora.png");
+    }
+    Enemigo_3.prototype = Object.create(Enemy_3.prototype);
+    Enemigo_3.prototype.constructor = Enemigo_3;
+
     // ---------------------------------------------------------------- Fin enemigos ---------------------------------------------------------------
 
 
@@ -907,6 +1041,13 @@ if(SMARTPHONE.any()){
     Enemy_2_Shoot.prototype = Object.create(Shoot.prototype);
     Enemy_2_Shoot.prototype.constructor = Enemy_2_Shoot;
 
+    function Enemy_3_Shoot(x, y) {
+        Object.getPrototypeOf(Enemy_3_Shoot.prototype).constructor.call(this, x, y, enemy_3_bullets, enemy_3_bullet);
+        //console.log("creada la bala");
+    }
+    Enemy_3_Shoot.prototype = Object.create(Shoot.prototype);
+    Enemy_3_Shoot.prototype.constructor = Enemy_3_Shoot;
+
     function checkCollisions(shot) {
       switch(enemy_id){
         case 0:
@@ -914,11 +1055,9 @@ if(SMARTPHONE.any()){
           if(player_carril_n(shot) == enemy_1_carril_n(enemy_1_carril)){
             if((shot.posX >= enemy_1.posX-3) &&(shot.posX <= enemy_1.posX + 3)){
               enemy_1_life -= 1;
-              //console.log(enemy_1_life);
+              console.log(enemy_1_life);
               if(enemy_1_life == 0){
                 enemy_1.kill();
-                //the_end = true;
-                //enemy_1 = null;
               }          
               shot.deleteShot(parseInt(shot.identifier));
               return true;
@@ -926,22 +1065,41 @@ if(SMARTPHONE.any()){
           }
           break;
         case 1:
-          
-          if(player_carril_n(shot) == enemy_2_carril_n(enemy_2_carril)){
-            if((shot.posX >= enemy_2.posX-3) &&(shot.posX <= enemy_2.posX + 3)){
-              enemy_2_life -= 1;
-              console.log(enemy_2_life);
-              if(enemy_2_life == 0){
-                enemy_2.kill();
-                //the_end = true;
-                //enemy_1 = null;
-              }          
-              shot.deleteShot(parseInt(shot.identifier));
-              return true;
-            } 
-          }
+            if (player_carril_n(shot) == enemy_2_carril_n(enemy_2_carril)) {
+                if ((shot.posX >= enemy_2.posX - 3) && (shot.posX <= enemy_2.posX + 3)) {
+                    enemy_2_life -= 1;
+                    enemy_2.src = enemy_2_sprite.damaged.src;
+                    setTimeout(function () {
+                        enemy_2.src = "images/laser.png";
+                    }, 100)
+                    //console.log(enemy_2_life);
+                    if (enemy_2_life == 0) {
+                        enemy_2.kill();
+                    }
+                    shot.deleteShot(parseInt(shot.identifier));
+                    return true;
+                }
+            }
           return true; 
-          break;  
+          break;
+        case 2:
+            if (player_carril_n(shot) == enemy_3_carril_n(enemy_3_carril)) {
+                if ((shot.posX >= enemy_3.posX - 3) && (shot.posX <= enemy_3.posX + 3)) {
+                    enemy_3_life -= 1;
+                    enemy_3.src = enemy_3_sprite.damaged.src;
+                    setTimeout(function () {
+                        enemy_3.src = "images/tostadora.png";
+                    }, 100);
+                    //console.log(enemy_3_life);
+                    if (enemy_3_life == 0) {
+                        enemy_3.kill();
+                    }
+                    shot.deleteShot(parseInt(shot.identifier));
+                    return true;
+                }
+            }
+            return true;
+            break;
       }       
       return true;   
     }
@@ -1038,95 +1196,186 @@ if(SMARTPHONE.any()){
     }
 
     
-    function checkCollisions_Enemy_2 (shoot){
-      if(FIREFOX){
-        if(enemy_2_carril_n(shoot) == player_carril_n_2(player_1)){
-          if(player_carril_n_2(player_1) == 0){
-            if((shoot.posX >= (player_1.posX + 192)) && (shoot.posX <= (player_1.posX + 198))){
-              player_1.hit();
-              shoot.deleteShot(parseInt(shoot.identifier));
+    function checkCollisions_Enemy_2(shoot) {
+        if (FIREFOX) {
+            if (enemy_2_carril_n(shoot) == player_carril_n_2(player_1)) {
+                if (player_carril_n_2(player_1) == 0) {
+                    if ((shoot.posX >= (player_1.posX + 192)) && (shoot.posX <= (player_1.posX + 198))) {
+                        player_1.hit();
+                        shoot.deleteShot(parseInt(shoot.identifier));
+                    }
+                }
+                if (player_carril_n_2(player_1) == 1) {
+                    if ((shoot.posX >= (player_1.posX + 132)) && (shoot.posX <= (player_1.posX + 138))) {
+                        player_1.hit();
+                        shoot.deleteShot(parseInt(shoot.identifier));
+                    }
+                }
+                if (player_carril_n_2(player_1) == 2) {
+                    if ((shoot.posX >= (player_1.posX + 52)) && (shoot.posX <= (player_1.posX + 58))) {
+                        player_1.hit();
+                        shoot.deleteShot(parseInt(shoot.identifier));
+                    }
+                }
             }
-          }
-          if(player_carril_n_2(player_1) == 1){
-            if((shoot.posX >= (player_1.posX + 132)) && (shoot.posX <= (player_1.posX + 138))){
-              player_1.hit();
-              shoot.deleteShot(parseInt(shoot.identifier));
+            if (Jugadores == '2') {
+                if (enemy_2_carril_n(shoot) == player_carril_n_2(player_2)) {
+                    if (player_carril_n_2(player_2) == 0) {
+                        if ((shoot.posX >= (player_2.posX + 192)) && (shoot.posX <= (player_2.posX + 198))) {
+                            player_2.hit();
+                            shoot.deleteShot(parseInt(shoot.identifier));
+                        }
+                    }
+                    if (player_carril_n_2(player_2) == 1) {
+                        if ((shoot.posX >= (player_2.posX + 132)) && (shoot.posX <= (player_2.posX + 138))) {
+                            player_2.hit();
+                            shoot.deleteShot(parseInt(shoot.identifier));
+                        }
+                    }
+                    if (player_carril_n_2(player_2) == 2) {
+                        if ((shoot.posX >= (player_2.posX + 52)) && (shoot.posX <= (player_2.posX + 58))) {
+                            player_2.hit();
+                            shoot.deleteShot(parseInt(shoot.identifier));
+                        }
+                    }
+                }
             }
-          }
-          if(player_carril_n_2(player_1) == 2){
-            if((shoot.posX >= (player_1.posX + 52)) && (shoot.posX <= (player_1.posX + 58))){
-              player_1.hit();
-              shoot.deleteShot(parseInt(shoot.identifier));
+        } else {
+            if (enemy_2_carril_n(shoot) == player_carril_n(player_1)) {
+                if (player_carril_n(player_1) == 0) {
+                    if ((shoot.posX >= (player_1.posX + 192)) && (shoot.posX <= (player_1.posX + 198))) {
+                        player_1.hit();
+                        shoot.deleteShot(parseInt(shoot.identifier));
+                    }
+                }
+                if (player_carril_n(player_1) == 1) {
+                    if ((shoot.posX >= (player_1.posX + 132)) && (shoot.posX <= (player_1.posX + 138))) {
+                        player_1.hit();
+                        shoot.deleteShot(parseInt(shoot.identifier));
+                    }
+                }
+                if (player_carril_n(player_1) == 2) {
+                    if ((shoot.posX >= (player_1.posX + 52)) && (shoot.posX <= (player_1.posX + 58))) {
+                        player_1.hit();
+                        shoot.deleteShot(parseInt(shoot.identifier));
+                    }
+                }
             }
-          }
+            if (Jugadores == '2') {
+                if (enemy_2_carril_n(shoot) == player_carril_n(player_2)) {
+                    if (player_carril_n(player_2) == 0) {
+                        if ((shoot.posX >= (player_2.posX + 192)) && (shoot.posX <= (player_2.posX + 198))) {
+                            player_2.hit();
+                            shoot.deleteShot(parseInt(shoot.identifier));
+                        }
+                    }
+                    if (player_carril_n(player_2) == 1) {
+                        if ((shoot.posX >= (player_2.posX + 132)) && (shoot.posX <= (player_2.posX + 138))) {
+                            player_2.hit();
+                            shoot.deleteShot(parseInt(shoot.identifier));
+                        }
+                    }
+                    if (player_carril_n(player_2) == 2) {
+                        if ((shoot.posX >= (player_2.posX + 52)) && (shoot.posX <= (player_2.posX + 58))) {
+                            player_2.hit();
+                            shoot.deleteShot(parseInt(shoot.identifier));
+                        }
+                    }
+                }
+            }
         }
-        if(Jugadores == '2'){
-          if(enemy_2_carril_n(shoot) == player_carril_n_2(player_2)){
-            if(player_carril_n_2(player_2) == 0){
-              if((shoot.posX >= (player_2.posX + 192)) && (shoot.posX <= (player_2.posX + 198))){
-                player_2.hit();
-                shoot.deleteShot(parseInt(shoot.identifier));
-              }
+        return true;
+    }
+
+    function checkCollisions_Enemy_3(shoot) {
+        if (FIREFOX) {
+            if (enemy_3_carril_n(shoot) == player_carril_n_2(player_1)) {
+                if (player_carril_n_2(player_1) == 0) {
+                    if ((shoot.posX >= (player_1.posX + 192)) && (shoot.posX <= (player_1.posX + 198))) {
+                        player_1.hit();
+                        shoot.deleteShot(parseInt(shoot.identifier));
+                    }
+                }
+                if (player_carril_n_2(player_1) == 1) {
+                    if ((shoot.posX >= (player_1.posX + 132)) && (shoot.posX <= (player_1.posX + 138))) {
+                        player_1.hit();
+                        shoot.deleteShot(parseInt(shoot.identifier));
+                    }
+                }
+                if (player_carril_n_2(player_1) == 2) {
+                    if ((shoot.posX >= (player_1.posX + 52)) && (shoot.posX <= (player_1.posX + 58))) {
+                        player_1.hit();
+                        shoot.deleteShot(parseInt(shoot.identifier));
+                    }
+                }
             }
-            if(player_carril_n_2(player_2) == 1){
-              if((shoot.posX >= (player_2.posX + 132)) && (shoot.posX <= (player_2.posX + 138))){
-                player_2.hit();
-                shoot.deleteShot(parseInt(shoot.identifier));
-              }
+            if (Jugadores == '2') {
+                if (enemy_3_carril_n(shoot) == player_carril_n_2(player_2)) {
+                    if (player_carril_n_2(player_2) == 0) {
+                        if ((shoot.posX >= (player_2.posX + 192)) && (shoot.posX <= (player_2.posX + 198))) {
+                            player_2.hit();
+                            shoot.deleteShot(parseInt(shoot.identifier));
+                        }
+                    }
+                    if (player_carril_n_2(player_2) == 1) {
+                        if ((shoot.posX >= (player_2.posX + 132)) && (shoot.posX <= (player_2.posX + 138))) {
+                            player_2.hit();
+                            shoot.deleteShot(parseInt(shoot.identifier));
+                        }
+                    }
+                    if (player_carril_n_2(player_2) == 2) {
+                        if ((shoot.posX >= (player_2.posX + 52)) && (shoot.posX <= (player_2.posX + 58))) {
+                            player_2.hit();
+                            shoot.deleteShot(parseInt(shoot.identifier));
+                        }
+                    }
+                }
             }
-            if(player_carril_n_2(player_2) == 2){
-              if((shoot.posX >= (player_2.posX + 52)) && (shoot.posX <= (player_2.posX + 58))){
-                player_2.hit();
-                shoot.deleteShot(parseInt(shoot.identifier));
-              }
+        } else {
+            if (enemy_3_carril_n(shoot) == player_carril_n(player_1)) {
+                if (player_carril_n(player_1) == 0) {
+                    if ((shoot.posX >= (player_1.posX + 192)) && (shoot.posX <= (player_1.posX + 198))) {
+                        player_1.hit();
+                        shoot.deleteShot(parseInt(shoot.identifier));
+                    }
+                }
+                if (player_carril_n(player_1) == 1) {
+                    if ((shoot.posX >= (player_1.posX + 132)) && (shoot.posX <= (player_1.posX + 138))) {
+                        player_1.hit();
+                        shoot.deleteShot(parseInt(shoot.identifier));
+                    }
+                }
+                if (player_carril_n(player_1) == 2) {
+                    if ((shoot.posX >= (player_1.posX + 52)) && (shoot.posX <= (player_1.posX + 58))) {
+                        player_1.hit();
+                        shoot.deleteShot(parseInt(shoot.identifier));
+                    }
+                }
             }
-          }
+            if (Jugadores == '2') {
+                if (enemy_3_carril_n(shoot) == player_carril_n(player_2)) {
+                    if (player_carril_n(player_2) == 0) {
+                        if ((shoot.posX >= (player_2.posX + 192)) && (shoot.posX <= (player_2.posX + 198))) {
+                            player_2.hit();
+                            shoot.deleteShot(parseInt(shoot.identifier));
+                        }
+                    }
+                    if (player_carril_n(player_2) == 1) {
+                        if ((shoot.posX >= (player_2.posX + 132)) && (shoot.posX <= (player_2.posX + 138))) {
+                            player_2.hit();
+                            shoot.deleteShot(parseInt(shoot.identifier));
+                        }
+                    }
+                    if (player_carril_n(player_2) == 2) {
+                        if ((shoot.posX >= (player_2.posX + 52)) && (shoot.posX <= (player_2.posX + 58))) {
+                            player_2.hit();
+                            shoot.deleteShot(parseInt(shoot.identifier));
+                        }
+                    }
+                }
+            }
         }
-      }else{
-        if(enemy_2_carril_n(shoot) == player_carril_n(player_1)){
-          if(player_carril_n(player_1) == 0){
-            if((shoot.posX >= (player_1.posX + 192)) && (shoot.posX <= (player_1.posX + 198))){
-              player_1.hit();
-              shoot.deleteShot(parseInt(shoot.identifier));
-            }
-          }
-          if(player_carril_n(player_1) == 1){
-            if((shoot.posX >= (player_1.posX + 132)) && (shoot.posX <= (player_1.posX + 138))){
-              player_1.hit();
-              shoot.deleteShot(parseInt(shoot.identifier));
-            }
-          }
-          if(player_carril_n(player_1) == 2){
-            if((shoot.posX >= (player_1.posX + 52)) && (shoot.posX <= (player_1.posX + 58))){
-              player_1.hit();
-              shoot.deleteShot(parseInt(shoot.identifier));
-            }
-          }
-        }
-        if(Jugadores == '2'){
-          if(enemy_2_carril_n(shoot) == player_carril_n(player_2)){
-            if(player_carril_n(player_2) == 0){
-              if((shoot.posX >= (player_2.posX + 192)) && (shoot.posX <= (player_2.posX + 198))){
-                player_2.hit();
-                shoot.deleteShot(parseInt(shoot.identifier));
-              }
-            }
-            if(player_carril_n(player_2) == 1){
-              if((shoot.posX >= (player_2.posX + 132)) && (shoot.posX <= (player_2.posX + 138))){
-                player_2.hit();
-                shoot.deleteShot(parseInt(shoot.identifier));
-              }
-            }
-            if(player_carril_n(player_2) == 2){
-              if((shoot.posX >= (player_2.posX + 52)) && (shoot.posX <= (player_2.posX + 58))){
-                player_2.hit();
-                shoot.deleteShot(parseInt(shoot.identifier));
-              }
-            }
-          }
-        }
-      }
-      return true;
+        return true;
     }
 
     function updatePlayer_1_Shoot(player_1_shoot, id) {
@@ -1181,27 +1430,52 @@ if(SMARTPHONE.any()){
     }
     
     function updateEnemy_2_Shoot(enemy_2_shoot, id) {
-      if (enemy_2_shoot) {
-        enemy_2_shoot.identifier = id;
-        if (checkCollisions_Enemy_2(enemy_2_shoot)) {
-          if (enemy_2_shoot.posX >= 0) {
-            //console.log("amos a imprimir " + enemy_2_shoot.image)
-            enemy_2_shoot.posX -= 5
-            if(enemy_2_carril_n(enemy_2_shoot) > player_carril_n(player_1)){
-              console.log(enemy_2_shoot.posX + " " + player_1.posX);
-              //bufferctx.drawImage(enemy_1_shoot.image, enemy_1_shoot.posX, enemy_1_shoot.posY, enemy_1_shoot.x, enemy_1_shoot.y);
-              if((enemy_2_shoot.posX > player_1.posX + 240)||(enemy_2_shoot.posX < player_1.posX)){
-                bufferctx.drawImage(enemy_2_shoot.image, enemy_2_shoot.posX, enemy_2_shoot.posY, enemy_2_shoot.x, enemy_2_shoot.y);
-              }
-            }else{
-              bufferctx.drawImage(enemy_2_shoot.image, enemy_2_shoot.posX, enemy_2_shoot.posY, enemy_2_shoot.x, enemy_2_shoot.y);
-            } 
-          } else {
-            enemy_2_shoot.deleteShot(parseInt(enemy_2_shoot.identifier));
-          }
+        if (enemy_2_shoot) {
+            enemy_2_shoot.identifier = id;
+            if (checkCollisions_Enemy_2(enemy_2_shoot)) {
+                if (enemy_2_shoot.posX >= 0) {
+                    enemy_2_shoot.posX -= 5
+                    //console.log(enemy_1_carril_n(enemy_1_shoot) + " " + player_carril_n(player_1));
+                    if (enemy_2_carril_n(enemy_2_shoot) > player_carril_n(player_1)) {
+                        //console.log(enemy_1_shoot.posX + " " + player_1.posX);
+                        //bufferctx.drawImage(enemy_1_shoot.image, enemy_1_shoot.posX, enemy_1_shoot.posY, enemy_1_shoot.x, enemy_1_shoot.y);
+                        if ((enemy_2_shoot.posX > player_1.posX + 192) || (enemy_2_shoot.posX < player_1.posX)) {
+                            bufferctx.drawImage(enemy_2_shoot.image, enemy_2_shoot.posX, enemy_2_shoot.posY, enemy_2_shoot.x, enemy_2_shoot.y);
+                        }
+                    } else {
+                        bufferctx.drawImage(enemy_2_shoot.image, enemy_2_shoot.posX, enemy_2_shoot.posY, enemy_2_shoot.x, enemy_2_shoot.y);
+                    }
+                } else {
+                    enemy_2_shoot.deleteShot(parseInt(enemy_2_shoot.identifier));
+                }
+            }
         }
-      }
     }
+
+    function updateEnemy_3_Shoot(enemy_3_shoot, id) {
+        if (enemy_3_shoot) {
+            enemy_3_shoot.identifier = id;
+            if (checkCollisions_Enemy_3(enemy_3_shoot)) {
+                if (enemy_3_shoot.posX >= 0) {
+                    enemy_3_shoot.posX -= 5
+                    //console.log(enemy_1_carril_n(enemy_1_shoot) + " " + player_carril_n(player_1));
+                    if (enemy_3_carril_n(enemy_3_shoot) > player_carril_n(player_1)) {
+                        //console.log(enemy_1_shoot.posX + " " + player_1.posX);
+                        //bufferctx.drawImage(enemy_1_shoot.image, enemy_1_shoot.posX, enemy_1_shoot.posY, enemy_1_shoot.x, enemy_1_shoot.y);
+                        if ((enemy_3_shoot.posX > player_1.posX + 192) || (enemy_3_shoot.posX < player_1.posX)) {
+                            bufferctx.drawImage(enemy_3_shoot.image, enemy_3_shoot.posX, enemy_3_shoot.posY, enemy_3_shoot.x, enemy_3_shoot.y);
+                        }
+                    } else {
+                        bufferctx.drawImage(enemy_3_shoot.image, enemy_3_shoot.posX, enemy_3_shoot.posY, enemy_3_shoot.x, enemy_3_shoot.y);
+                    }
+                } else {
+                    enemy_3_shoot.deleteShot(parseInt(enemy_3_shoot.identifier));
+                }
+            }
+        }
+    }
+
+
     // ---------------------------------------------------------------- Fin disparos ---------------------------------------------------------------
 
     // ------------------------------------------------------------------ Teclado ------------------------------------------------------------------
@@ -1248,18 +1522,36 @@ if(SMARTPHONE.any()){
           break;
         case 1:
           if(enemy_2_created == false){
-            //console.log("creando segundo enemigo");
+            console.log("creando segundo enemigo");
             enemy_2 = new Enemy_2 ();
             enemy_2_created = true;
           }
+          break;
+        case 2:
+            if (enemy_3_created == false) {
+                console.log("creando tercer enemigo");
+                enemy_3 = new Enemy_3();
+                enemy_3_created = true;
+            }
+            break;
       }
+
       if (the_end) {
-        //showCongratulations();
-        return;
+          saveScore();
+          if (enemy_id == 2) {
+              localStorage.setItem("win", 1);
+              window.location.href = "game_over.html";
+          }
+          //return;
       }
 
       if (game_over) {
-        showGameOver();
+          localStorage.setItem("win", 0);
+          if (enemy_id == 0) {              
+              //Perder en el primer enemigo no puntua
+              localStorage.setItem("puntos", 0);
+          }
+          window.location.href = "game_over.html";
         return;
       }
     
@@ -1300,8 +1592,22 @@ if(SMARTPHONE.any()){
         if (Jugadores == 2) {
             bufferctx.drawImage(player_2, player_2.posX, player_2.posY + 270, player_2_carril.x, player_2_carril.y);
         }
-        if(enemy_1_life > 0){
-          bufferctx.drawImage(enemy_1, enemy_1.posX, enemy_1.posY + 250, enemy_1_carril.x, enemy_1_carril.y);
+        switch (enemy_id) {
+            case 0:
+                if (enemy_1_life > 0) {
+                    bufferctx.drawImage(enemy_1, enemy_1.posX, enemy_1.posY + 250, enemy_1_carril.x, enemy_1_carril.y);
+                }
+                break;
+            case 1:
+                if (enemy_2_life > 0) {
+                    bufferctx.drawImage(enemy_2, enemy_2.posX, enemy_2.posY + 250, enemy_2_carril.x, enemy_2_carril.y);
+                }
+                break;
+            case 2:
+                if (enemy_3_life > 0) {
+                    bufferctx.drawImage(enemy_3, enemy_3.posX, enemy_3.posY + 250, enemy_3_carril.x, enemy_3_carril.y);
+                }
+                break;
         }
       } else {
         bufferctx.drawImage(player_1, player_1.posX, player_1.posY, player_1_carril.x, player_1_carril.y);
@@ -1318,8 +1624,13 @@ if(SMARTPHONE.any()){
             if(enemy_2_life > 0){
               bufferctx.drawImage(enemy_2, enemy_2.posX, enemy_2.posY, enemy_2_carril.x, enemy_2_carril.y);
             }
-        }
-          
+            break;
+          case 2:
+            if (enemy_3_life > 0) {
+                bufferctx.drawImage(enemy_3, enemy_3.posX, enemy_3.posY, enemy_3_carril.x, enemy_3_carril.y);
+            }
+            break;
+        }          
       }     
     }
 
@@ -1349,7 +1660,15 @@ if(SMARTPHONE.any()){
               updateEnemy_2_Shoot(disparoMalo, i);
             }
           }
-          break;     
+          break;
+         case 2:
+            if (enemy_3_life > 0) {
+                for (var i = 0; i < enemy_3_bullets.length; i++) {
+                    var disparoMalo = enemy_3_bullets[i];
+                    updateEnemy_3_Shoot(disparoMalo, i);
+                }
+            }
+            break;
       }      
     }
 
@@ -1410,11 +1729,31 @@ if(SMARTPHONE.any()){
       }   
     }
 
-    // fin de partida: pinta el game over
-    function showGameOver() {
-      bufferctx.fillStyle="rgb(255,0,0)";
-      bufferctx.font="bold 35px Arial";
-      bufferctx.fillText("GAME OVER", canvas.width / 2 - 100, canvas.height / 2);
+    // fin de partida: calcular puntuacion
+    function saveScore() {
+        //Obtener en segundos el tiempo que ha pasado desde el inicio del juego
+        fecha = new Date();
+        var segundos_f = fecha.getTime() / 1000;
+        var segundos = segundos_f - segundos_0;
+        console.log(segundos_f + " - " + segundos_0 + " = " + segundos);
+
+        //Calcular puntos segun el tiempo y el numero de enemigos
+        var x = 0;
+        switch (enemy_id) {
+            case 0: x = 0.5;
+                break;
+            case 1: x = 0.3;
+                break;
+            case 2: x = 0.1;
+                break;
+        }
+        var pt = parseInt(segundos / x);
+        puntos += pt;
+        console.log("ptos: " + puntos);
+        //Guardar en memoria 
+        localStorage.setItem("puntos", puntos);
+        the_end = false;
+        game_over = false;       
     }
     // ------------------------------------------------------- FIn funciones de pintado -------------------------------------------------------
   //}
