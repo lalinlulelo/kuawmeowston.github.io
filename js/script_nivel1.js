@@ -287,17 +287,19 @@ var game = (function () {
       //console.log("cargando inputs del teclado ... :")
       addListener(document, 'keydown', keyDown);
       addListener(document, 'keyup', keyUp);
-        
+
+      if (FIREFOX && !window.location.hash) {
+          window.location = window.location + '#loaded';
+          window.location.reload();
+      }
 
       // se inicializa el bucle
       function anim (){
         loop ();
         requestAnimFrame(anim);
       }
-
-      //Antes de iniciar el gameloop se recarga la página si es firefox
-      if (FIREFOX) location.reload();
-
+      
+      console.log("antes de anim");
       anim ();
     }  
     // ---------------------------------------------------- Fin inicializacion de las variables ----------------------------------------------------
