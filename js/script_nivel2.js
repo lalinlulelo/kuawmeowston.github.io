@@ -293,17 +293,7 @@ var game = (function () {
           if (FIREFOX && !window.location.hash) {
               window.location = window.location + '#loaded';
               window.location.reload();
-          } else if (!FIREFOX && !window.location.hash) {
-              console.log("ajax");
-               $.ajax({
-                  url: "",
-                  context: document.body,
-                  success: function(s,x){
-
-                      $('html[manifest=saveappoffline.appcache]').attr('content', '');
-                          $(this).html(s);
-                  }
-              })
+          } else if (!FIREFOX && !window.location.hash) {              
               window.location = window.location + '#loaded';
               console.log("despues de ajax");
               window.location.reload();
@@ -314,9 +304,7 @@ var game = (function () {
       function anim (){
         loop ();
         requestAnimFrame(anim);
-      }
-
-      console.log("antes de anim");
+      }      
 
       anim ();
     }  
