@@ -294,9 +294,8 @@ var game = (function () {
               window.location = window.location + '#loaded';
               window.location.reload();
           } else if (!FIREFOX && !window.location.hash) {              
-              window.location = window.location + '#loaded';
-              console.log("despues de ajax");
-              window.location.reload();
+              /*window.location = window.location + '#loaded';
+              window.location.reload(true);*/
           }
       }, 500);
 
