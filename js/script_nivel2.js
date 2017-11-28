@@ -298,8 +298,8 @@ var game = (function () {
           else if (!FIREFOX && !window.location.hash) { 
             /*console.log("reload chrome");
             window.location = window.location + '#loaded';
-            window.location.reload(true);
-          }*/
+            window.location.reload(true);*/
+          }
       }, 50);
 
       // se inicializa el bucle
