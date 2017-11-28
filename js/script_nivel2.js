@@ -295,7 +295,7 @@ var game = (function () {
               window.location.reload();
           } else if (!FIREFOX && !window.location.hash) { 
             console.log("reload chrome");
-            cache.delete('images/player_1.png').then(function(response) {
+            Cache.delete('images/player_1.png').then(function(response) {
               //volver a cargar              
                window.location = window.location + '#loaded';
               window.location.reload(true);
