@@ -67,6 +67,7 @@ window.requestAnimFrame = (function () {
         console.log("flecha abajo")
         console.log(player_1.posY)
         if(posicion < 2){
+          posicion += 1;
           if(player_1.posY < 474){
             for(var i = 0; i < 9; i++){
               player_1.posY += 0.05;
