@@ -293,9 +293,11 @@ var game = (function () {
           if (FIREFOX && !window.location.hash) {
               window.location = window.location + '#loaded';
               window.location.reload();
-          } else if (!FIREFOX && !window.location.hash) {              
-              /*window.location = window.location + '#loaded';
-              window.location.reload(true);*/
+          } else if (!FIREFOX && !window.location.hash) {   
+            cache.delete('images/player_1.png').then(function(response) {
+              //volver a cargar?
+               window.location = window.location + '#loaded';
+             });
           }
       }, 500);
 
