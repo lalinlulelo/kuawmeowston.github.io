@@ -293,7 +293,7 @@ var game = (function () {
               window.location = window.location + '#loaded';
               window.location.reload();
           }
-      }, 500);
+      }, 50);
 
       
 
