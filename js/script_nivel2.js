@@ -293,13 +293,11 @@ var game = (function () {
           if (FIREFOX && !window.location.hash) {
               window.location = window.location + '#loaded';
               window.location.reload();
-          } else if (!FIREFOX && !window.location.hash) { 
+          } 
+          //Si es chrome, hay que limpiar la cache
+          else if (!FIREFOX && !window.location.hash) { 
             console.log("reload chrome");
-            Cache.delete('images/player_1.png').then(function(response) {
-              //volver a cargar              
-               window.location = window.location + '#loaded';
-              window.location.reload(true);
-             });
+            window.location = window.location.href+'?eraseCache=true';
           }
       }, 500);
 
