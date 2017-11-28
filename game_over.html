@@ -10,14 +10,18 @@
         
     </head>
     <body>
+
         <script>
             $(document).keyup(function(e) {
                 if (e.keyCode == 13) { // escape key maps to keycode `27`
                     window.location.href = "menu_prototipo.html";
                 }
             });
+            function retroceder() {
+                window.location.href = "menu_prototipo.html";
+            };
         </script>
-
+        <span id="btnAtras" class="glyphicon glyphicon-arrow-left"aria-hidden="true" style="position: absolute; top: 3; left: 0;" onclick="retroceder()"></span>
         <div id="rank">
             <h3 id="tituloPuntuaciones">Mejores puntuaciones</h3>
             <div id="ids"></div>

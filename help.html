@@ -9,6 +9,8 @@
     
 </head>
     <body>
+            <span id="btnAtras" class="glyphicon glyphicon-arrow-left"aria-hidden="true" style="position: absolute; top: 3; left: 0;" onclick="retroceder()"></span>
+            
         <div>   
             
                 <image id="bg" src="images/help_bg.png"></image>
@@ -80,6 +82,9 @@
                     document.getElementById("p6").innerHTML = p6Spa;
                     document.getElementById("p7").innerHTML = p7Spa;
                 }
+            };
+            function retroceder() {
+                window.location.href = "menu_prototipo.html";
             };
          </script>
             
