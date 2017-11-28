@@ -1,13 +1,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <script type="text/javascript" src="js/script_nivel2.js"></script>
+    <script type="text/javascript" src="js/script_nivel2.js<?= $cache ?>"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv='cache-control' content='no-cache'>
-    <meta http-equiv='expires' content='0'>
-    <meta http-equiv='pragma' content='no-cache'>
+    
+    <?php
+      $cache = '';
+      if(isset($_GET['eraseCache'])){
+        echo '<meta http-equiv="Cache-control" content="no-cache">';
+        echo '<meta http-equiv="Expires" content="-1">';
+        $cache = '?'.time();
+      }
+    ?>
+    
     <title>Katwaii</title>
     <link type="text/css" rel="stylesheet" href="css/style.css"/>
     <link rel="icon" href="images/huella_gato.png">
