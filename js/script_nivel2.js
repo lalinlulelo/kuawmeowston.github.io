@@ -297,7 +297,8 @@ var game = (function () {
           //Si es chrome, hay que limpiar la cache
           else if (!FIREFOX && !window.location.hash) { 
             console.log("reload chrome");
-            window.location = window.location.href+'?eraseCache=true';
+            window.location = window.location + '#loaded';
+            window.location.reload(true);
           }
       }, 500);
 
