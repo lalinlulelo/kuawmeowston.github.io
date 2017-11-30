@@ -482,7 +482,6 @@
 								<p>Desde el menú de inicio el jugador puede acceder a jugar sólo o en cooperativo. 
 								También está la pantalla de ayuda con las instrucciones del juego y la pantalla de créditos. 
 								El jugador puede cambiar de idioma pulsando la tecla "S" para español y "E" para inglés.</p>
-
 								<ul class="list-inline item-details">
 									<li>Menu:
 										<strong><a href="menu_prototipo.html">Menú de inicio</a>
@@ -673,7 +672,57 @@
 				
 				
 				
-				<h3>Trailer</h3>	   
+				<h3>Trailer</h3>	  
+				<div id="player"></div>
+				<script>
+						var tag = document.createElement('script');
+						tag.src = "https://www.youtube.com/iframe_api";
+						var firstScriptTag = document.getElementsByTagName('script')[0];
+						firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+						 
+						// Inicializamos la variable player
+						var player;
+
+						function onYouTubeIframeAPIReady() {
+							player = new YT.Player('player', {
+								height : '400',
+								width : '50%',
+								videoId : 'oEiE34B4jd8', // EL ID del vídeo
+								playerVars : { 
+									'autoplay' : 0, 
+									'controls' : 0, // Son los controles de volumen, calidad...
+									'autohide' : 1, // Si queremos que al reproducirse se escondan los controles
+									'showinfo' : 0, // Título del vídeo...
+									'modestbranding' : 1, // Logo de youtube en pequeñito
+									'rel' : 0 // Videos relacionados al final
+								},
+								events : {
+									'onReady': onPlayerReady, // Al cargarse el video se ejecuta esta función
+									'onStateChange': onPlayerStateChange // Al cambiar el estado del video se ejecuta esta función
+								}
+							});
+						}
+						 
+						function onPlayerReady(event) {
+							// Aquí podemos empezar a hacer cosas cómo: 
+							event.target.playVideo();
+							// Que sería como un autoplay
+						}
+						 
+						// Inicializamos la variable que nos dirá si se ha terminado el vídeo
+						var done = false;
+						 
+						function onPlayerStateChange(event) {
+							if (event.data == YT.PlayerState.ENDED) {
+								// Si el vídeo acaba
+								done = true;
+							}
+							if (event.data == YT.PlayerState.PAUSED) {
+								// Si el video se pausa
+							}
+						}
+
+				</script> 
 			</div>			
 		</section>
 		<!-- /Section: intro -->
@@ -747,7 +796,6 @@
 							</form>
 						</div>
 					</div>
-
 					<div class="col-lg-4">
 						<div class="widget-contact">
 							<address>
@@ -787,7 +835,6 @@
 			</div>
 		</footer>
 		
-
 		<!-- Bootstrap core JavaScript
 		================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
@@ -796,10 +843,8 @@
 		
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
 		<!-- Optional theme -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		
