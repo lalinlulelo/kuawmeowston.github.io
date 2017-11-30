@@ -6,11 +6,22 @@
 		<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
 		<link rel="icon" href="images/huella_gato.png">
 		<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
+		
+		<!-- Bootstrap -->
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+		      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+		    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	</head>
 	<body onload="PlayMusic()">
 		<div>
 			<canvas id="myCanvas" width="1200" height="600" style="z-index: 1"><p>Your browser does not support HTML5!</p></canvas>
-			<input type="button" style="z-index:5">Pulsame</input>			
+			<input type="button" style="z-index:5">Pulsame</input>	
+		
+			<span id="btnspa" class="glyphicon glyphicon-eye-open" style="position: absolute; width: 30px; height: 20px; padding: 10px; top: 87px; left: 17px; z-index: 1;" onclick="spa()"></span>
+			<span id="btneng" class="glyphicon glyphicon-eye-open" style="position: absolute; width: 30px; height: 20px; padding: 10px;  top: 87px; left: 115px; z-index: 1;" onclick="engl()"></span>
 		</div>		 
 		<script type="text/javascript">
 			/*
@@ -241,7 +252,7 @@
 			    context.drawImage(spFlagImage, 0, 0, 50, 50);
 			}
 			ukFlagImage.onload = function() {
-			    context.drawImage(ukFlagImage, 55, 0, 50, 50);
+			    context.drawImage(ukFlagImage, 70, 0, 50, 50);
 			}
 			//intervalo de refresco del canvas
 			timerId = setInterval("update()", 1000/frames);
@@ -292,15 +303,15 @@
 					context.drawImage(creditsImageEng, buttonX[2], buttonY[2]);
 					context.drawImage(helpImage, buttonX[3], buttonY[3]);
 						
-				    context.drawImage(spFlagImage, 0, 0, 55, 55); //normal
-				    context.drawImage(ukFlagImageB, 60, 0, 55, 55); //con borde
+				    context.drawImage(spFlagImage, 0, 0, 75, 75); //normal
+				    context.drawImage(ukFlagImageB, 80, 0, 75, 75); //con borde
 				} else {
 					context.drawImage(playImage, buttonX[0], buttonY[0]);
 					context.drawImage(playtImage, buttonX[1], buttonY[1]);
 					context.drawImage(creditsImage, buttonX[2], buttonY[2]);
 					context.drawImage(ayudaImage, buttonX[3], buttonY[3]);
-				    context.drawImage(spFlagImageB, 0, 0, 55, 55); //con borde
-				    context.drawImage(ukFlagImage, 60, 0, 55, 55); //normal
+				    context.drawImage(spFlagImageB, 0, 0, 75, 75); //con borde
+				    context.drawImage(ukFlagImage, 80, 0, 75, 75); //normal
 				}
 			}
 			// dibuja los gatos selectores
@@ -458,6 +469,16 @@
 					}
 				}
 			}
+			//--------------------------------------------Cambio de idioma con boton---------------------------
+			function spa() {
+				eng = 0;
+				console.log("Spanish");
+			};
+			function engl() {
+				eng = 1;
+				console.log("English");
+			};
+			
 			// ------------------------------------------ Fin Administracion de Controles ----------------------------------------------------
 
 			// --------------------------------------------- Funciones auxiliares ------------------------------------------------------------			
