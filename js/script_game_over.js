@@ -57,16 +57,16 @@ function visibilidad(id) {
 function rankings() {
     var ranking = {};
     // inicializacion
-    ranking[0] = { id: 1, nombre: 'Galletero', puntuacion: 20 };
-    ranking[1] = { id: 2, nombre: 'Clara', puntuacion: 100 };
+    ranking[0] = { id: 1, nombre: 'Galletero', puntuacion: 420 };
+    ranking[1] = { id: 2, nombre: 'Clara', puntuacion: 390 };
     ranking[2] = { id: 3, nombre: 'Nahikari', puntuacion: 320 };
-    ranking[3] = { id: 4, nombre: 'Salva', puntuacion: 550 };
-    ranking[4] = { id: 5, nombre: 'Susi', puntuacion: 770 };
+    ranking[3] = { id: 4, nombre: 'Salva', puntuacion: 285 };
+    ranking[4] = { id: 5, nombre: 'Susi', puntuacion: 250 };
     ranking[5] = { id: 6, nombre: 'Agus', puntuacion: 230 };
-    ranking[6] = { id: 7, nombre: 'Sergio', puntuacion: 300 };
-    ranking[7] = { id: 8, nombre: 'Adri', puntuacion: 310 };
-    ranking[8] = { id: 9, nombre: 'Marta', puntuacion: 150 };
-    ranking[9] = { id: 10, nombre: 'Guille', puntuacion: 268 };
+    ranking[6] = { id: 7, nombre: 'Sergio', puntuacion: 140 };
+    ranking[7] = { id: 8, nombre: 'Adri', puntuacion: 130 };
+    ranking[8] = { id: 9, nombre: 'Marta', puntuacion: 60 };
+    ranking[9] = { id: 10, nombre: 'Guille', puntuacion: 8 };
     // recopila los datos de las partidas anteriores
     if (localStorage.getItem("nombre_0") != null) {
         ranking[0] = { id: 1, nombre: localStorage.getItem("nombre_0"), puntuacion: localStorage.getItem("puntos_0") };
@@ -127,52 +127,52 @@ function rankings() {
 
     // funcion que actualiza las puntuaciones
     function comprobarRanking(name, points) {
-        if (points < ranking[0].puntuacion) {
+        if (points > ranking[0].puntuacion) {
             ranking[0].puntuacion = points;
             ranking[0].nombre = name;
             return true;
         }
-        if (points < ranking[1].puntuacion) {
+        if (points > ranking[1].puntuacion) {
             ranking[1].puntuacion = points;
             ranking[1].nombre = name;
             return true;
         }
-        if (points < ranking[2].puntuacion) {
+        if (points > ranking[2].puntuacion) {
             ranking[2].puntuacion = points;
             ranking[2].nombre = name;
             return true;
         }
-        if (points < ranking[3].puntuacion) {
+        if (points > ranking[3].puntuacion) {
             ranking[3].puntuacion = points;
             ranking[3].nombre = name;
             return true;
         }
-        if (points < ranking[4].puntuacion) {
+        if (points > ranking[4].puntuacion) {
             ranking[4].puntuacion = points;
             ranking[4].nombre = name;
             return true;
         }
-        if (points < ranking[5].puntuacion) {
+        if (points > ranking[5].puntuacion) {
             ranking[5].puntuacion = points;
             ranking[5].nombre = name;
             return true;
         }
-        if (points < ranking[6].puntuacion) {
+        if (points > ranking[6].puntuacion) {
             ranking[6].puntuacion = points;
             ranking[6].nombre = name;
             return true;
         }
-        if (points < ranking[7].puntuacion) {
+        if (points > ranking[7].puntuacion) {
             ranking[7].puntuacion = points;
             ranking[7].nombre = name;
             return true;
         }
-        if (points < ranking[8].puntuacion) {
+        if (points > ranking[8].puntuacion) {
             ranking[8].puntuacion = points;
             ranking[8].nombre = name;
             return true;
         }
-        if (points < ranking[9].puntuacion) {
+        if (points > ranking[9].puntuacion) {
             ranking[9].puntuacion = points;
             ranking[9].nombre = name;
             return true;
