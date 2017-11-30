@@ -29,3 +29,8 @@ html{
   display: block;  /* No floating content on sides */
 }
 
+.glyphicon-eye-open{
+	color: #000000;
+	font-size: 50px;
+}
+
