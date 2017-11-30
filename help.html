@@ -26,10 +26,16 @@
                 <p1 id="p1">W avanza un carril más lejos <br> S avanza un carril más cercano <br> A avanza en el carril hacia la izquierda<br> D avanza en el carril hacia la derecha.</p1>
                 <p5 id="p5">Q acciona el ataque</p5>
                 <p6 id="p6">Esc para retroceder a la anterior <br>pantalla</p6>
-                <p7 id ="p7">Ctrl + F5 en caso de error en <br> el juego para refrescar la pantalla </p7>               
+                <p7 id ="p7">Ctrl + F5 en caso de error en <br> el juego para refrescar la pantalla </p7>      
+            
+                <span id="btnAtras" class="glyphicon glyphicon-arrow-left"aria-hidden="true" style="position: absolute; top: 3; left: 0;" onclick="retroceder()"></span>
         </div>
         
         <script>
+            //Funcion para volver al menu ppal
+            function retroceder() {
+                window.location.href = "menu.html";
+            };
             $(document).keyup(function(e) {
                 if (e.keyCode == 27) { // escape key maps to keycode `27`
                     window.location.href = "menu.html";
