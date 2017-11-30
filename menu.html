@@ -6,22 +6,11 @@
 		<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
 		<link rel="icon" href="images/huella_gato.png">
 		<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
-		
-		<!-- Bootstrap -->
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
-		      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
-		    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	</head>
 	<body onload="PlayMusic()">
 		<div>
 			<canvas id="myCanvas" width="1200" height="600" style="z-index: 1"><p>Your browser does not support HTML5!</p></canvas>
 			<input type="button" style="z-index:5">Pulsame</input>	
-		
-			<span id="btnspa" class="glyphicon glyphicon-eye-open" style="position: absolute; width: 30px; height: 20px; padding: 10px; top: 87px; left: 17px; z-index: 1;" onclick="spa()"></span>
-			<span id="btneng" class="glyphicon glyphicon-eye-open" style="position: absolute; width: 30px; height: 20px; padding: 10px;  top: 87px; left: 115px; z-index: 1;" onclick="engl()"></span>
 		</div>		 
 		<script type="text/javascript">
 			/*
@@ -34,7 +23,7 @@
 				   o Marta Fernandez de la Mela Salcedo
 				   o Guillermo Meléndez Morales
 				   o Adrian David Morillas Marco
-			       o Zhonghao Lin Chen
+			       	   o Zhonghao Lin Chen
 				   o Salvador Nieto Garrido				   
 			*/
 
@@ -468,17 +457,7 @@
 							break;
 					}
 				}
-			}
-			//--------------------------------------------Cambio de idioma con boton---------------------------
-			function spa() {
-				eng = 0;
-				console.log("Spanish");
-			};
-			function engl() {
-				eng = 1;
-				console.log("English");
-			};
-			
+			}			
 			// ------------------------------------------ Fin Administracion de Controles ----------------------------------------------------
 
 			// --------------------------------------------- Funciones auxiliares ------------------------------------------------------------			
