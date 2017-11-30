@@ -89,3 +89,22 @@ body{
   #bg{
       width: 103%;
   }
+
+	.glyphicon-envelope { 
+	color: #99cccc; /*cambiar segun el fondo*/
+	font-size: 20px;
+	}
+	.glyphicon-globe { 
+		color: #99cccc; /*cambiar segun el fondo*/
+		font-size: 20px;
+	}
+
+	.glyphicon-arrow-left{
+		color: #996699;
+		font-size: 50px;
+	}
+
+	.glyphicon-headphones{
+		color:#99cccc;
+		font-size: 20px;
+	}
