@@ -9,7 +9,7 @@
     
 </head>
     <body>
-            <span id="btnAtras" class="glyphicon glyphicon-arrow-left"aria-hidden="true" style="position: absolute; top: 3; left: 0;" onclick="retroceder()"></span>
+        <span id="btnAtras" class="glyphicon glyphicon-arrow-left"aria-hidden="true" style="position: absolute; top: 3; left: 0;" onclick="retroceder()"></span>
             
         <div>   
             
@@ -20,15 +20,14 @@
                 <image id="bug" src="images/bug.gif"></image>
                 <t1 id="t1">¿En qué consiste el juego?</t1>
                 <p2 id="p2">Se jugará con un gato que afrontará sus miedos lanzándoles ovillos de lana para derrotarlos. 
-                    Cada vez que el enemigo es golpeado, se le reduce una <br>porción de vida. El gato es capaz de  moverse
+                    Cada vez que el enemigo es golpeado, se le reduce una <br>porción de vida. El gato es capaz de  moverse 
                     horizontalmente hacia delante y detrás, y a su vez es capaz de moverse hacia un lado u otro.</p2>
                 <t2 id="t2">¿Con qué controles se juega?</t2>
                 <p1 id="p1">W avanza un carril más lejos <br> S avanza un carril más cercano <br> A avanza en el carril hacia la izquierda<br> D avanza en el carril hacia la derecha.</p1>
                 <p5 id="p5">Q acciona el ataque</p5>
                 <p6 id="p6">Esc para retroceder a la anterior <br>pantalla</p6>
-                <p7 id ="p7">Ctrl + F5 en caso de error en <br> el juego para refrescar la pantalla </p7>      
-            
-                <span id="btnAtras" class="glyphicon glyphicon-arrow-left"aria-hidden="true" style="position: absolute; top: 3; left: 0;" onclick="retroceder()"></span>
+                <p7 id ="p7">Ctrl + F5 en caso de error en <br> el juego para refrescar la pantalla </p7>                  
+                
         </div>
         
         <script>
@@ -88,9 +87,6 @@
                     document.getElementById("p6").innerHTML = p6Spa;
                     document.getElementById("p7").innerHTML = p7Spa;
                 }
-            };
-            function retroceder() {
-                window.location.href = "menu_prototipo.html";
             };
          </script>
             
