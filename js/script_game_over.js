@@ -94,7 +94,18 @@ function rankings() {
 
     // se muestra por pantalla la puntuacion
     showBestScores();
-
+    console.log(ranking[0].nombre);
+	console.log(ranking[1].nombre);
+	console.log(ranking[2].nombre);
+	console.log(ranking[3].nombre);
+	console.log(ranking[4].nombre);
+	console.log(ranking[5].nombre);
+	console.log(ranking[6].nombre);
+	console.log(ranking[7].nombre);
+	console.log(ranking[8].nombre);
+	console.log(ranking[9].nombre);
+	console.log(ranking[10].nombre);
+	
     // se sube a la nube las puntuaciones
     localStorage.setItem("nombre_0", ranking[0].nombre);
     localStorage.setItem("nombre_1", ranking[1].nombre);
