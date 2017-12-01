@@ -140,7 +140,8 @@ function rankings() {
     localStorage.setItem("puntos_7", ranking[7].puntuacion);
     localStorage.setItem("puntos_8", ranking[8].puntuacion);
     localStorage.setItem("puntos_9", ranking[9].puntuacion);
-
+  console.log("--------------");
+	console.log(localStorage.getItem("nombre_0"));
     // funcion que actualiza las puntuaciones
     function comprobarRanking(name, points) {
         var usuario = {id: 0, nombre: name, puntuacion: points};
