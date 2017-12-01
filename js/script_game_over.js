@@ -70,6 +70,7 @@ function rankings() {
     // recopila los datos de las partidas anteriores
     
     if (localStorage.getItem("nombre_0") != null) {
+	    console.log("entro");
         ranking[0] = { id: 1, nombre: localStorage.getItem("nombre_0"), puntuacion: localStorage.getItem("puntos_0") };
         ranking[1] = { id: 2, nombre: localStorage.getItem("nombre_1"), puntuacion: localStorage.getItem("puntos_1") };
         ranking[2] = { id: 3, nombre: localStorage.getItem("nombre_2"), puntuacion: localStorage.getItem("puntos_2") };
@@ -80,6 +81,18 @@ function rankings() {
         ranking[7] = { id: 8, nombre: localStorage.getItem("nombre_7"), puntuacion: localStorage.getItem("puntos_7") };
         ranking[8] = { id: 9, nombre: localStorage.getItem("nombre_8"), puntuacion: localStorage.getItem("puntos_8") };
         ranking[9] = { id: 10, nombre: localStorage.getItem("nombre_9"), puntuacion: localStorage.getItem("puntos_9") };
+	    console.log(ranking[0].nombre);
+	console.log(ranking[1].nombre);
+	console.log(ranking[2].nombre);
+	console.log(ranking[3].nombre);
+	console.log(ranking[4].nombre);
+	console.log(ranking[5].nombre);
+	console.log(ranking[6].nombre);
+	console.log(ranking[7].nombre);
+	console.log(ranking[8].nombre);
+	console.log(ranking[9].nombre);
+	console.log(ranking[10].nombre);
+	    console.log("----------------------------");
     }
 
     // solicitamos el nombre
