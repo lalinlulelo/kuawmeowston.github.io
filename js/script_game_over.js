@@ -68,7 +68,7 @@ function rankings() {
     ranking[8] = { id: 9, nombre: 'Marta', puntuacion: 150 };
     ranking[9] = { id: 10, nombre: 'Guille', puntuacion: 30 };
     // recopila los datos de las partidas anteriores
-    
+    /*
     if (localStorage.getItem("nombre_0") != null) {
         ranking[0] = { id: 1, nombre: localStorage.getItem("nombre_0"), puntuacion: localStorage.getItem("puntos_0") };
         ranking[1] = { id: 2, nombre: localStorage.getItem("nombre_1"), puntuacion: localStorage.getItem("puntos_1") };
@@ -80,7 +80,7 @@ function rankings() {
         ranking[7] = { id: 8, nombre: localStorage.getItem("nombre_7"), puntuacion: localStorage.getItem("puntos_7") };
         ranking[8] = { id: 9, nombre: localStorage.getItem("nombre_8"), puntuacion: localStorage.getItem("puntos_8") };
         ranking[9] = { id: 10, nombre: localStorage.getItem("nombre_9"), puntuacion: localStorage.getItem("puntos_9") };
-    }
+    }*/
 
     // solicitamos el nombre
     var name = prompt("Please enter your name", "Godofredo");
