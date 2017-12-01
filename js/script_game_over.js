@@ -91,7 +91,6 @@ function rankings() {
 	console.log(ranking[7].nombre);
 	console.log(ranking[8].nombre);
 	console.log(ranking[9].nombre);
-	console.log(ranking[10].nombre);
 	    console.log("----------------------------");
     }
 
