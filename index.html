@@ -675,18 +675,43 @@
 				<h3>Trailer</h3>	  
 				<div id="player"></div>
 				<script>
+						var SMARTPHONE = {
+							Android: function() {
+								return navigator.userAgent.match(/Android/i);
+							},
+							BlackBerry: function() {
+								return navigator.userAgent.match(/BlackBerry/i);
+							},
+							iOS: function() {
+									return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+							},
+							Opera: function() {
+									return navigator.userAgent.match(/Opera Mini/i);
+							},
+							Windows: function() {
+									return navigator.userAgent.match(/IEMobile/i);
+							},
+							any: function() {
+									return (SMARTPHONE.Android() || SMARTPHONE.BlackBerry() || SMARTPHONE.iOS() || SMARTPHONE.Opera() || SMARTPHONE.Windows());
+							}
+						};	
+					
 						var tag = document.createElement('script');
 						tag.src = "https://www.youtube.com/iframe_api";
 						var firstScriptTag = document.getElementsByTagName('script')[0];
 						firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-						 
+							
 						// Inicializamos la variable player
 						var player;
-
+						if(SMARTPHONE.any()){
+							x = "100%";
+						}else{
+							x="400"
+						}
 						function onYouTubeIframeAPIReady() {
 							player = new YT.Player('player', {
-								height : '400',
-								width : '50%',
+								height : x,
+								width : '50%',						
 								videoId : 'oEiE34B4jd8', // EL ID del vídeo
 								playerVars : { 
 									'autoplay' : 0, 
@@ -702,16 +727,16 @@
 								}
 							});
 						}
-						 
+							
 						function onPlayerReady(event) {
 							// Aquí podemos empezar a hacer cosas cómo: 
-							event.target.playVideo();
+							//event.target.playVideo();
 							// Que sería como un autoplay
 						}
-						 
+							
 						// Inicializamos la variable que nos dirá si se ha terminado el vídeo
 						var done = false;
-						 
+							
 						function onPlayerStateChange(event) {
 							if (event.data == YT.PlayerState.ENDED) {
 								// Si el vídeo acaba
@@ -721,7 +746,6 @@
 								// Si el video se pausa
 							}
 						}
-
 				</script> 
 			</div>			
 		</section>
