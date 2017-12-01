@@ -118,7 +118,7 @@ function rankings() {
 	console.log(ranking[8].nombre);
 	console.log(ranking[9].nombre);
 	console.log(ranking[10].nombre);
-	
+	console.log("a mandar");
     // se sube a la nube las puntuaciones
     localStorage.setItem("nombre_0", ranking[0].nombre);
     localStorage.setItem("nombre_1", ranking[1].nombre);
