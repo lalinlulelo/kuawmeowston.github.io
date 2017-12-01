@@ -41,7 +41,26 @@
         
         <script>
             var player = 0;
-
+            var SMARTPHONE = {
+                Android: function() {
+                    return navigator.userAgent.match(/Android/i);
+                },
+                BlackBerry: function() {
+                    return navigator.userAgent.match(/BlackBerry/i);
+                },
+                iOS: function() {
+                    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+                },
+                Opera: function() {
+                    return navigator.userAgent.match(/Opera Mini/i);
+                },
+                Windows: function() {
+                    return navigator.userAgent.match(/IEMobile/i);
+                },
+                any: function() {
+                    return (SMARTPHONE.Android() || SMARTPHONE.BlackBerry() || SMARTPHONE.iOS() || SMARTPHONE.Opera() || SMARTPHONE.Windows());
+                }
+            };
             //Funcion para volver al menu principal
             function retroceder() {
                 window.location.href = "menu.html";
@@ -106,47 +125,77 @@
                 "to the left <br> 6 moves the cat to the right.";
             var p5Spa2 = "7 acciona el ataque.";
             var p5Eng2 = "7 shoots the ball of yarn";
+            var p1Spa3 = "Arriba avanza un carril más lejos <br> Abajo avanza un carril más cercano <br> Izquierda avanza en el carril hacia "+
+                "la izquierda<br> Derecha avanza en el carril hacia la derecha.";
+            var p1Eng3 = "Up moves the cat backwards on the rails <br> Down moves the cat forward on the rails <br> Left moves the cat "+
+                "to the left <br> Right moves the cat to the right.";
+            var p5Spa3 = "Atacar acciona el ataque.";
+            var p5Eng3 = "Attack shoots the ball of yarn";
+            var p7Spa3 = "Options + Reload en caso de error en <br> el juego para refrescar la pantalla";
+            var p7Eng3 = "Options + Reload to reload the screen in case the game crashes";
             
             window.onload = function () {
                 eng = localStorage.getItem("idioma");
-                
-                console.log("id: " + eng);
-                if (eng == 1) {
-                    console.log("ingles")
-                    document.getElementById("p6").innerHTML = p6Eng;
-                    document.getElementById("p7").innerHTML = p7Eng;
-                    document.getElementById("t1").innerHTML = t1Eng;
-                    document.getElementById("p2").innerHTML = p2Eng;
-                    document.getElementById("t2").innerHTML = t2Eng;
-                    if(player == 1){                        
-                        document.getElementById("p1").innerHTML = p1Eng;
-                        document.getElementById("p5").innerHTML = p5Eng;                        
-                        document.getElementById("bg").src="images/help_bg_1_eng.png";
+                if(SMARTPHONE.any()){
+                    document.getElementById("bg").src="images/help_bg_3.png";
+                    if (eng == 1) {
+                        document.getElementById("p6").innerHTML = " ";
+                        document.getElementById("p7").innerHTML = p7Eng3;
+                        document.getElementById("t1").innerHTML = t1Eng;
+                        document.getElementById("p2").innerHTML = p2Eng;
+                        document.getElementById("t2").innerHTML = t2Eng;
+                        document.getElementById("p1").innerHTML = p1Eng3;
+                        document.getElementById("p5").innerHTML = p5Eng3;   
                     }
-                    if(player == 2){
-                        document.getElementById("p1").innerHTML = p1Eng2;
-                        document.getElementById("p5").innerHTML = p5Eng2;
-                        document.getElementById("bg").src="images/help_bg_2_eng.png";
+                    if(eng == 0){
+                        document.getElementById("t1").innerHTML = t1Spa;
+                        document.getElementById("p2").innerHTML = p2Spa;
+                        document.getElementById("t2").innerHTML = t2Spa;                    
+                        document.getElementById("p6").innerHTML = " ";
+                        document.getElementById("p7").innerHTML = p7Spa3;
+                        document.getElementById("p1").innerHTML = p1Spa3;
+                        document.getElementById("p5").innerHTML = p5Spa3;
                     }
-                    
-                } else if (eng == 0) {
-                    console.log("español");
-                    document.getElementById("t1").innerHTML = t1Spa;
-                    document.getElementById("p2").innerHTML = p2Spa;
-                    document.getElementById("t2").innerHTML = t2Spa;                    
-                    document.getElementById("p6").innerHTML = p6Spa;
-                    document.getElementById("p7").innerHTML = p7Spa;
-                    if(player == 1){
-                        document.getElementById("p1").innerHTML = p1Spa;
-                        document.getElementById("p5").innerHTML = p5Spa;
-                        document.getElementById("bg").src="images/help_bg_1.png";
-                    }
-                    if(player == 2){
-                        document.getElementById("p1").innerHTML = p1Spa2;
-                        document.getElementById("p5").innerHTML = p5Spa2;
-                        document.getElementById("bg").src="images/help_bg_2.png";
+                }else{         
+                    console.log("id: " + eng);
+                    if (eng == 1) {
+                        console.log("ingles")
+                        document.getElementById("p6").innerHTML = p6Eng;
+                        document.getElementById("p7").innerHTML = p7Eng;
+                        document.getElementById("t1").innerHTML = t1Eng;
+                        document.getElementById("p2").innerHTML = p2Eng;
+                        document.getElementById("t2").innerHTML = t2Eng;
+                        if(player == 1){                        
+                            document.getElementById("p1").innerHTML = p1Eng;
+                            document.getElementById("p5").innerHTML = p5Eng;                        
+                            document.getElementById("bg").src="images/help_bg_1_eng.png";
+                        }
+                        if(player == 2){
+                            document.getElementById("p1").innerHTML = p1Eng2;
+                            document.getElementById("p5").innerHTML = p5Eng2;
+                            document.getElementById("bg").src="images/help_bg_2_eng.png";
+                        }
+                        
+                    } else if (eng == 0) {
+                        console.log("español");
+                        document.getElementById("t1").innerHTML = t1Spa;
+                        document.getElementById("p2").innerHTML = p2Spa;
+                        document.getElementById("t2").innerHTML = t2Spa;                    
+                        document.getElementById("p6").innerHTML = p6Spa;
+                        document.getElementById("p7").innerHTML = p7Spa;
+                        if(player == 1){
+                            document.getElementById("p1").innerHTML = p1Spa;
+                            document.getElementById("p5").innerHTML = p5Spa;
+                            document.getElementById("bg").src="images/help_bg_1.png";
+                        }
+                        if(player == 2){
+                            document.getElementById("p1").innerHTML = p1Spa2;
+                            document.getElementById("p5").innerHTML = p5Spa2;
+                            document.getElementById("bg").src="images/help_bg_2.png";
+                        }
                     }
                 }
+                
             };
          </script>
             
