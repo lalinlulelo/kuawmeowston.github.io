@@ -354,6 +354,14 @@
 						mouse_index += 1;
 					}
 				}
+				// boton español
+				if((playerX <= 30)&&(playerX >= 0)&&(playerY <= 18)&&(playerY >= 0)){
+					eng = 0;
+				}
+				// boton inglés
+				if((playerX <= 72)&&(playerX >= 35)&&(playerY <= 18)&&(playerY >= 0)){
+					eng = 1;
+				}
 				// tecla enter del teclado
 				if(e.keyCode == control.enter){
 					switch(mouse_index){
