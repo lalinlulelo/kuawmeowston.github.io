@@ -353,17 +353,7 @@
 					if(mouse_index < 3){
 						mouse_index += 1;
 					}
-				}
-				// boton español
-				if((playerX <= 30)&&(playerX >= 0)&&(playerY <= 18)&&(playerY >= 0)){
-					console.log("bandera espanola");
-					eng = 0;
-				}
-				// boton inglés
-				if((playerX <= 72)&&(playerX >= 35)&&(playerY <= 18)&&(playerY >= 0)){
-					console.log("bandera inglesa");
-					eng = 1;
-				}
+				}				
 				// tecla enter del teclado
 				if(e.keyCode == control.enter){
 					switch(mouse_index){
@@ -436,6 +426,16 @@
 					if(mouse_index < 3){
 						mouse_index += 1;
 					}
+				}
+				// boton español
+				if((playerX <= 30)&&(playerX >= 0)&&(playerY <= 18)&&(playerY >= 0)){
+					console.log("bandera espanola");
+					eng = 0;
+				}
+				// boton inglés
+				if((playerX <= 72)&&(playerX >= 35)&&(playerY <= 18)&&(playerY >= 0)){
+					console.log("bandera inglesa");
+					eng = 1;
 				}
 				// boton de aceptar
 				if((playerX <= 375)&&(playerX >= 332)&&(playerY <= 235)&&(playerY >= 190)){
