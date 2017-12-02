@@ -410,8 +410,9 @@
 				// se toma la posicion de la pulsacion
     			if(e.touches) {
         			var playerX = e.changedTouches[0].pageX;
-					var playerY = e.changedTouches[0].pageY;
+				var playerY = e.changedTouches[0].pageY;
         			e.preventDefault();
+				console.log(playerX + " " + playerY);
 				}
 				// en funcion de la posicion se acciona una de las posiciones
 				// boton de direccion hacia arriba
