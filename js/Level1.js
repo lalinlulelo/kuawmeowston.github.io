@@ -167,9 +167,9 @@ function Level1() {
     function Update() {
 
         //Limpiar las capas
-        capa0ctx.clearRect(0, 0, canvas.width, canvas.height);
-        capa1ctx.clearRect(0, 0, canvas.width, canvas.height);
-        capa2ctx.clearRect(0, 0, canvas.width, canvas.height);       
+        capa0ctx.clearRect(0, 0, capa0.width, capa0.height);
+        capa1ctx.clearRect(0, 0, capa1.width, capa1.height);
+        capa2ctx.clearRect(0, 0, capa2.width, capa2.height);     
 
         DrawBackground();        
 
