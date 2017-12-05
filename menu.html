@@ -62,7 +62,8 @@
 			var button_down = new Image ();
 			var button_right = new Image ();
 			var button_up = new Image ();
-			var button_attack = new Image ();			
+			var button_attack = new Image ();		
+			var btn_menu = new Image();
 			// variable de movimiento del fondo
 			var backgroundY = 0;
 			// variable referente a la velocidad de desplazamiento del fondo
@@ -184,7 +185,8 @@
 			button_right.src = "images/button_right.png";
 			button_down.src = "images/button_down.png";
 			button_up.src = "images/button_up.png";
-			button_attack.src = "images/button_attack.png";				
+			button_attack.src = "images/button_attack.png";		
+			btn_menu.src = "images/btn_menu.png";
 			// --------------------------------------------- Fin Inicializacion de Sprites  ---------------------------------------------------
 			
 			// -------------------------------------------------- Funcion de Pintado ----------------------------------------------------------
@@ -244,6 +246,9 @@
 			ukFlagImage.onload = function() {
 			    context.drawImage(ukFlagImage, 70, 0, 50, 50);
 			}
+			btn_menu.onload = function (){
+				context.drawImage(btn_menu, 500, 50);
+			}
 			//intervalo de refresco del canvas
 			timerId = setInterval("update()", 1000/frames);
 			//Actualiza los frames
@@ -285,6 +290,8 @@
 					context.drawImage(button_up, 320, 340, 150, 150);
 					context.drawImage(button_down, 320, 460, 150, 150);
 					context.drawImage(button_attack, 650, 400, 150, 150);
+				}else{
+					context.drawImage(btn_menu, 520, 400);
 				}
 				// las banderas se dibujan segun lo que este seleccionado
 				if(eng) {
