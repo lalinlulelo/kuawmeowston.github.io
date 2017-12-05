@@ -621,9 +621,9 @@ footer p {
 .btn-skin:focus,
 .btn-skin:active,
 .btn-skin.active {
-  color: #fff;
+  color: #000000;
   background-color: #666;
-  border-color: #666;
+  border-color: #f7c3f7;
 }
 
 
@@ -631,7 +631,7 @@ footer p {
 .btn-default:focus {
     border: 1px solid #28c3ab;
     outline: 0;
-    color: #f7c3f7;
+    color: #000000;
     background-color: #f7c3f7;
 }
 
