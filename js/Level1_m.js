@@ -162,7 +162,6 @@ function Level1() {
 
         //Comprobar si hay game over 
         if (player_1.dead) {
-            console.log("GAME OVER por player1");
             game_over = true;
             localStorage.setItem("win", 0);
             //Perder en el primer enemigo no puntua
@@ -172,7 +171,6 @@ function Level1() {
         } 
         //Si no, comprobar si se ha vencido al enemigo
         else if (enemy_1.dead) {
-            console.log("THE END");
             the_end = true;
             SaveScore(); //calcular y guardar puntuaciones
             window.location.href = "level2_m.html"; //cargar siguiente nivel
@@ -327,7 +325,6 @@ function Level1() {
 
     //Devuelve el carril del jugador (CHROME)
     function player_carril_n(objeto) {
-        //console.log(objeto.posX + ", " + objeto.posY);
         if ((objeto.posY <= carril_0) && (objeto.posY > carril_1)) {
             return 0;
         }
@@ -368,13 +365,10 @@ function Level1() {
             var touchY = e.changedTouches[0].pageY;
             e.preventDefault();
         }
-        console.log(touchX + ", " + touchY);
 
         //Acciones segun boton
         //Moverse hacia arriba
         if ((touchX <= 170) && (touchX >= 110) && (touchY <= 75) && (touchY >= 20)) {
-            console.log("flecha arriba")
-            console.log(player_1.posY)
             if (posicion > 0) {
                 posicion -= 1;                
                 for (var i = 0; i < 9; i++) {
@@ -384,8 +378,6 @@ function Level1() {
         }
         //Moverse hacia abajo
         if ((touchX <= 175) && (touchX >= 114) && (touchY <= 140) && (touchY >= 85)) {
-            console.log("flecha abajo")
-            console.log(player_1.posY)
             if (posicion < 2) {
                 posicion += 1;                
                 for (var i = 0; i < 9; i++) {
@@ -395,12 +387,10 @@ function Level1() {
         }
         //Moverse hacia la izquierda
         if ((touchX <= 109) && (touchX >= 55) && (touchY <= 107) && (touchY >= 54)) {
-            console.log("flecha izquierda")
             player_1.Left_CH();
         }
         //Moverse hacia la derecha
         if ((touchX <= 230) && (touchX >= 175) && (touchY <= 107) && (touchY >= 54)) {
-            console.log("flecha derecha")
             player_1.Right_CH();
         }
         //Disparar
