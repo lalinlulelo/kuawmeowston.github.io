@@ -127,8 +127,6 @@ function Level3() {
         button_up.src = "images/button_up.png";
         button_attack = new Image();
         button_attack.src = "images/button_attack.png";
-        
-        full_screen = localStorage.getItem("full_screen");
 
         //Inicializar jugador 1
         player_1 = new Player(3, 'images/player_1.png', 'images/player_1_bullet.png', 'images/player_1_killed.png', 'images/player_1_1_lifes.png', canvas);
@@ -138,8 +136,6 @@ function Level3() {
         //Inicializar interfaz  
         ShowLife();
         ShowButtons();
-
-        //Aqui iria lo de refrescar si se necesita
 
         //Funcion para inicializar el gameloop
         function anim() {
@@ -165,8 +161,6 @@ function Level3() {
         if (player_1.dead) {
             game_over = true;
             localStorage.setItem("win", 0);
-            //Perder en el primer enemigo no puntua
-            localStorage.setItem("puntos", 0);
             window.location.href = "game_over.html"; //carga pantalla game over
             return;
         } 
@@ -175,7 +169,7 @@ function Level3() {
             the_end = true;
             SaveScore(); //calcular y guardar puntuaciones
             localStorage.setItem("win", 1);
-            window.location.href = "game_over.html"; //cargar siguiente nivel
+            window.location.href = "game_over.html"; //cargar game over (pero ganando)
             return;
         }
 
