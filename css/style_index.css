@@ -253,7 +253,7 @@ header.masthead {
   width: 75px;
   height: 75px;
   cursor: pointer;
-  background-color: green; }
+  background-color: transparent; }
   .portfolio-modal .close-modal:hover {
     opacity: 0.3; }
   .portfolio-modal .close-modal .lr {
@@ -645,4 +645,7 @@ footer p {
 }
 
 
-}
+.glyphicon-circle-arrow-up{
+		color:#99cccc;
+		font-size: 20px;
+	}
