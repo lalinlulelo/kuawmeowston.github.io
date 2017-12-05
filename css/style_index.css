@@ -622,7 +622,7 @@ footer p {
 .btn-skin:active,
 .btn-skin.active {
   color: #000000;
-  background-color: #666;
+  background-color: #000000;
   border-color: #f7c3f7;
 }
 
