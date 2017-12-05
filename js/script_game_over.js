@@ -18,7 +18,7 @@ visibilidad('rank');
 var win = localStorage.getItem("win");
 console.log("win: "+win);
 var eng = 0; //0 español, 1 ingles
-//eng = localStorage.getItem("idioma");
+eng = localStorage.getItem("idioma");
 console.log("eng: " + eng);
 var points = localStorage.getItem("puntos");
 console.log("Puntos: " + points);
