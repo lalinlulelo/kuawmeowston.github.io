@@ -41,9 +41,8 @@ function Enemy(n_life, src_sprite, src_bullet, src_damaged, src_killed, bulletSp
         that.Shoot();
         var random_carril = that.GetRandomNumber(0, 2);
         that.Cambio_carril(random_carril);
-    }, that.GetRandomNumber(500, 1500));
-    
-    //that.GetRandomNumber(500, 1500)
+    }, that.GetRandomNumber(500, 1500));   
+  
 }
    
 
@@ -59,6 +58,7 @@ Enemy.prototype.Shoot = function () {
     }
 }
 
+//Cambiar de carril
 Enemy.prototype.Cambio_carril = function (carril) {
     switch (carril) {
         case 0:            
@@ -83,7 +83,7 @@ Enemy.prototype.Cambio_carril = function (carril) {
 Enemy.prototype.Hit = function () {
     console.log("ENEMY HIT");
     this.life -= 1;
-    this.sprite.src = this.damaged.src; //poner sprite dañado
+    this.sprite.src = this.damaged.src; //poner sprite daÃ±ado
     var that = this;
     //Comprobar si ha muerto
     if (this.life <= 0) this.Kill();
