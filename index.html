@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>	
 		<title>Portfolio de Kuawmeowston</title>
-		
+		<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,7 +49,16 @@
 				</div>
 			</div>
 		</nav>
-		
+		<script>
+			 $(function(){ 
+			     var navMain = $(".navbar-collapse"); // avoid dependency on #id
+			     // "a:not([data-toggle])" - to avoid issues caused
+			     // when you have dropdown inside navbar
+			     navMain.on("click", "a:not([data-toggle])", null, function () {
+				 navMain.collapse('hide');
+			     });
+			 });
+		</script>
 		<!-- Section: Carousel -->
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<!-- Indicators -->
