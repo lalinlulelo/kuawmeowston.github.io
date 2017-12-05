@@ -1,4 +1,4 @@
-/* Primer nivel del juego (laser) */
+/* Segundo nivel del juego (laser) */
 
 // marca los pulsos del juego
 window.requestAnimFrame = (function () {
@@ -128,8 +128,6 @@ function Level2() {
         button_attack = new Image();
         button_attack.src = "images/button_attack.png";
         
-        full_screen = localStorage.getItem("full_screen");
-
         // resize de la pantalla
         window.addEventListener('resize', ResizeCanvas, false);
 
@@ -141,8 +139,6 @@ function Level2() {
         //Inicializar interfaz  
         ShowLife();
         ShowButtons();
-
-        //Aqui iria lo de refrescar si se necesita
 
         //Funcion para inicializar el gameloop
         function anim() {
@@ -161,11 +157,11 @@ function Level2() {
     //Funcion update, se llama en cada frame
     function Update() {            
 
+        //Pintar fondo
         DrawBackground();        
 
         //Comprobar si hay game over 
         if (player_1.dead) {
-            console.log("GAME OVER por player1");
             game_over = true;
             localStorage.setItem("win", 0);
             //Perder en el primer enemigo no puntua
@@ -175,7 +171,6 @@ function Level2() {
         } 
         //Si no, comprobar si se ha vencido al enemigo
         else if (enemy_2.dead) {
-            console.log("THE END");
             the_end = true;
             SaveScore(); //calcular y guardar puntuaciones
             window.location.href = "level2_3.html"; //cargar siguiente nivel
@@ -200,8 +195,6 @@ function Level2() {
 
     //Pinta las capas en el canvas final, en orden de atras (2) adelante (0)
     function Draw() {
-        //Limpiar
-        //ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(buffer, 0, 0, window.innerWidth, window.innerHeight);        
         ShowButtons();
     }
@@ -223,6 +216,7 @@ function Level2() {
         }       
     }
 
+    //Recorre el array de balas de cada pje y llama a la funcion de pintado de balas individual
     function DrawBullets () {
         for (var j = 0; j < player_1.bullets.length; j++) {
             var disparoBueno = player_1.bullets[j];
@@ -237,7 +231,7 @@ function Level2() {
         }
     }
         
-    //Mover y pintar bala jugador 1
+    //Mover y pintar bala jugador
     function Update_Player_Bullet (bullet, id, player) {
         if (bullet) {
             bullet.identifier = id;
@@ -321,7 +315,6 @@ function Level2() {
         var puntos = parseInt(segundos / 0.3);
         var pant = localStorage.getItem("puntos");
         if (pant != null && pant != 0) puntos += parseInt(pant);
-        console.log("ptos: " + puntos);
         //Guardar en memoria
         localStorage.setItem("puntos", puntos);
         the_end = false;
@@ -334,36 +327,15 @@ function Level2() {
     function player_carril_n(objeto) {
         //console.log(objeto.posX + ", " + objeto.posY);
         if ((objeto.posY <= carril_0) && (objeto.posY > carril_1)) {
-            //console.log("carril 0");
             return 0;
         }
         if ((objeto.posY <= carril_1) && (objeto.posY > carril_2)) {
-            //console.log("carril 1");
             return 1;
         }
         if ((objeto.posY <= carril_2) && (objeto.posY > carril_3)) {
-            //console.log("carril 2");
             return 2;
         }
-    }
-
-    //Devuelve el carril del jugador (FIREFOX)
-    function player_carril_n_2(objeto) {
-        //console.log(objeto.posY);
-        if ((objeto.posY <= carril_0 - 285) && (objeto.posY > carril_1 - 285)) {
-            //console.log("carril 0");
-            return 0;
-        }
-        if ((objeto.posY <= carril_1 - 285) && (objeto.posY > carril_2 - 285)) {
-            //console.log("carril 1");
-            return 1;
-        }
-        if ((objeto.posY <= carril_2 - 285) && (objeto.posY > carril_3 - 285)) {
-            //console.log("carril 2");
-            return 2;
-        }
-    }
-
+    }  
 
     //Devuelve un numero aleatorio
     function GetRandomNumber (range_min, range_max) {
@@ -378,12 +350,7 @@ function Level2() {
     };
 
     //Resize del canvas
-    function ResizeCanvas() {
-        //Limpiar las capas
-        /*capa0ctx.clearRect(0, 0, canvas.width, canvas.height);
-        capa1ctx.clearRect(0, 0, canvas.width, canvas.height);
-        capa2ctx.clearRect(0, 0, canvas.width, canvas.height);*/
-        //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    function ResizeCanvas() {       
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;        
@@ -399,13 +366,10 @@ function Level2() {
             var touchY = e.changedTouches[0].pageY;
             e.preventDefault();
         }
-        console.log(touchX + ", " + touchY);
-
+        
         //Acciones segun boton
         //Moverse hacia arriba
         if ((touchX <= 170) && (touchX >= 110) && (touchY <= 75) && (touchY >= 20)) {
-            console.log("flecha arriba")
-            console.log(player_1.posY)
             if (posicion > 0) {
                 posicion -= 1;                
                 for (var i = 0; i < 9; i++) {
@@ -415,8 +379,6 @@ function Level2() {
         }
         //Moverse hacia abajo
         if ((touchX <= 175) && (touchX >= 114) && (touchY <= 140) && (touchY >= 85)) {
-            console.log("flecha abajo")
-            console.log(player_1.posY)
             if (posicion < 2) {
                 posicion += 1;                
                 for (var i = 0; i < 9; i++) {
@@ -426,12 +388,10 @@ function Level2() {
         }
         //Moverse hacia la izquierda
         if ((touchX <= 109) && (touchX >= 55) && (touchY <= 107) && (touchY >= 54)) {
-            console.log("flecha izquierda")
             player_1.Left_CH();
         }
         //Moverse hacia la derecha
         if ((touchX <= 230) && (touchX >= 175) && (touchY <= 107) && (touchY >= 54)) {
-            console.log("flecha derecha")
             player_1.Right_CH();
         }
         //Disparar
