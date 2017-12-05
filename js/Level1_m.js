@@ -126,9 +126,7 @@ function Level1() {
         button_up = new Image();
         button_up.src = "images/button_up.png";
         button_attack = new Image();
-        button_attack.src = "images/button_attack.png";
-        
-        full_screen = localStorage.getItem("full_screen");
+        button_attack.src = "images/button_attack.png";        
 
         // resize de la pantalla
         window.addEventListener('resize', ResizeCanvas, false);
@@ -141,8 +139,6 @@ function Level1() {
         //Inicializar interfaz  
         ShowLife();
         ShowButtons();
-
-        //Aqui iria lo de refrescar si se necesita
 
         //Funcion para inicializar el gameloop
         function anim() {
@@ -161,6 +157,7 @@ function Level1() {
     //Funcion update, se llama en cada frame
     function Update() {            
 
+        //Pintar fondo
         DrawBackground();        
 
         //Comprobar si hay game over 
@@ -223,6 +220,7 @@ function Level1() {
         }       
     }
 
+    //Recorre el array de balas de cada pje y llama a la funcion de pintado de balas individual
     function DrawBullets () {
         for (var j = 0; j < player_1.bullets.length; j++) {
             var disparoBueno = player_1.bullets[j];
@@ -263,7 +261,7 @@ function Level1() {
         }
     }
 
-    //Vidas jugador(es)
+    //Vidas jugador
     function ShowLife() {
         switch (player_1.life) {
             case 3:
@@ -319,7 +317,6 @@ function Level1() {
 
         //Calcular puntos segun el tiempo y el numero de enemigos --> Primer enemigo: /0.5
         var puntos = parseInt(segundos / 0.5);
-        console.log("ptos: " + puntos);
         //Guardar en memoria
         localStorage.setItem("puntos", puntos);
         the_end = false;
@@ -332,36 +329,15 @@ function Level1() {
     function player_carril_n(objeto) {
         //console.log(objeto.posX + ", " + objeto.posY);
         if ((objeto.posY <= carril_0) && (objeto.posY > carril_1)) {
-            //console.log("carril 0");
             return 0;
         }
         if ((objeto.posY <= carril_1) && (objeto.posY > carril_2)) {
-            //console.log("carril 1");
             return 1;
         }
         if ((objeto.posY <= carril_2) && (objeto.posY > carril_3)) {
-            //console.log("carril 2");
             return 2;
         }
     }
-
-    //Devuelve el carril del jugador (FIREFOX)
-    function player_carril_n_2(objeto) {
-        //console.log(objeto.posY);
-        if ((objeto.posY <= carril_0 - 285) && (objeto.posY > carril_1 - 285)) {
-            //console.log("carril 0");
-            return 0;
-        }
-        if ((objeto.posY <= carril_1 - 285) && (objeto.posY > carril_2 - 285)) {
-            //console.log("carril 1");
-            return 1;
-        }
-        if ((objeto.posY <= carril_2 - 285) && (objeto.posY > carril_3 - 285)) {
-            //console.log("carril 2");
-            return 2;
-        }
-    }
-
 
     //Devuelve un numero aleatorio
     function GetRandomNumber (range_min, range_max) {
@@ -377,12 +353,7 @@ function Level1() {
 
     //Resize del canvas
     function ResizeCanvas() {
-        //Limpiar las capas
-        /*capa0ctx.clearRect(0, 0, canvas.width, canvas.height);
-        capa1ctx.clearRect(0, 0, canvas.width, canvas.height);
-        capa2ctx.clearRect(0, 0, canvas.width, canvas.height);*/
-        //ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+        
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;        
 
