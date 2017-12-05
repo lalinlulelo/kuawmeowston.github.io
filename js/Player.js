@@ -34,8 +34,7 @@ function Player(n_life, src_sprite, src_bullet, src_killed, src_life, canvas) {
         marginBottom: 60,
         defaultHeight: 66
     };
-    this.posX = 0;      
-    //this.posY = this.canvas.height - (this.height == 0 ? this.settings.defaultHeight : this.height) - this.settings.marginBottom;
+    this.posX = 0; 
     this.posY = 474;
     
 }
@@ -55,35 +54,6 @@ Player.prototype.Shoot = function () {
     } else {
         this.now = new Date().getTime();
     }
-}
-
-//Movimiento firefox
-Player.prototype.Left_FF = function () {    
-    if (this.posX > ((this.posY - 199.67) / (-0.008333)))
-        this.posX -= this.speed;
-}
-
-Player.prototype.Right_FF = function () {
-    if (this.posX < ((this.posY - 202.867) / (-0.008333)))
-        this.posX += this.speed;
-}
-
-Player.prototype.Up_FF = function () {
-    if (this.posY > 199.1) {
-        this.posY -= 0.05;
-        this.posX += 6;
-        this.carril.x -= 10;
-        this.carril.y -= 5;
-    }        
-}
-
-Player.prototype.Down_FF = function () {
-    if (this.posY < 200) {
-        this.posY += 0.05;
-        this.posX -= 6;
-        this.carril.x += 10;
-        this.carril.y += 5;
-    }     
 }
 
 //Movimiento chrome
