@@ -125,9 +125,6 @@ function Level1() {
         capa2.height = canvas.height;
         capa2ctx = capa2.getContext('2d');
 
-
-        full_screen = localStorage.getItem("full_screen");
-
         // resize de la pantalla
         window.addEventListener('resize', ResizeCanvas, false);
 
@@ -146,9 +143,7 @@ function Level1() {
         //Inicializar teclado
         AddListener(document, 'keydown', KeyDown);
         AddListener(document, 'keyup', KeyUp)
-
-        //Aqui iria lo de refrescar si se necesita
-
+     
         //Funcion para inicializar el gameloop
         function anim() {
             Loop();
@@ -171,11 +166,11 @@ function Level1() {
         capa1ctx.clearRect(0, 0, capa1.width, capa1.height);
         capa2ctx.clearRect(0, 0, capa2.width, capa2.height);     
 
+        //Pintar fondo
         DrawBackground();        
 
         //Comprobar si hay game over 
         if (player_1.dead) {
-            console.log("GAME OVER por player1");
             game_over = true;
             localStorage.setItem("win", 0);
             //Perder en el primer enemigo no puntua
@@ -183,7 +178,6 @@ function Level1() {
             window.location.href = "game_over.html"; //carga pantalla game over
             return;
         } else if (player_2 != null && player_2.dead) {
-            console.log("GAME OVER por player 2");
             game_over = true;
             localStorage.setItem("win", 0);
             //Perder en el primer enemigo no puntua
@@ -192,7 +186,6 @@ function Level1() {
         }
         //Si no, comprobar si se ha vencido al enemigo
         else if (enemy_1.dead) {
-            console.log("THE END");
             the_end = true;
             SaveScore(); //calcular y guardar puntuaciones
             window.location.href = "level2.html"; //cargar siguiente nivel
@@ -285,6 +278,7 @@ function Level1() {
         }       
     }
 
+    //Recorre el array de balas de cada pje y llama a la funcion de pintado de balas individual
     function DrawBullets () {
         for (var j = 0; j < player_1.bullets.length; j++) {
             var disparoBueno = player_1.bullets[j];
@@ -306,7 +300,7 @@ function Level1() {
         }
     }
         
-    //Mover y pintar bala jugador 1
+    //Mover y pintar bala jugadores
     function Update_Player_Bullet (bullet, id, player) {
         if (bullet) {
             bullet.identifier = id;
@@ -352,6 +346,7 @@ function Level1() {
         }
     }
 
+    //Pintar vidas jugadores
     function ShowLife() {
         switch (player_1.life) {
             case 3:
@@ -489,7 +484,7 @@ function Level1() {
 
     /*------- Funciones auxiliares -------*/
 
-    //Devuelve el carril del jugador (CHROME)
+    //Devuelve el carril del jugador 
     function player_carril_n(objeto) {        
         if ((objeto.posY <= carril_0) && (objeto.posY > carril_1)) {
             //console.log("carril 0");
@@ -503,25 +498,7 @@ function Level1() {
             //console.log("carril 2");
             return 2;
         }
-    }
-
-    //Devuelve el carril del jugador (FIREFOX)
-    function player_carril_n_2(objeto) {
-        //console.log(objeto.posY);
-        if ((objeto.posY <= carril_0 - 285) && (objeto.posY > carril_1 - 285)) {
-            //console.log("carril 0");
-            return 0;
-        }
-        if ((objeto.posY <= carril_1 - 285) && (objeto.posY > carril_2 - 285)) {
-            //console.log("carril 1");
-            return 1;
-        }
-        if ((objeto.posY <= carril_2 - 285) && (objeto.posY > carril_3 - 285)) {
-            //console.log("carril 2");
-            return 2;
-        }
-    }
-
+    }  
 
     //Devuelve un numero aleatorio
     function GetRandomNumber (range_min, range_max) {
@@ -537,10 +514,7 @@ function Level1() {
 
     //Resize del canvas
     function ResizeCanvas() {
-        //Limpiar las capas
-        /*capa0ctx.clearRect(0, 0, canvas.width, canvas.height);
-        capa1ctx.clearRect(0, 0, canvas.width, canvas.height);
-        capa2ctx.clearRect(0, 0, canvas.width, canvas.height);*/
+        //Limpiar       
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         canvas.width = window.innerWidth;
