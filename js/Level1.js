@@ -142,7 +142,7 @@ function Level1() {
 
         //Inicializar teclado
         AddListener(document, 'keydown', KeyDown);
-        AddListener(document, 'keyup', KeyUp)
+        AddListener(document, 'keyup', KeyUp);
      
         //Funcion para inicializar el gameloop
         function anim() {
