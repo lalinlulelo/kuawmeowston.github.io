@@ -164,8 +164,6 @@ function Level2() {
         if (player_1.dead) {
             game_over = true;
             localStorage.setItem("win", 0);
-            //Perder en el primer enemigo no puntua
-            localStorage.setItem("puntos", 0);
             window.location.href = "game_over.html"; //carga pantalla game over
             return;
         } 
@@ -173,7 +171,7 @@ function Level2() {
         else if (enemy_2.dead) {
             the_end = true;
             SaveScore(); //calcular y guardar puntuaciones
-            window.location.href = "level2_3.html"; //cargar siguiente nivel
+            window.location.href = "level3_m.html"; //cargar siguiente nivel
             return;
         }
 
