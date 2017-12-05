@@ -392,7 +392,6 @@ function Level1() {
             var b = shooter.bullets[i];
             //Primero comprobamos si tienen el mismo zindex (estan en el mismo carril)
             if (b.zindex == target.zindex) {
-                console.log("target: " + target.posX + ", b: " + b.posX);
                 //Despues comparamos sus posiciones en x (dentro de un rango)
                 if ((b.posX >= target.posX - 3) && (b.posX <= target.posX + 2)) {
                     target.Hit(); //reducir vida y cambiar sprite
@@ -475,7 +474,6 @@ function Level1() {
 
         //Calcular puntos segun el tiempo y el numero de enemigos --> Primer enemigo: /0.5
         var puntos = parseInt(segundos / 0.5);
-        console.log("ptos: " + puntos);
         //Guardar en memoria
         localStorage.setItem("puntos", puntos);
         the_end = false;
@@ -487,15 +485,12 @@ function Level1() {
     //Devuelve el carril del jugador 
     function player_carril_n(objeto) {        
         if ((objeto.posY <= carril_0) && (objeto.posY > carril_1)) {
-            //console.log("carril 0");
             return 0;
         }
         if ((objeto.posY <= carril_1) && (objeto.posY > carril_2)) {
-            //console.log("carril 1");
             return 1;
         }
         if ((objeto.posY <= carril_2) && (objeto.posY > carril_3)) {
-            //console.log("carril 2");
             return 2;
         }
     }  
