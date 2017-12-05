@@ -141,7 +141,7 @@ function Level2() {
 
         //Inicializar teclado
         AddListener(document, 'keydown', KeyDown);
-        AddListener(document, 'keyup', KeyUp)
+        AddListener(document, 'keyup', KeyUp);
 
         //Aqui iria lo de refrescar si se necesita
 
