@@ -1,4 +1,4 @@
-/* Primer nivel del juego (tostadora) */
+/* Tercer nivel del juego (tostadora) */
 
 // marca los pulsos del juego
 window.requestAnimFrame = (function () {
@@ -130,9 +130,6 @@ function Level3() {
         
         full_screen = localStorage.getItem("full_screen");
 
-        // resize de la pantalla
-        window.addEventListener('resize', ResizeCanvas, false);
-
         //Inicializar jugador 1
         player_1 = new Player(3, 'images/player_1.png', 'images/player_1_bullet.png', 'images/player_1_killed.png', 'images/player_1_1_lifes.png', canvas);
         //Inicializar enemigo
@@ -161,11 +158,11 @@ function Level3() {
     //Funcion update, se llama en cada frame
     function Update() {            
 
+        //Fondo
         DrawBackground();        
 
         //Comprobar si hay game over 
         if (player_1.dead) {
-            console.log("GAME OVER por player1");
             game_over = true;
             localStorage.setItem("win", 0);
             //Perder en el primer enemigo no puntua
@@ -175,7 +172,6 @@ function Level3() {
         } 
         //Si no, comprobar si se ha vencido al enemigo
         else if (enemy_3.dead) {
-            console.log("THE END");
             the_end = true;
             SaveScore(); //calcular y guardar puntuaciones
             localStorage.setItem("win", 1);
@@ -224,6 +220,7 @@ function Level3() {
         }       
     }
 
+    //Recorre el array de balas de cada pje y llama a la funcion de pintado de balas individual
     function DrawBullets () {
         for (var j = 0; j < player_1.bullets.length; j++) {
             var disparoBueno = player_1.bullets[j];
@@ -322,7 +319,6 @@ function Level3() {
         var puntos = parseInt(segundos / 0.1);
         var pant = localStorage.getItem("puntos");
         if (pant != null && pant != 0) puntos += parseInt(pant);
-        console.log("ptos: " + puntos);
         //Guardar en memoria
         localStorage.setItem("puntos", puntos);
         the_end = false;
@@ -333,38 +329,16 @@ function Level3() {
 
     //Devuelve el carril del jugador (CHROME)
     function player_carril_n(objeto) {
-        //console.log(objeto.posX + ", " + objeto.posY);
         if ((objeto.posY <= carril_0) && (objeto.posY > carril_1)) {
-            //console.log("carril 0");
             return 0;
         }
         if ((objeto.posY <= carril_1) && (objeto.posY > carril_2)) {
-            //console.log("carril 1");
             return 1;
         }
         if ((objeto.posY <= carril_2) && (objeto.posY > carril_3)) {
-            //console.log("carril 2");
             return 2;
         }
     }
-
-    //Devuelve el carril del jugador (FIREFOX)
-    function player_carril_n_2(objeto) {
-        //console.log(objeto.posY);
-        if ((objeto.posY <= carril_0 - 285) && (objeto.posY > carril_1 - 285)) {
-            //console.log("carril 0");
-            return 0;
-        }
-        if ((objeto.posY <= carril_1 - 285) && (objeto.posY > carril_2 - 285)) {
-            //console.log("carril 1");
-            return 1;
-        }
-        if ((objeto.posY <= carril_2 - 285) && (objeto.posY > carril_3 - 285)) {
-            //console.log("carril 2");
-            return 2;
-        }
-    }
-
 
     //Devuelve un numero aleatorio
     function GetRandomNumber (range_min, range_max) {
@@ -380,12 +354,7 @@ function Level3() {
 
     //Resize del canvas
     function ResizeCanvas() {
-        //Limpiar las capas
-        /*capa0ctx.clearRect(0, 0, canvas.width, canvas.height);
-        capa1ctx.clearRect(0, 0, canvas.width, canvas.height);
-        capa2ctx.clearRect(0, 0, canvas.width, canvas.height);*/
-        //ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+       
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;        
 
@@ -400,13 +369,10 @@ function Level3() {
             var touchY = e.changedTouches[0].pageY;
             e.preventDefault();
         }
-        console.log(touchX + ", " + touchY);
-
+        
         //Acciones segun boton
         //Moverse hacia arriba
         if ((touchX <= 170) && (touchX >= 110) && (touchY <= 75) && (touchY >= 20)) {
-            console.log("flecha arriba")
-            console.log(player_1.posY)
             if (posicion > 0) {
                 posicion -= 1;                
                 for (var i = 0; i < 9; i++) {
@@ -416,8 +382,6 @@ function Level3() {
         }
         //Moverse hacia abajo
         if ((touchX <= 175) && (touchX >= 114) && (touchY <= 140) && (touchY >= 85)) {
-            console.log("flecha abajo")
-            console.log(player_1.posY)
             if (posicion < 2) {
                 posicion += 1;                
                 for (var i = 0; i < 9; i++) {
@@ -427,12 +391,10 @@ function Level3() {
         }
         //Moverse hacia la izquierda
         if ((touchX <= 109) && (touchX >= 55) && (touchY <= 107) && (touchY >= 54)) {
-            console.log("flecha izquierda")
             player_1.Left_CH();
         }
         //Moverse hacia la derecha
         if ((touchX <= 230) && (touchX >= 175) && (touchY <= 107) && (touchY >= 54)) {
-            console.log("flecha derecha")
             player_1.Right_CH();
         }
         //Disparar
