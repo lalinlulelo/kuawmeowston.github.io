@@ -313,8 +313,8 @@ function Level1() {
         var segundos_f = fecha.getTime() / 1000;
         var segundos = segundos_f - segundos_0;
 
-        //Calcular puntos segun el tiempo y el numero de enemigos --> Primer enemigo: /0.5
-        var puntos = parseInt(segundos / 0.5);
+        //Calcular puntos segun el tiempo y el numero de enemigos --> Primer enemigo: 0.1
+       var puntos = parseInt((0.1/segundos)*1000;
         //Guardar en memoria
         localStorage.setItem("puntos", puntos);
         the_end = false;
