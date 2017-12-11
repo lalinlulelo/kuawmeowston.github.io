@@ -310,7 +310,7 @@ function Level2() {
         var segundos = segundos_f - segundos_0;
 
         //Calcular puntos segun el tiempo y el numero de enemigos --> Segundo enemigo: /0.3
-        var puntos = parseInt((0.1/segundos)*1000;
+        var puntos = parseInt((0.1/segundos)*1000);
         var pant = localStorage.getItem("puntos");
         if (pant != null && pant != 0) puntos += parseInt(pant);
         //Guardar en memoria
