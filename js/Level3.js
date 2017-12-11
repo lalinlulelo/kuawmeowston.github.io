@@ -468,8 +468,8 @@ function Level3() {
         var segundos_f = fecha.getTime() / 1000;
         var segundos = segundos_f - segundos_0;
 
-        //Calcular puntos segun el tiempo y el numero de enemigos --> Tercer enemigo: /0.1
-        var puntos = parseInt(segundos / 0.1);
+        //Calcular puntos segun el tiempo y el numero de enemigos --> Tercer enemigo: 0.5
+        var puntos = parseInt((0.5/segundos)*1000;
         var pant = localStorage.getItem("puntos");
         if (pant != null && pant != 0) puntos += parseInt(pant);
         //Guardar en memoria
