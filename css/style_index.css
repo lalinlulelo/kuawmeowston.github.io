@@ -479,7 +479,7 @@ html {
 .intro .slogan h2 {
 	color: #FFA500;
 	text-shadow: none;
-	font-size: 60px;
+	font-size: 330%;
 	line-height: 60px;
 	font-weight: 700;
 	font-family: Montserrat, sans-serif;
@@ -489,7 +489,11 @@ html {
 	border-width: 0px;
 	border-color: #000000;
 	border-style: none;
-	text-shadow: -2px 0 4px #000;
+	text-shadow: -2px 0 4px #000;	
+}
+
+.carousel, .carousel-inner > .item > img {
+  width: 100%;
 }
 
 .intro .slogan h4 {
