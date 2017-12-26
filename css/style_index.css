@@ -198,7 +198,7 @@ header.masthead {
       -moz-transition: all ease 0.5s;
       transition: all ease 0.5s;
       opacity: 0;
-      background: rgba(24, 188, 156, 0.9); }
+      background: rgba(229, 178, 236, 0.9); }
       #portfolio .portfolio-item .portfolio-link .caption:hover {
         opacity: 1; }
       #portfolio .portfolio-item .portfolio-link .caption .caption-content {
@@ -476,10 +476,11 @@ html {
     font-size: 18px;
 }
 
+
 .intro .slogan h2 {
 		color: #FFA500;
 		text-shadow: none;
-		font-size: 320%;
+		font-size: 300%;
 		line-height: 60px;
 		font-weight: 700;
 		font-family: Montserrat, sans-serif;
@@ -489,7 +490,8 @@ html {
 		border-width: 0px;
 		border-color: #000000;
 		border-style: none;
-		text-shadow: -2px 0 4px #000;	
+		text-shadow: -2px 0 4px #000;
+		word-wrap: break-word;		
 }
 
 .carousel, .carousel-inner > .item > img {
@@ -509,7 +511,6 @@ html {
 	color: #FFA500;
 	text-shadow: -1px 1px 1px #000;
 }
-
 
 /* ===========================
 --- Contact
@@ -666,6 +667,6 @@ footer p {
 
 
 .glyphicon-fullscreen{
-		color:#99cccc;
-		font-size: 25px;
+		color:#5c9f9f;
+		font-size: 30px;
 	}
