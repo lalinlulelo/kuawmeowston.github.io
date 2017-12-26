@@ -505,6 +505,12 @@ html {
 	text-align: center;
 }
 
+.intro .slogan h4 {
+	color: #FFA500;
+	text-shadow: -1px 1px 1px #000;
+}
+
+
 /* ===========================
 --- Contact
 ============================ */
