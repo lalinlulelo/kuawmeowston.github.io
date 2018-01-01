@@ -457,15 +457,15 @@ html {
 .intro {
 	width:100%;
 	position:relative;
+	background-image: url("../images/intro.jpg");
 }
 
 #intro.intro {
-	padding:15% 0 0 0;
+	padding:8% 0 8% 0;
 }
 
 .intro .slogan {
 	text-align: center;
-
 }
 
 .brand-heading {
@@ -510,6 +510,12 @@ html {
 .intro .slogan h4 {
 	color: #FFA500;
 	text-shadow: -1px 1px 1px #000;
+}
+
+#about{
+	width:100%;
+	position:relative;
+	background-image: url("../images/fondo_carrusel.png");
 }
 
 /* ===========================
