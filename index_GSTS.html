@@ -212,7 +212,7 @@
 			</div>
 		</section>
 	
-	    <!-- Portfolio Modals -->
+	    	<!-- Portfolio Modals -->
 		<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-content">
 				<div class="close-modal" data-dismiss="modal">
@@ -370,7 +370,7 @@
 		<!-- Section: extras -->
 		<section id="extras" class="home-section text-center">	
 			<div class="slogan">		
-				<h2>Extras </h2>
+				<h2>Extras</h2>
 					<div class="container">
 						<h3>Comic</h3>	
 						<p>Conoce la historia de God Save The Sweets</p>					  
@@ -406,13 +406,12 @@
 								</div>
 							</div>
 						</div>
-					</div>
-				
+					</div>				
 
 				
-				<h3>Trailer</h3>	  
-				<div id="player"></div>
-				<script>
+					<h3>Trailer</h3>	  
+					<div id="player"></div>
+					<script>
 						var SMARTPHONE = {
 							Android: function() {
 								return navigator.userAgent.match(/Android/i);
@@ -421,30 +420,30 @@
 								return navigator.userAgent.match(/BlackBerry/i);
 							},
 							iOS: function() {
-									return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+								return navigator.userAgent.match(/iPhone|iPad|iPod/i);
 							},
 							Opera: function() {
-									return navigator.userAgent.match(/Opera Mini/i);
+								return navigator.userAgent.match(/Opera Mini/i);
 							},
 							Windows: function() {
-									return navigator.userAgent.match(/IEMobile/i);
+								return navigator.userAgent.match(/IEMobile/i);
 							},
 							any: function() {
-									return (SMARTPHONE.Android() || SMARTPHONE.BlackBerry() || SMARTPHONE.iOS() || SMARTPHONE.Opera() || SMARTPHONE.Windows());
+								return (SMARTPHONE.Android() || SMARTPHONE.BlackBerry() || SMARTPHONE.iOS() || SMARTPHONE.Opera() || SMARTPHONE.Windows());
 							}
 						};	
-					
+
 						var tag = document.createElement('script');
 						tag.src = "https://www.youtube.com/iframe_api";
 						var firstScriptTag = document.getElementsByTagName('script')[0];
 						firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-							
+
 						// Inicializamos la variable player
 						var player;
 						if(SMARTPHONE.any()){
 							x = "100%";
 						}else{
-							x="400"
+							x="400";
 						}
 						function onYouTubeIframeAPIReady() {
 							player = new YT.Player('player', {
@@ -461,20 +460,20 @@
 								},
 								events : {
 									'onReady': onPlayerReady, // Al cargarse el video se ejecuta esta función
-									'onStateChange': onPlayerStateChange // Al cambiar el estado del video se ejecuta esta función
+										onStateChange': onPlayerStateChange // Al cambiar el estado del video se ejecuta esta función
 								}
 							});
 						}
-							
+
 						function onPlayerReady(event) {
 							// Aquí podemos empezar a hacer cosas cómo: 
 							//event.target.playVideo();
 							// Que sería como un autoplay
 						}
-							
+
 						// Inicializamos la variable que nos dirá si se ha terminado el vídeo
 						var done = false;
-							
+
 						function onPlayerStateChange(event) {
 							if (event.data == YT.PlayerState.ENDED) {
 								// Si el vídeo acaba
@@ -484,7 +483,7 @@
 								// Si el video se pausa
 							}
 						}
-				</script> 
+					</script> 
 			</div>			
 		</section>
 		<!-- Section: extras -->
