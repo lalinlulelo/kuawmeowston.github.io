@@ -13,7 +13,7 @@ a.active,
 a:active,
 a:focus,
 a:hover {
-  color: #18BC9C;
+  color: #1b7216;
   outline: none; }
 
 h1,
@@ -515,7 +515,8 @@ html {
 #about{
 	width:100%;
 	position:relative;
-	background-image: url("../images/fondo_carrusel.png");
+	background-image: url("../images/about.png");
+	background-size:100% 100%;
 }
 
 /* ===========================
